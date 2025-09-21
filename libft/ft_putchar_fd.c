@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/21 14:50:38 by mel-houa         ###   ########.fr       */
+/*   Created: 2024/11/07 15:28:12 by mel-houa          #+#    #+#             */
+/*   Updated: 2024/11/11 23:57:17 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../CUB3-GAME/includes/cub3d.h"
+#include "libft.h"
 
-int main()
+void	ft_putchar_fd(char c, int fd)
 {
-    print();
-    return 0;
+	write (fd, &c, 1);
 }

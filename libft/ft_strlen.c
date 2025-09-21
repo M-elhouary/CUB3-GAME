@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/21 14:50:38 by mel-houa         ###   ########.fr       */
+/*   Created: 2024/10/24 16:30:33 by mel-houa          #+#    #+#             */
+/*   Updated: 2024/11/16 20:33:59 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../CUB3-GAME/includes/cub3d.h"
+#include "libft.h"
 
-int main()
+size_t	ft_strlen(const char *s)
 {
-    print();
-    return 0;
+	int	lenght;
+
+	lenght = 0;
+	while (s[lenght] != '\0')
+	{
+		lenght++;
+	}
+	return (lenght);
 }

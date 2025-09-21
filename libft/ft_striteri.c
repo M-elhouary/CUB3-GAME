@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/21 14:50:38 by mel-houa         ###   ########.fr       */
+/*   Created: 2024/11/07 00:28:19 by mel-houa          #+#    #+#             */
+/*   Updated: 2024/11/11 23:59:15 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../CUB3-GAME/includes/cub3d.h"
+#include "libft.h"
 
-int main()
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-    print();
-    return 0;
+	unsigned int	i;
+
+	i = 0;
+	while (*s)
+	{
+		f(i, s);
+		i++;
+		s++;
+	}
 }

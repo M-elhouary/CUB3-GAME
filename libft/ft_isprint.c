@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/21 14:50:38 by mel-houa         ###   ########.fr       */
+/*   Created: 2024/10/23 19:01:48 by mel-houa          #+#    #+#             */
+/*   Updated: 2024/11/16 23:35:41 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../CUB3-GAME/includes/cub3d.h"
+#include "libft.h"
 
-int main()
+int	ft_isprint(int c)
 {
-    print();
-    return 0;
+	if (c >= 32 && c <= 126)
+	{
+		return (1);
+	}
+	return (0);
 }
