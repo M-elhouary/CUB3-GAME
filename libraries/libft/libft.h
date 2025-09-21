@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:44:44 by moirhira          #+#    #+#             */
-/*   Updated: 2025/04/11 16:33:24 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/09/21 22:01:21 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int		ft_strlen(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_itoa(int nbr);
 char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strrchr(char *str, int ch);
 
 #endif

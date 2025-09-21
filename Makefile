@@ -1,7 +1,7 @@
 NAME = cub3D
 CC = cc
 CFLAGS = -I include
-SRC = 	src/main.c 
+SRC = 	src/main.c src/parsing/parse.c
 		
 OBJ = ${SRC:.c=.o}
 LIBFT_DIR = libraries/libft
