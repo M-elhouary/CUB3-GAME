@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/21 22:07:58 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:16:33 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	init_data(t_game *game)
     game->tex_paths[1] = NULL;
     game->tex_paths[2] = NULL;
     game->tex_paths[3] = NULL;
-    game->ceiling_color = -1;
-    game->floor_color = -1;
+    game->ceiling_color.r = -1;
+    game->floor_color.r = -1;
     game->map->map_arr = NULL;
     game->map->cols = 0;
     game->map->rows = 0;
@@ -46,7 +46,7 @@ int	init_game(t_game **gamedata, char *file)
 		return (printf("Error\nmalloc\n"),0);
     }
     init_data(*gamedata);
-    if (!parse((*gamedata)->map, file))
+    if (!parse(*gamedata, file))
 	{
 		free((*gamedata)->map);
 		free(*gamedata);
@@ -54,6 +54,9 @@ int	init_game(t_game **gamedata, char *file)
 	}
 	return (1);
 }
+
+
+
 
 int main(int ac, char **av)
 {
