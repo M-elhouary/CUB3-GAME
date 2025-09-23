@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   randring.c                                         :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/09/23 15:38:22 by mel-houa         ###   ########.fr       */
+/*   Created: 2025/09/21 21:48:53 by moirhira          #+#    #+#             */
+/*   Updated: 2025/09/21 22:00:52 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-
-int handle_key(int key, void *param)
+char	*ft_strrchr(char *str, int ch)
 {
-    (void)param;  
+	int	len;
 
-    if (key == ESC_KEY)
-        exit(0);
-
-    return (0);
-}
-
-
-
-int handle_win_close(void *param)
-{
-    (void)param;
-    exit(0);
+	len = ft_strlen(str);
+	while (len >= 0)
+	{
+		if (str[len] == (char)ch)
+		{
+			return ((char *)str + len);
+		}
+		len--;
+	}
+	return (NULL);
 }

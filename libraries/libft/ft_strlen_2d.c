@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   randring.c                                         :+:      :+:    :+:   */
+/*   ft_strlen_2d.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/09/23 15:38:22 by mel-houa         ###   ########.fr       */
+/*   Created: 2025/03/13 11:44:35 by moirhira          #+#    #+#             */
+/*   Updated: 2025/04/11 16:32:37 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-
-int handle_key(int key, void *param)
+int	ft_strlen_2d(char **str)
 {
-    (void)param;  
+	int	i;
 
-    if (key == ESC_KEY)
-        exit(0);
-
-    return (0);
-}
-
-
-
-int handle_win_close(void *param)
-{
-    (void)param;
-    exit(0);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

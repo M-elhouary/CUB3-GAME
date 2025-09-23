@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   randring.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/09/23 15:38:22 by mel-houa         ###   ########.fr       */
+/*   Created: 2024/10/29 23:02:37 by moirhira          #+#    #+#             */
+/*   Updated: 2025/04/11 16:28:33 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-
-int handle_key(int key, void *param)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-    (void)param;  
-
-    if (key == ESC_KEY)
-        exit(0);
-
-    return (0);
-}
-
-
-
-int handle_win_close(void *param)
-{
-    (void)param;
-    exit(0);
+	if (!s1 || !s2)
+		return (-1);
+	while (*s1 != '\0' || *s2 != '\0')
+	{
+		if (*s1 != *s2)
+		{
+			return ((unsigned char)*s1 - (unsigned char)*s2);
+		}
+		s1++;
+		s2++;
+	}
+	return (0);
 }
