@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/22 14:06:52 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/09/22 21:56:05 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct s_color
 typedef struct s_map
 {
 	char	**map_arr;
-	int		rows;
-	int		cols;
+	int		width;
+	int		height;
 }			t_map;
 
 typedef struct s_game {
@@ -52,4 +52,12 @@ typedef struct s_game {
 
 // parse.c
 int	parse(t_game *game, char *filedata);
+
+// parse_color_and_texture.c
+int	validate_file_extension(char *file);
+int parse_texture(char *path, char **dest);
+int parse_color(char *path, t_color *dest);
+
+// parse_map.c
+int parse_map(t_game *game, int fd,char *filedata);
 #endif
