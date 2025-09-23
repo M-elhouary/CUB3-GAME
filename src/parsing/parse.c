@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 21:53:36 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/23 08:56:41 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:01:01 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int parse_configurations(t_game *game, int fd)
 
 int	parse(t_game *game, char *filedata)
 {
-    int	i;
 	int	fd;
     
     if (!validate_file_extension(filedata))
@@ -66,13 +65,8 @@ int	parse(t_game *game, char *filedata)
 		return (printf("Error\nopening file\n"), 0);
     if (!parse_configurations(game, fd))
 		return (0);
-	// printf("SO-> %s\n", game->tex_paths[0]);
-	// printf("SO-> %s\n", game->tex_paths[1]);
-	// printf("SO-> %s\n", game->tex_paths[2]);
-	// printf("SO-> %s\n", game->tex_paths[3]);
-	// printf("floor -> %d\n", game->floor_color.r);
-	// printf("cieling -> %d\n", game->ceiling_color.r);
-	parse_map(game, fd,filedata);
+	if (!parse_map(game, fd))
+		return (0);
     close (fd);
     return (1);
 }

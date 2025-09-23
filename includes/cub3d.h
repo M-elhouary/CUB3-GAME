@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/22 21:56:05 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:19:20 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,11 @@ int parse_texture(char *path, char **dest);
 int parse_color(char *path, t_color *dest);
 
 // parse_map.c
-int parse_map(t_game *game, int fd,char *filedata);
+int parse_map(t_game *game, int fd);
+
+//validate_map.c
+int	validate_map(t_game *game);
+
+// parsing_utils.c
+int ft_isempty(char *str);
 #endif
