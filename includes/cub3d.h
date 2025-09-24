@@ -65,5 +65,8 @@ int parse_map(t_game *game, int fd);
 int	validate_map(t_game *game);
 
 // parsing_utils.c
+int	is_dir(char *arg);
+int is_all_digits(char *str);
 int ft_isempty(char *str);
+int	is_player(char c);
 #endif

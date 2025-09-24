@@ -65,7 +65,7 @@ int check_player_count(t_game *game)
     return (1);
 }
 
-int	chek_walls(t_game *game)
+int	check_walls(t_game *game)
 {
 	int	i;
 	int	k;
@@ -92,6 +92,39 @@ int	chek_walls(t_game *game)
 	return (1);
 }
 
+int	check_spaces(t_game *game)
+{
+	int	i;
+	int	j;
+	char **map;
+    int line_len;
+
+	i = 0;
+	map = game->map->map_arr;
+	while (i < game->map->height)
+	{
+		j = 0;
+        line_len = ft_strlen(game->map->map_arr[i]);
+		while (j < line_len - 1)
+		{
+			if (map[i][j] == ' ')
+			{
+				if (i > 0 && (map[i - 1][j] == '0' || is_player(map[i - 1][j])))
+					return (printf("Error\nSpace next to floor/player!\n"), 0);
+				if (i < game->map->height - 1 && (map[i + 1][j] == '0' || is_player(map[i + 1][j])))
+					return (printf("Error\nSpace next to floor/player!\n"), 0);
+				if (j > 0 && (map[i][j - 1] == '0' || is_player(map[i][j - 1])))
+					return (printf("Error\nSpace next to floor/player!\n"), 0);
+				if (map[i][j + 1] && (map[i][j + 1] == '0' || is_player(map[i][j + 1])))
+					return (printf("Error\nSpace next to floor/player!\n"), 0);	
+			}			
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	validate_map(t_game *game)
 {
 	int	i;
@@ -103,7 +136,9 @@ int	validate_map(t_game *game)
 		return (0);
     if (!check_player_count(game))
         return (0);
-    if (!chek_walls(game))
+    if (!check_walls(game))
+		return (0);
+	if (!check_spaces(game))
 		return (0);
 	return (1);
 }

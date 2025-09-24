@@ -12,45 +12,65 @@
 
 #include "../../includes/cub3d.h"
 
+char *get_arg(char *line)
+{
+    int i = 0;
+
+    while (line[i] && line[i] != ' ' && line[i] != '\t')
+        i++;
+    while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+        i++;
+    return (&line[i]);
+}
+
 int parse_configurations(t_game *game, int fd)
 {
 	char *line;
 	char *trimmed;
 	int parsed = 0;
 	
-	while ((line = get_next_line(fd)) != NULL)
+	while (parsed < 6 && (line = get_next_line(fd)) != NULL)
 	{
 		trimmed = ft_strtrim(line, " \n\t");
-		if (!*trimmed)
+		free(line);
+		if (!trimmed)
+            return (printf("Error\nMalloc failed\n"), 0);
+		if (*trimmed == '\0')
 		{
 			free(trimmed);
-			free(line);
 			continue;
 		}
-		if (ft_strncmp("NO ", line, 3) == 0)
-			parsed += parse_texture(line + 3, &game->tex_paths[0]);
-		else if (ft_strncmp("SO ", line, 3) == 0)
-			parsed += parse_texture(line + 3, &game->tex_paths[1]);
-		else if (ft_strncmp("WE ", line, 3) == 0)
-			parsed += parse_texture(line + 3, &game->tex_paths[2]);
-		else if (ft_strncmp("EA ", line, 3) == 0)
-			parsed += parse_texture(line + 3, &game->tex_paths[3]);
-		else if ((ft_strncmp("F ", line, 2) == 0))
-			parsed += parse_color(line + 2, &game->floor_color);
-		else if ((ft_strncmp("C ", line, 2) == 0))
-			parsed += parse_color(line + 2, &game->ceiling_color);
+		if (ft_strncmp("NO ", trimmed, 3) == 0)
+			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[0]);
+		else if (ft_strncmp("SO ", trimmed, 3) == 0)
+			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[1]);
+		else if (ft_strncmp("WE ", trimmed, 3) == 0)
+			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[2]);
+		else if (ft_strncmp("EA ", trimmed, 3) == 0)
+			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[3]);
+		else if ((ft_strncmp("F ", trimmed, 2) == 0))
+			parsed += parse_color(get_arg(trimmed), &game->floor_color);
+		else if ((ft_strncmp("C ", trimmed, 2) == 0))
+			parsed += parse_color(get_arg(trimmed), &game->ceiling_color);
 		else
 		{
-			free(trimmed);
-			free(line);
-			return (printf("Error\nInvalid configuration!\n"), 0);
+			if (parsed == 6)
+			{
+				printf("map -> %s\n", trimmed);
+				return (1);
+			}
+			else
+			{
+				free(trimmed);
+				return (printf("Error\nInvalid configuration!\n"), 0);
+			}
 		}
 		free(trimmed);
-		free(line);
-		if (parsed == 6)
-			return (1);
 	}
-	return (printf("Error\nMissing configuration element\n"), 0);
+	if (parsed != 6)
+		return (printf("Error\nMissing configuration element\n"), 0);
+	
+	return (1);
 }
 
 
@@ -59,14 +79,16 @@ int	parse(t_game *game, char *filedata)
 	int	fd;
     
     if (!validate_file_extension(filedata))
-		return (0);
+		return(printf("Error\nBad extension!\n"), 0);
 	fd = open(filedata, O_RDONLY);
 	if (fd == -1)
-		return (printf("Error\nopening file\n"), 0);
+		return (perror("Error\n"), 0);
+	if (is_dir(filedata))
+		return (printf("Error\nArgument is a derctory!\n"), close(fd),0);
     if (!parse_configurations(game, fd))
-		return (0);
+		return (close(fd), 0);
 	if (!parse_map(game, fd))
-		return (0);
+		return (close(fd), 0);
     close (fd);
     return (1);
 }

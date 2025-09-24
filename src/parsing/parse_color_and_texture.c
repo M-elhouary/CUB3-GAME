@@ -14,14 +14,13 @@
 #include "../../includes/cub3d.h"
 
 
-int	validate_file_extension(char *file)
+int	validate_file_extension(char *file) // check also if is a directory 
 {
 	char	*ext;
 
 	ext = ft_strrchr(file, '.');
 	if (!ext || ft_strcmp(ext, ".cub") != 0)
 	{
-		printf("Error\nBad extension!\n");
 		return (0);
 	}
 	return (1);
@@ -38,10 +37,15 @@ int parse_texture(char *path, char **dest)
 	trimmed = ft_strtrim(path, " \n\t");
 	if (!trimmed)
 		return (printf("Error\nmalloc failed\n"), 0);
+	if (*trimmed == '\0')
+	{
+		free(trimmed);
+		return (printf("Error\nTexture path is missing!\n"), 0);
+	}
 	fd = open(trimmed , O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error\nTexture file not found!\n");
+		printf("Error\nCannot open texture file!\n");
 		free(trimmed);
 		return (0);
 	}
@@ -53,20 +57,34 @@ int parse_texture(char *path, char **dest)
 int parse_color(char *path, t_color *dest)
 {
 	char **str;
-	int r, g, b;
+	char *trimmed;
+	int colors[3], i;
 	
 	if ((*dest).r != -1)
-		return (printf("Error\nDuplicate texture!\n"), 0);
+		return (printf("Error\nDuplicate color definition!\n"), 0);
 	str = ft_split(path, ',');
 	if (!str || ft_strlen_2d(str) != 3)
 		return (printf("Error\nInvalid color format!\n"), free_split(str),0);
-	r = ft_atoi(str[0]);
-	g = ft_atoi(str[1]);
-	b = ft_atoi(str[2]);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-        return (printf("Error\nColor out of range\n"), free_split(str), 0);
-	dest->r = r;
-	dest->g = g;
-	dest->b = b;
+	i = 0;
+	while (i < 3)
+	{
+		trimmed = ft_strtrim(str[i], " \t\n");
+		if (!is_all_digits(trimmed))
+		{
+			free(trimmed);
+			free_split(str);
+			return (printf("Error\nColor value contains non-digit characters.\n"), 0);
+		}
+		colors[i] = ft_atoi(trimmed);
+		free(trimmed);
+		if (colors[i] < 0 || colors[i] > 255)
+        	return (printf("Error\nColor out of range\n"), free_split(str), 0);
+		i++;
+	}
+	free_split(str);
+	dest->r = colors[0];
+	dest->g = colors[1];
+	dest->b = colors[2];
 	return (1);
 }
+
