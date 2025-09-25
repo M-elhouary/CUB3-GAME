@@ -12,6 +12,18 @@
 
 #include "../../includes/cub3d.h"
 
+void strip_newline(char *line)
+{
+	int len;
+
+    if (!line)
+        return;
+    len = ft_strlen(line);
+    if (len > 0 && line[len - 1] == '\n')
+    {
+        line[len - 1] = '\0';
+    }
+}
 
 char	**append_line(char **map, char *line, int rows)
 {
@@ -33,27 +45,41 @@ char	**append_line(char **map, char *line, int rows)
 	return (new_map);
 }
 
-int parse_map(t_game *game, int fd)
+int parse_map(t_game *game, int fd, char *first_line)
 {
-    int max_width, rows;
+    int max_width;
+	int rows;
+	int map_started;
 	char *line;
 	char **map = NULL;
 	
 	max_width = 0;
 	rows = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	map_started = 0;
+	line = first_line;
+	while (line  != NULL)
 	{
 		if (ft_isempty(line))
 		{
+			if (map_started)
+			{
+				free(line);
+                free_split(map);
+                return (printf("Error\nEmpty line inside map definition.\n"), 0);
+			}
 			free(line);
+			line = get_next_line(fd);
 			continue;
 		}
+		map_started = 1;
+		strip_newline(line);
 		if (ft_strlen(line) > max_width)
 			max_width = ft_strlen(line);
 		map = append_line(map, line, rows);
 		if (!map)
-			return (printf("Error\nFrom malloc!\n"), 0);
+			return (free(line), 0);
 		rows++;
+		line = get_next_line(fd);
 	}
 	if (rows == 0)
 		return( printf("Error\nMissing map!\n"), 0);

@@ -24,6 +24,7 @@ typedef struct s_player
 {
     double x;
     double y;
+    char dir;
 } t_player;
 
 typedef struct s_color
@@ -59,7 +60,7 @@ int parse_texture(char *path, char **dest);
 int parse_color(char *path, t_color *dest);
 
 // parse_map.c
-int parse_map(t_game *game, int fd);
+int parse_map(t_game *game, int fd, char *first_line);
 
 //validate_map.c
 int	validate_map(t_game *game);

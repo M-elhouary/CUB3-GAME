@@ -24,11 +24,10 @@ int	only_valid_chars(t_game *game)
 	{
 		j = 0;
         line_len = ft_strlen(game->map->map_arr[i]);
-		while (j < (line_len - 1))
+		while (j < line_len)
 		{
 			c = game->map->map_arr[i][j];
-			if (!(c == '0' || c == '1' || c == ' ' || c == 'N'
-                    || c == 'S' || c == 'E' || c == 'W'))
+			if (!(c == '0' || c == '1' || c == ' ' || is_player(c)))
 				return (printf("Error\nInvalid character '%c' in map!\n", c),0);
 			j++;
 		}
@@ -39,24 +38,25 @@ int	only_valid_chars(t_game *game)
 
 int check_player_count(t_game *game)
 {
-    char	c;
-	int		i;
-	int		j;
+	int		x;
+	int		y;
     int player_count;
     
-	i = 0;
+	x = -1;
     player_count = 0;
-	while (i < game->map->height)
+	while (++x < game->map->height)
 	{
-		j = 0;
-		while (game->map->map_arr[i][j])
+		y = -1;
+		while (game->map->map_arr[x][++y])
 		{
-			c = game->map->map_arr[i][j];
-            if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+            if (is_player(game->map->map_arr[x][y]))
+			{
                 player_count++;
-			j++;
+				game->player.x = x;
+				game->player.y = y;
+				game->player.dir = game->map->map_arr[x][y];
+			}
 		}
-		i++;
 	}
     if (player_count == 0)
 		return (printf("Error\nNo player found!\n"), 0);
@@ -77,10 +77,10 @@ int	check_walls(t_game *game)
 	{
 		k = 0;
         line_len = ft_strlen(game->map->map_arr[i]);
-		while (k < line_len - 1)
+		while (k < line_len)
 		{
             c = game->map->map_arr[i][k];
-			if (i == 0 || i == game->map->height - 1 || k == 0 || k == line_len - 2)
+			if (i == 0 || i == game->map->height - 1 || k == 0 || k == line_len - 1)
 			{
 				if (c != '1' && c != ' ')
 					return (printf("Error\nMap is not enclosed by walls!\n"), 0);
@@ -105,7 +105,7 @@ int	check_spaces(t_game *game)
 	{
 		j = 0;
         line_len = ft_strlen(game->map->map_arr[i]);
-		while (j < line_len - 1)
+		while (j < line_len)
 		{
 			if (map[i][j] == ' ')
 			{

@@ -23,13 +23,13 @@ char *get_arg(char *line)
     return (&line[i]);
 }
 
-int parse_configurations(t_game *game, int fd)
+int parse_configurations(t_game *game, int fd, char **f_map_line)
 {
 	char *line;
 	char *trimmed;
 	int parsed = 0;
 	
-	while (parsed < 6 && (line = get_next_line(fd)) != NULL)
+	while ((line = get_next_line(fd)) != NULL)
 	{
 		trimmed = ft_strtrim(line, " \n\t");
 		free(line);
@@ -39,6 +39,11 @@ int parse_configurations(t_game *game, int fd)
 		{
 			free(trimmed);
 			continue;
+		}
+		if (parsed == 6)
+		{
+			*f_map_line = trimmed;
+			return (1);
 		}
 		if (ft_strncmp("NO ", trimmed, 3) == 0)
 			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[0]);
@@ -54,22 +59,14 @@ int parse_configurations(t_game *game, int fd)
 			parsed += parse_color(get_arg(trimmed), &game->ceiling_color);
 		else
 		{
-			if (parsed == 6)
-			{
-				printf("map -> %s\n", trimmed);
-				return (1);
-			}
-			else
-			{
-				free(trimmed);
-				return (printf("Error\nInvalid configuration!\n"), 0);
-			}
+			free(trimmed);
+			return (printf("Error\nInvalid configuration!\n"), 0);
 		}
 		free(trimmed);
 	}
 	if (parsed != 6)
 		return (printf("Error\nMissing configuration element\n"), 0);
-	
+	f_map_line = NULL;
 	return (1);
 }
 
@@ -77,6 +74,7 @@ int parse_configurations(t_game *game, int fd)
 int	parse(t_game *game, char *filedata)
 {
 	int	fd;
+	char *f_line;
     
     if (!validate_file_extension(filedata))
 		return(printf("Error\nBad extension!\n"), 0);
@@ -85,9 +83,9 @@ int	parse(t_game *game, char *filedata)
 		return (perror("Error\n"), 0);
 	if (is_dir(filedata))
 		return (printf("Error\nArgument is a derctory!\n"), close(fd),0);
-    if (!parse_configurations(game, fd))
+    if (!parse_configurations(game, fd, &f_line))
 		return (close(fd), 0);
-	if (!parse_map(game, fd))
+	if (!parse_map(game, fd, f_line))
 		return (close(fd), 0);
     close (fd);
     return (1);
