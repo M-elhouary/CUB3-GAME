@@ -95,7 +95,7 @@ int	check_walls(t_game *game)
 			if (c == '0' || is_player(c))
 			{
 				if (!are_neighbors_valid(game, y, x))
-					return (printf("Error\nMap is not closed!\n"), 0);
+					return (printf("Error\nMap is not closed! Gap at (%d, %d)\n", y, x), 0);
 			}
 			x++;
 		}

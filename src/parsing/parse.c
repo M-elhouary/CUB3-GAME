@@ -67,6 +67,7 @@ int parse_configurations(t_game *game, int fd, char **f_line)
 	if (parsed != 6)
 		return (printf("Error\nMissing configuration element\n"), 0);
 	f_line = NULL;
+	printf("texture -> %s\n", game->tex_paths[0]);
 	return (1);
 }
 
@@ -76,7 +77,7 @@ int	parse(t_game *game, char *filedata)
 	int	fd;
 	char *f_line;
     
-    if (!validate_file_extension(filedata))
+    if (!validate_file_extension(filedata, ".cub"))
 		return(printf("Error\nBad extension!\n"), 0);
 	fd = open(filedata, O_RDONLY);
 	if (fd == -1)

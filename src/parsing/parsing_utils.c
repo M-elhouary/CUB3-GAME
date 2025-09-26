@@ -61,14 +61,15 @@ int	is_player(char c)
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-void close_and_free(t_game *game)
+int close_and_free(t_game *game)
 {
     if (game->map->map_arr)
         free_split(game->map->map_arr);
+    if (game->win)
+        mlx_destroy_window(game->mlx ,game->win);
+    if (game->mlx)
+        mlx_destroy_display(game->mlx);
     free(game->map);
     free(game);
-    // if (game->win)
-    //     mlx_destroy_window(game->mlx ,game->win);
-    // if (game->mlx)
-    //     mlx_destroy_display(game->mlx);
+    exit(0);
 }

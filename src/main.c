@@ -58,6 +58,8 @@ int main(int ac, char **av)
 		return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
     if (!init_game(&game, av[1]))
         return (close_and_free(game), 1);
+    game->mlx = mlx_init();
+    
     close_and_free(game);
     return (0);
 }

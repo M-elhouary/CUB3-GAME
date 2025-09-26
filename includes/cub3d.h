@@ -55,7 +55,7 @@ typedef struct s_game {
 int	parse(t_game *game, char *filedata);
 
 // parse_color_and_texture.c
-int	validate_file_extension(char *file);
+int	validate_file_extension(char *file, char *extension);
 int parse_texture(char *path, char **dest);
 int parse_color(char *path, t_color *dest);
 
@@ -70,5 +70,5 @@ int	is_dir(char *arg);
 int is_all_digits(char *str);
 int ft_isempty(char *str);
 int	is_player(char c);
-void close_and_free(t_game *game);
+int close_and_free(t_game *game);
 #endif
