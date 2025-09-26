@@ -14,7 +14,7 @@
 #include "../../includes/cub3d.h"
 
 
-int	validate_file_extension(char *file) // check also if is a directory 
+int	validate_file_extension(char *file)
 {
 	char	*ext;
 
@@ -51,6 +51,7 @@ int parse_texture(char *path, char **dest)
 	}
 	close(fd);
 	*dest = trimmed;
+	free(trimmed);
 	return (1);
 }
 

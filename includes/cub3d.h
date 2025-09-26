@@ -70,4 +70,5 @@ int	is_dir(char *arg);
 int is_all_digits(char *str);
 int ft_isempty(char *str);
 int	is_player(char c);
+void close_and_free(t_game *game);
 #endif

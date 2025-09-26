@@ -41,17 +41,10 @@ int	init_game(t_game **gamedata, char *file)
 		return (printf("Error\nmalloc\n"),0);
 	(*gamedata)->map = malloc(sizeof(t_map));
     if (!(*gamedata)->map)
-    {
-        free(*gamedata);
 		return (printf("Error\nmalloc\n"),0);
-    }
     init_data(*gamedata);
     if (!parse(*gamedata, file))
-	{
-		free((*gamedata)->map);
-		free(*gamedata);
 		return (0);
-	}
 	return (1);
 }
 
@@ -64,12 +57,7 @@ int main(int ac, char **av)
     if (ac != 2)
 		return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
     if (!init_game(&game, av[1]))
-        return (1);
-    // game->mlx = mlx_init();
-    // if (!game->mlx)
-    //     return (ft_printf("Error\nmlx_init fail!\n"), 0);
-    // game->win = 
-    
-    //rendring here
+        return (close_and_free(game), 1);
+    close_and_free(game);
     return (0);
 }

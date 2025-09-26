@@ -17,14 +17,12 @@ int	only_valid_chars(t_game *game)
 	char	c;
 	int		i;
 	int		j;
-    int line_len;
     
 	i = 0;
 	while (i < game->map->height)
 	{
 		j = 0;
-        line_len = ft_strlen(game->map->map_arr[i]);
-		while (j < line_len)
+		while (game->map->map_arr[i][j])
 		{
 			c = game->map->map_arr[i][j];
 			if (!(c == '0' || c == '1' || c == ' ' || is_player(c)))
@@ -65,65 +63,48 @@ int check_player_count(t_game *game)
     return (1);
 }
 
+int	are_neighbors_valid(t_game *game, int y, int x)
+{
+	char **map;
+
+	map = game->map->map_arr;
+	if (y == 0  || ft_strlen(map[y - 1]) <= x || map[y - 1][x] == ' ')
+		return (0);
+	if (y == game->map->height - 1 || ft_strlen(map[y + 1]) <= x || map[y + 1][x] == ' ')
+		return (0);
+	if (x == 0 || map[y][x - 1] == ' ')
+		return (0);
+	if (map[y][x + 1] == '\0' || map[y][x + 1] == ' ')
+		return (0);	
+	return (1);
+}
+
 int	check_walls(t_game *game)
 {
-	int	i;
-	int	k;
+	int	x;
+	int	y;
     char c;
-    int line_len;
 
-	i = 0;
-	while (i < game->map->height)
+	y = 0;
+	while (y < game->map->height)
 	{
-		k = 0;
-        line_len = ft_strlen(game->map->map_arr[i]);
-		while (k < line_len)
+		x = 0;
+		while (game->map->map_arr[y][x])
 		{
-            c = game->map->map_arr[i][k];
-			if (i == 0 || i == game->map->height - 1 || k == 0 || k == line_len - 1)
+            c = game->map->map_arr[y][x];
+			if (c == '0' || is_player(c))
 			{
-				if (c != '1' && c != ' ')
-					return (printf("Error\nMap is not enclosed by walls!\n"), 0);
+				if (!are_neighbors_valid(game, y, x))
+					return (printf("Error\nMap is not closed!\n"), 0);
 			}
-			k++;
+			x++;
 		}
-		i++;
+		y++;
 	}
 	return (1);
 }
 
-int	check_spaces(t_game *game)
-{
-	int	i;
-	int	j;
-	char **map;
-    int line_len;
 
-	i = 0;
-	map = game->map->map_arr;
-	while (i < game->map->height)
-	{
-		j = 0;
-        line_len = ft_strlen(game->map->map_arr[i]);
-		while (j < line_len)
-		{
-			if (map[i][j] == ' ')
-			{
-				if (i > 0 && (map[i - 1][j] == '0' || is_player(map[i - 1][j])))
-					return (printf("Error\nSpace next to floor/player!\n"), 0);
-				if (i < game->map->height - 1 && (map[i + 1][j] == '0' || is_player(map[i + 1][j])))
-					return (printf("Error\nSpace next to floor/player!\n"), 0);
-				if (j > 0 && (map[i][j - 1] == '0' || is_player(map[i][j - 1])))
-					return (printf("Error\nSpace next to floor/player!\n"), 0);
-				if (map[i][j + 1] && (map[i][j + 1] == '0' || is_player(map[i][j + 1])))
-					return (printf("Error\nSpace next to floor/player!\n"), 0);	
-			}			
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
 
 int	validate_map(t_game *game)
 {
@@ -137,8 +118,6 @@ int	validate_map(t_game *game)
     if (!check_player_count(game))
         return (0);
     if (!check_walls(game))
-		return (0);
-	if (!check_spaces(game))
 		return (0);
 	return (1);
 }

@@ -23,7 +23,7 @@ char *get_arg(char *line)
     return (&line[i]);
 }
 
-int parse_configurations(t_game *game, int fd, char **f_map_line)
+int parse_configurations(t_game *game, int fd, char **f_line)
 {
 	char *line;
 	char *trimmed;
@@ -42,7 +42,7 @@ int parse_configurations(t_game *game, int fd, char **f_map_line)
 		}
 		if (parsed == 6)
 		{
-			*f_map_line = trimmed;
+			*f_line = trimmed;
 			return (1);
 		}
 		if (ft_strncmp("NO ", trimmed, 3) == 0)
@@ -66,7 +66,7 @@ int parse_configurations(t_game *game, int fd, char **f_map_line)
 	}
 	if (parsed != 6)
 		return (printf("Error\nMissing configuration element\n"), 0);
-	f_map_line = NULL;
+	f_line = NULL;
 	return (1);
 }
 
@@ -83,6 +83,7 @@ int	parse(t_game *game, char *filedata)
 		return (perror("Error\n"), 0);
 	if (is_dir(filedata))
 		return (printf("Error\nArgument is a derctory!\n"), close(fd),0);
+	f_line = NULL;
     if (!parse_configurations(game, fd, &f_line))
 		return (close(fd), 0);
 	if (!parse_map(game, fd, f_line))

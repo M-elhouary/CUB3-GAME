@@ -86,6 +86,10 @@ int parse_map(t_game *game, int fd, char *first_line)
 	game->map->map_arr = map;
 	game->map->height = rows;
 	game->map->width = max_width;
+	// printf("map		-> %s\n", game->map->map_arr[0]);
+	// printf("rows	-> %d\n", game->map->height);
+	// printf("cols	-> %d\n", game->map->width);
+	// printf("len 	-> %d\n", ft_strlen_2d(game->map->map_arr));
 	if (!validate_map(game))
 		return (0);
 	return (1);
