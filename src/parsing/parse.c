@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 21:53:36 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/23 12:01:01 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/09/30 10:03:18 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ int parse_configurations(t_game *game, int fd, char **f_line)
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		trimmed = ft_strtrim(line, " \n\t");
-		free(line);
 		if (!trimmed)
             return (printf("Error\nMalloc failed\n"), 0);
 		if (*trimmed == '\0')
 		{
 			free(trimmed);
+			free(line);
 			continue;
 		}
 		if (parsed == 6)
 		{
-			*f_line = trimmed;
+			*f_line = line;
 			return (1);
 		}
 		if (ft_strncmp("NO ", trimmed, 3) == 0)
@@ -60,9 +60,11 @@ int parse_configurations(t_game *game, int fd, char **f_line)
 		else
 		{
 			free(trimmed);
+			free(line);
 			return (printf("Error\nInvalid configuration!\n"), 0);
 		}
 		free(trimmed);
+		free(line);
 	}
 	if (parsed != 6)
 		return (printf("Error\nMissing configuration element\n"), 0);

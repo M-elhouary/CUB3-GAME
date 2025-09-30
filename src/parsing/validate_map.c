@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:01:32 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/23 12:35:30 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:01:49 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,48 +63,82 @@ int check_player_count(t_game *game)
     return (1);
 }
 
-int	are_neighbors_valid(t_game *game, int y, int x)
+char **fill_map_with_spaces(t_game *game)
 {
-	char **map;
-
-	map = game->map->map_arr;
-	if (y == 0  || ft_strlen(map[y - 1]) <= x || map[y - 1][x] == ' ')
-		return (0);
-	if (y == game->map->height - 1 || ft_strlen(map[y + 1]) <= x || map[y + 1][x] == ' ')
-		return (0);
-	if (x == 0 || map[y][x - 1] == ' ')
-		return (0);
-	if (map[y][x + 1] == '\0' || map[y][x + 1] == ' ')
-		return (0);	
-	return (1);
+	int i;
+	int line_len;
+	char **new_map;
+	
+	new_map = malloc(sizeof(char*) * game->map->height + 1);
+	if (!new_map)
+		return (printf("Error\nMalloc failed\n"), NULL);
+	i = 0;
+	while (i < game->map->height)
+	{
+		new_map[i] = malloc((game->map->width + 1) * sizeof(char));
+		if (!new_map[i])
+		{
+			free_split(new_map);
+			return (printf("Error\nMalloc failed\n"), NULL);
+		}
+		line_len = ft_strlen(game->map->map_arr[i]);
+		ft_memcpy(new_map[i], game->map->map_arr[i], line_len);
+		ft_memset(new_map[i] + line_len, ' ', game->map->width - line_len);
+		new_map[i][game->map->width] = '\0';
+		i++;
+	}
+	new_map[i]= NULL;
+	return (new_map);
 }
 
-int	check_walls(t_game *game)
+int	check_map_is_closed(t_game *game)
 {
-	int	x;
-	int	y;
+	int	i;
+	int	j;
     char c;
+    int line_len;
+	char **map;
 
-	y = 0;
-	while (y < game->map->height)
+	i = 0;
+	map = fill_map_with_spaces(game);
+	
+	while (i < game->map->height)
 	{
-		x = 0;
-		while (game->map->map_arr[y][x])
+		j = 0;
+        line_len = ft_strlen(map[i]);
+		while (map[i][j])
 		{
-            c = game->map->map_arr[y][x];
+            c = map[i][j];
+			if (i == 0 || i == game->map->height - 1 || j == 0 || j == line_len - 1)
+			{
+				if (c != '1' && c != ' ')
+					return (printf("Error\nMap is not enclosed by walls! at (%d, %d)\n", i , j), 0);
+			}
 			if (c == '0' || is_player(c))
 			{
-				if (!are_neighbors_valid(game, y, x))
-					return (printf("Error\nMap is not closed! Gap at (%d, %d)\n", y, x), 0);
+				if (map[i - 1][j] == ' ')
+				{
+					return(printf("Error\nMap leaked\n"), 0);
+				}
+				if (map[i + 1][j] == ' ')
+				{
+					return(printf("Error\nMap leaked\n"), 0);
+				}
+				if (map[i][j + 1] == ' ')
+				{
+					return(printf("Error\nMap leaked\n"), 0);
+				}
+				if (map[i][j - 1 ] == ' ')
+				{
+					return(printf("Error\nMap leaked\n"), 0);
+				}
 			}
-			x++;
+			j++;
 		}
-		y++;
+		i++;
 	}
 	return (1);
 }
-
-
 
 int	validate_map(t_game *game)
 {
@@ -117,7 +151,7 @@ int	validate_map(t_game *game)
 		return (0);
     if (!check_player_count(game))
         return (0);
-    if (!check_walls(game))
+	if(!check_map_is_closed(game))
 		return (0);
 	return (1);
 }
