@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/23 16:36:26 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:19:20 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,11 @@
 # include <stdio.h>
 
 
-
-
-
-
-
 typedef struct s_player
 {
     double x;
     double y;
+    char dir;
 } t_player;
 
 typedef struct s_color
@@ -55,41 +51,44 @@ typedef struct s_game {
     char *tex_paths[4];
 }   t_game;
 
+// ================================================ randring ============================================================
+
+
+
+#define WIN_WIDTH  8000
+#define WIN_HEIGHT  6000
+#define ESC_KEY     65307
+#define WIN_TITLE CUB3D
+
+typedef struct s_image
+{
+    void *img_ptr;
+    int  *bit_per_pixel;
+    int  *size_line;
+    int  *endian;
+}t_img;
+
+
+// =============================================================================================================================
 
 // parse.c
 int	parse(t_game *game, char *filedata);
 
 // parse_color_and_texture.c
-int	validate_file_extension(char *file);
+int	validate_file_extension(char *file, char *extension);
 int parse_texture(char *path, char **dest);
 int parse_color(char *path, t_color *dest);
 
 // parse_map.c
-int parse_map(t_game *game, int fd,char *filedata);
+int parse_map(t_game *game, int fd, char *first_line);
 
+//validate_map.c
+int	validate_map(t_game *game);
 
-
-// ======================= rander part ===============================
-
-// for window 
-#define WIN_WIDTH 800
-#define WIN_HEIGHT 600
-#define WIN_TITLE "CUB3D"
-// use xev for check this coorect number of esc key
-#define ESC_KEY 65307
-
-
-// struct for creat image 
-typedef struct s_image
-{  
-    void *img_ptr;
-    int bits_per_pexile;
-    int size_line;
-    int endian;
-    char *img_pex_ptr;
-}   t_img;
-
-int handle_key(int key, void *pram);
-int handle_win_close(void *param);
-
+// parsing_utils.c
+int	is_dir(char *arg);
+int is_all_digits(char *str);
+int ft_isempty(char *str);
+int	is_player(char c);
+int close_and_free(t_game *game);
 #endif

@@ -23,8 +23,6 @@ int handle_key(int key, void *param)
     return (0);
 }
 
-
-
 int handle_win_close(void *param)
 {
     (void)param;

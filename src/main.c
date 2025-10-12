@@ -14,45 +14,32 @@
 
 void	init_data(t_game *game)
 {
-    game->tex_paths[0] = NULL;
-    game->tex_paths[1] = NULL;
-    game->tex_paths[2] = NULL;
-    game->tex_paths[3] = NULL;
-    game->ceiling_color.r = -1;
-    game->floor_color.r = -1;
-    game->map->map_arr = NULL;
-    game->map->width = 0;
-    game->map->height = 0;
-    game->player.x = 0;
-    game->player.y = 0;
+  game->tex_paths[0] = NULL;
+  game->tex_paths[1] = NULL;
+  game->tex_paths[2] = NULL;
+  game->tex_paths[3] = NULL;
+  game->ceiling_color.r = -1;
+  game->floor_color.r = -1;
+  game->map->map_arr = NULL;
+  game->map->width = 0;
+  game->map->height = 0;
+  game->player.x = 0;
+  game->player.y = 0;
 }
 
-
-
-
-int	init_game(t_game **gamedata, char *file)
+int init_game(t_game **gamedata, char *file)
 {
-	*gamedata = malloc(sizeof(t_game));
-	if (!*gamedata)
-		return (printf("Error\nmalloc\n"),0);
-	(*gamedata)->map = malloc(sizeof(t_map));
-    if (!(*gamedata)->map)
-    {
-        free(*gamedata);
-		return (printf("Error\nmalloc\n"),0);
-    }
-    init_data(*gamedata);
-    if (!parse(*gamedata, file))
-	{
-		free((*gamedata)->map);
-		free(*gamedata);
-		return (0);
-	}
-	return (1);
+  *gamedata = malloc(sizeof(t_game));
+  if (!*gamedata)
+    return (printf("Error\nmalloc\n"), 0);
+  (*gamedata)->map = malloc(sizeof(t_map));
+  if (!(*gamedata)->map)
+    return (printf("Error\nmalloc\n"), 0);
+  init_data(*gamedata);
+  if (!parse(*gamedata, file))
+    return (0);
+  return (1);
 }
-
-
-
 
 int main(int ac, char **av)
 {
@@ -86,7 +73,7 @@ int main(int ac, char **av)
         free(game->mlx);
         return (printf("Error\nmlx_new_image fail!\n"), 1);
     }
-    image->img_pex_ptr = mlx_get_data_addr(image->img_ptr, &image->bits_per_pexile, 
+    image->img_pex_ptr =  (image->img_ptr, &image->bits_per_pexile, 
         &image->size_line, &image->endian);
     // handle key press 
     mlx_key_hook(game->win, handle_key, NULL); 

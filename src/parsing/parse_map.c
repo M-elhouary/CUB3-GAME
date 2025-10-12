@@ -6,80 +6,91 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 20:06:42 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/22 22:00:37 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:57:19 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	count_map_row(int fd)
+void strip_newline(char *line)
 {
-	char	*s;
-	int		rows;
+	int len;
 
-	rows = 0;
-	while (1)
-	{
-		s = get_next_line(fd);
-		if (!s)
-			break ;
-		free(s);
-		rows++;
-	}
-	close(fd);
-	return (rows);
+    if (!line)
+        return;
+    len = ft_strlen(line);
+    if (len > 0 && line[len - 1] == '\n')
+    {
+        line[len - 1] = '\0';
+    }
 }
 
-char	**allocate_and_read_map(int rows, int fd)
+char	**append_line(char **map, char *line, int rows)
 {
-	char	*s;
-	char	**map;
+	char	**new_map;
 	int		i;
 	
-	map = malloc((rows + 1) * sizeof(char *));
-	if (!map)
-		return (printf("Error\nfrom malloc!\n"), NULL);
-	i = 1;
-	while ((s = get_next_line(fd)) != NULL && i <= 6)
-	{
-		free(s);
-		i++;
-	}
+	new_map = malloc((rows + 2) * sizeof(char *));
+	if (!new_map)
+		return (printf("Error\nFrom malloc!\n"), NULL);
 	i = 0;
-	while (1)
+	while (i < rows)
 	{
-		s = get_next_line(fd);
-		if (!s)
-			break;
-		map[i++] = s;
-		
+		new_map[i] = map[i];
+		i++;	
 	}
-	map[i] = NULL;
-	close(fd);
-	return (map);
+	new_map[i++] = line;
+	new_map[i] = NULL;
+	free(map);
+	return (new_map);
 }
 
-int parse_map(t_game *game, int fd,char *filedata)
+int parse_map(t_game *game, int fd, char *first_line)
 {
-    int i, rows, fd1;
+    int max_width;
+	int rows;
+	int map_started;
 	char *line;
+	char **map = NULL;
 	
-	i = 1;
-	while ((line = get_next_line(fd)) != NULL && i <= 6)
+	max_width = 0;
+	rows = 0;
+	map_started = 0;
+	line = first_line;
+	while (line  != NULL)
 	{
-		free(line);
-		i++;
+		if (ft_isempty(line))
+		{
+			if (map_started)
+			{
+				free(line);
+                free_split(map);
+                return (printf("Error\nEmpty line inside map definition.\n"), 0);
+			}
+			free(line);
+			line = get_next_line(fd);
+			continue;
+		}
+		map_started = 1;
+		strip_newline(line);
+		if (ft_strlen(line) > max_width)
+			max_width = ft_strlen(line);
+		map = append_line(map, line, rows);
+		if (!map)
+			return (free(line), 0);
+		rows++;
+		line = get_next_line(fd);
 	}
-	game->map->height = count_map_row(fd);
-	if (game->map->height <= 0)
-	{
-		free(line);
-		return (printf("Error\nMissing the map!\n"), 0);
-	}
-	fd1 = open(filedata, O_RDONLY);
-	game->map->map_arr = allocate_and_read_map(game->map->height, fd1);
-	if (!game->map->map_arr)
+	if (rows == 0)
+		return( printf("Error\nMissing map!\n"), 0);
+	game->map->map_arr = map;
+	game->map->height = rows;
+	game->map->width = max_width;
+	// printf("rows	-> %d\n", game->map->height);
+	// printf("cols	-> %d\n", game->map->width);
+	// printf("len 	-> %d\n", ft_strlen_2d(game->map->map_arr));
+	if (!validate_map(game))
 		return (0);
-	printf("the map len : %d\n",ft_strlen_2d(game->map->map_arr));
 	return (1);
 }
+
