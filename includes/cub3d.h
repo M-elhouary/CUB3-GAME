@@ -55,18 +55,26 @@ typedef struct s_game {
 
 
 
-#define WIN_WIDTH  8000
-#define WIN_HEIGHT  6000
+#define WIN_WIDTH  800
+#define WIN_HEIGHT  600
 #define ESC_KEY     65307
-#define WIN_TITLE CUB3D
+#define WIN_TITLE  "CUB3D"
 
 typedef struct s_image
 {
     void *img_ptr;
-    int  *bit_per_pixel;
-    int  *size_line;
-    int  *endian;
+    int  bit_per_pixel;
+    int  size_line;
+    int  endian;
+    char *img_pex_ptr;
 }t_img;
+
+
+// func of randring part
+int ft_init_randring(t_img *image, t_game *game);
+int draw(t_game *game, t_img *img);
+
+
 
 
 // =============================================================================================================================

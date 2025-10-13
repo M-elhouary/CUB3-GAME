@@ -49,36 +49,7 @@ int main(int ac, char **av)
 		return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
     if (!init_game(&game, av[1]))
         return (1);
-    // initilize  connection to the graphical system  
-    game->mlx = mlx_init();
-    if (!game->mlx)
-        return (printf("Error\nmlx_init fail!\n"), 1);
-    // creation window
-    game->win =  mlx_new_window(game->mlx, WIN_WIDTH,WIN_HEIGHT, WIN_TITLE);
-    if(!game->win)
-    {
-        mlx_destroy_display(game->mlx);
-        free(game->mlx);
-        return (printf("Error\nmlx_new_window fail!\n"), 1);
-    }
-    // creat image
-    image = malloc(sizeof(t_img));
-    if(!image)
-        return (printf("Error\nallocation  fail!\n"), 1);
-    image->img_ptr = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
-    if(!image->img_ptr)
-    {
-        mlx_destroy_display(game->mlx);
-        mlx_destroy_window(game->mlx, game->win);
-        free(game->mlx);
-        return (printf("Error\nmlx_new_image fail!\n"), 1);
-    }
-    image->img_pex_ptr =  (image->img_ptr, &image->bits_per_pexile, 
-        &image->size_line, &image->endian);
-    // handle key press 
-    mlx_key_hook(game->win, handle_key, NULL); 
-    mlx_hook(game->win, 2, 1L << 0, handle_win_close, NULL);
-    
-    mlx_loop(game->mlx);
+    if(ft_init_randring(image, game) == 1)
+      return 1;
     return (0);
 }
