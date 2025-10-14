@@ -1,7 +1,6 @@
 #include "../../includes/cub3d.h"
 
 
-
 void put_pixel(int x, int y, t_img *img, int color)
 {
     int offset;
@@ -11,7 +10,6 @@ void put_pixel(int x, int y, t_img *img, int color)
 
 void draw_ceiling(t_img *img, t_game *game, int x, int y)
 {
-
     put_pixel(x, y, img, 0xfb542b);
 }
 void draw_floor(t_img *img, t_game *game, int x, int y)
