@@ -38,7 +38,7 @@ int ft_init_randring(t_img *image, t_game *game)
     if (!game->mlx)
         return (printf("Error\nmlx_init fail!\n"), 1);
     // creation window
-    game->win =  mlx_new_window(game->mlx, WIN_WIDTH,WIN_HEIGHT, WIN_TITLE);
+    game->win =  mlx_new_window(game->mlx, game->width, game->height, WIN_TITLE);
     if(!game->win)
     {
         mlx_destroy_display(game->mlx);
@@ -49,7 +49,7 @@ int ft_init_randring(t_img *image, t_game *game)
     image = malloc(sizeof(t_img));
     if(!image)
         return (printf("Error\nallocation  fail!\n"), 1);
-    image->img_ptr = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+    image->img_ptr = mlx_new_image(game->mlx, game->width, game->height);
     if(!image->img_ptr)
     {
         mlx_destroy_display(game->mlx);
@@ -61,7 +61,7 @@ int ft_init_randring(t_img *image, t_game *game)
         &image->size_line, &image->endian);
     // handle key press 
     draw(game, image);
-    //  mlx_key_hook(game->win, handle_key, NULL);  
+    // mlx_key_hook(game->win, handle_key, NULL);  
      mlx_hook(game->win, 17, 0, handle_win_close, NULL);
     mlx_loop(game->mlx);
     return 0;

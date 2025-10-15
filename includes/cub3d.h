@@ -45,6 +45,8 @@ typedef struct s_game {
     void *mlx;
     void *win;
     t_map *map;
+    int		width;
+	int		height;
     t_player player;
     t_color floor_color;
     t_color ceiling_color;
@@ -55,10 +57,7 @@ typedef struct s_game {
 
 
 
-#define WIN_WIDTH  800
-#define WIN_HEIGHT  600
-#define ESC_KEY     65307
-#define WIN_TITLE  "CUB3D"
+
 
 typedef struct s_image
 {
@@ -70,9 +69,15 @@ typedef struct s_image
 }t_img;
 
 
+
+#define ESC_KEY     65307
+#define WIN_TITLE  "CUB3D"
+
 // func of randring part
 int ft_init_randring(t_img *image, t_game *game);
 int draw(t_game *game, t_img *img);
+void win_scal(t_game *game);
+
 
 
 
