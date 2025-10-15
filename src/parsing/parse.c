@@ -6,38 +6,91 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 21:53:36 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/21 21:54:35 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/09/30 10:03:18 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	validate_file_extension(char *file)
+char *get_arg(char *line)
 {
-	char	*ext;
+    int i = 0;
 
-	ext = ft_strrchr(file, '.');
-	if (!ext || ft_strcmp(ext, ".cub") != 0)
+    while (line[i] && line[i] != ' ' && line[i] != '\t')
+        i++;
+    while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+        i++;
+    return (&line[i]);
+}
+
+int parse_configurations(t_game *game, int fd, char **f_line)
+{
+	char *line;
+	char *trimmed;
+	int parsed = 0;
+	
+	while ((line = get_next_line(fd)) != NULL)
 	{
-		printf("Error\nBad extension!\n");
-		return (0);
+		trimmed = ft_strtrim(line, " \n\t");
+		if (!trimmed)
+            return (printf("Error\nMalloc failed\n"), 0);
+		if (*trimmed == '\0')
+		{
+			free(trimmed);
+			free(line);
+			continue;
+		}
+		if (parsed == 6)
+		{
+			*f_line = line;
+			return (1);
+		}
+		if (ft_strncmp("NO ", trimmed, 3) == 0)
+			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[0]);
+		else if (ft_strncmp("SO ", trimmed, 3) == 0)
+			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[1]);
+		else if (ft_strncmp("WE ", trimmed, 3) == 0)
+			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[2]);
+		else if (ft_strncmp("EA ", trimmed, 3) == 0)
+			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[3]);
+		else if ((ft_strncmp("F ", trimmed, 2) == 0))
+			parsed += parse_color(get_arg(trimmed), &game->floor_color);
+		else if ((ft_strncmp("C ", trimmed, 2) == 0))
+			parsed += parse_color(get_arg(trimmed), &game->ceiling_color);
+		else
+		{
+			free(trimmed);
+			free(line);
+			return (printf("Error\nInvalid configuration!\n"), 0);
+		}
+		free(trimmed);
+		free(line);
 	}
+	if (parsed != 6)
+		return (printf("Error\nMissing configuration element\n"), 0);
+	f_line = NULL;
+	printf("texture -> %s\n", game->tex_paths[0]);
 	return (1);
 }
 
-int	parse(t_map *map, char *filedata)
+
+int	parse(t_game *game, char *filedata)
 {
-    int	i;
 	int	fd;
+	char *f_line;
     
-    if (!validate_file_extension(filedata))
-		return (0);
+    if (!validate_file_extension(filedata, ".cub"))
+		return(printf("Error\nBad extension!\n"), 0);
 	fd = open(filedata, O_RDONLY);
 	if (fd == -1)
-		return (printf("Error\nopening file\n"), 0);
-        
-
-    // read and parse map.config here
+		return (perror("Error\n"), 0);
+	if (is_dir(filedata))
+		return (printf("Error\nArgument is a derctory!\n"), close(fd),0);
+	f_line = NULL;
+    if (!parse_configurations(game, fd, &f_line))
+		return (close(fd), 0);
+	if (!parse_map(game, fd, f_line))
+		return (close(fd), 0);
     close (fd);
     return (1);
 }
