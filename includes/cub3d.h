@@ -41,23 +41,6 @@ typedef struct s_map
 	int		height;
 }			t_map;
 
-typedef struct s_game {
-    void *mlx;
-    void *win;
-    t_map *map;
-    int		width;
-	int		height;
-    t_player player;
-    t_color floor_color;
-    t_color ceiling_color;
-    char *tex_paths[4];
-}   t_game;
-
-// ================================================ randring ============================================================
-
-
-
-
 
 typedef struct s_image
 {
@@ -68,16 +51,42 @@ typedef struct s_image
     char *img_pex_ptr;
 }t_img;
 
+typedef struct s_game {
+    void *mlx;
+    void *win;
+    t_map *map;
+    int		width;
+	int		height;
+    t_player player;
+    t_color floor_color;
+    t_img       *img;
+    t_color ceiling_color;
+    char *tex_paths[4];
+}   t_game;
+
+// ================================================ randring ============================================================
 
 
+
+
+
+
+
+
+#define key_down    65364
+#define key_up      65362
+#define key_left    65361
+#define key_right   65363
 #define ESC_KEY     65307
-#define WIN_TITLE  "CUB3D"
+#define WIN_TITLE  "L3AKS"
+
+
 
 // func of randring part
 int ft_init_randring(t_img *image, t_game *game);
 int draw(t_game *game, t_img *img);
 void win_scal(t_game *game);
-
+int move(t_game *game);
 
 
 
