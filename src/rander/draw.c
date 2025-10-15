@@ -59,13 +59,14 @@ void draw_wall(t_img *img, t_game *game, int x, int y)
 void draw_player(t_img *img, t_game *game, int x, int y)
 {
     int dx;
-    int dy = 0;
+    int dy = 0
+    ;
     while (dy < 20)
     {
         dx = 0;
         while (dx < 20)
         {
-            put_pixel((x * 40 + dx), y * 40 + dy, img, 0x27F5F2);
+            put_pixel((x * 40 + dx + 10), y * 40 + dy + 10, img, 0x27F5F2);
             dx++;
         }
         dy++;
@@ -91,18 +92,28 @@ int draw(t_game *game, t_img *img)
         {
                 if(y < game->map->height && x < game->map->width && game->map->map_arr[y][x] == '1')
                     draw_wall(img, game, x, y);
-                else if(y < game->map->height && x < game->map->width && game->map->map_arr[y][x] == '0')
+                else if(y < game->map->height && x < game->map->width && ( game->map->map_arr[y][x] == '0' || check_player(game->map->map_arr[y][x])))
                      draw_floor(img, game, x, y);
-                 else if(y < game->map->height && x < game->map->width && check_player(game->map->map_arr[y][x]))
-                         draw_player(img, game, x, y);
                 else if (y < game->map->height && x < game->map->width && game->map->map_arr[y][x] == ' ')
                          draw_ceiling(img, game, x, y);
             x++;
         }
         y++;
     }
+
+    y = 0;
+    while (y <  game->height)
+    {
+        x = 0;
+        while (x < game->width)
+        {
+               if(y < game->map->height && x < game->map->width && check_player(game->map->map_arr[y][x]))
+                         draw_player(img, game, game->player.x, game->player.y);
+            x++;
+        }
+        y++;
+    }
     mlx_put_image_to_window(game->mlx, game->win, img->img_ptr, 0, 0);
-    // test    
     return 0;
 }
 

@@ -46,23 +46,24 @@ int ft_init_randring(t_img *image, t_game *game)
         return (printf("Error\nmlx_new_window fail!\n"), 1);
     }
     // creat image
-    image = malloc(sizeof(t_img));
-    if(!image)
+    game->img = malloc(sizeof(t_img));
+    if(!game->img)
         return (printf("Error\nallocation  fail!\n"), 1);
-    image->img_ptr = mlx_new_image(game->mlx, game->width, game->height);
-    if(!image->img_ptr)
+    game->img->img_ptr = mlx_new_image(game->mlx, game->width, game->height);
+    if(!game->img->img_ptr)
     {
         mlx_destroy_display(game->mlx);
         mlx_destroy_window(game->mlx, game->win);
         free(game->mlx);
-        return (printf("Error\nmlx_new_image fail!\n"), 1);
+        return (printf("Error\nmlx_new_game->img fail!\n"), 1);
     }
-    image->img_pex_ptr =  mlx_get_data_addr(image->img_ptr, &image->bit_per_pixel, 
-        &image->size_line, &image->endian);
+    game->img->img_pex_ptr =  mlx_get_data_addr(game->img->img_ptr, &game->img->bit_per_pixel, 
+        &game->img->size_line, &game->img->endian);
     // handle key press 
-    draw(game, image);
-    // mlx_key_hook(game->win, handle_key, NULL);  
+    draw(game,  game->img);
+    // mlx_key_hook(game->win, handle_key, NULL);
      mlx_hook(game->win, 17, 0, handle_win_close, NULL);
+     move(game);
     mlx_loop(game->mlx);
     return 0;
     

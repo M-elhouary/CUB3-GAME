@@ -12,7 +12,8 @@ SRCS_PARSING = src/main.c \
 
 # source for randring part
 SRC_RANDRING = src/rander/randring.c\
-				src/rander/draw.c
+				src/rander/draw.c\
+				src/rander/player_movment.c
 
 SRCS = $(SRCS_PARSING)  $(SRC_RANDRING)
 
