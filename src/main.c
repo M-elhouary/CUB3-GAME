@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/22 21:23:03 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/10/01 11:55:55 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,20 @@ int main(int ac, char **av)
     return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
   if (!init_game(&game, av[1]))
     return (close_and_free(game), 1);
-  // game->mlx = mlx_init();
-  // if (!game->mlx)
-  // {
-  //   close_and_free(game);
-  //   return (printf("Error\nmlx initialisation faild!\n"), 0);
-  // }
-  // game->win = mlx_new_window(game->mlx, 64 * game->map->height, 64 * game->map->width, "Cub3D");
-  // if (!game->win)
-  // {
-  //   close_and_free(game);
-  //   return (printf("Error\nfailled opening the window!\n"), 0);
-  // }
-  // mlx_loop(game->mlx);
+  game->mlx = mlx_init();
+  if (!game->mlx)
+  {
+    close_and_free(game);
+    return (printf("Error\nmlx initialisation faild!\n"), 0);
+  }
+  game->win = mlx_new_window(game->mlx, 64 * game->map->height, 64 * game->map->width, "Cub3D");
+  if (!game->win)
+  {
+    close_and_free(game);
+    return (printf("Error\nfailled opening the window!\n"), 0);
+  }
+  void *imageptr = mlx_xpm_to_image(game->mlx, "assets/door.xpm", )
+  mlx_loop(game->mlx);
   close_and_free(game);
   return (0);
 }
