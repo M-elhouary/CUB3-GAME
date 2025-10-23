@@ -8,8 +8,10 @@ SRC = 	src/main.c src/parsing/parse.c src/parsing/parse_color_and_texture.c  src
 SRC_RANDRING =  src/rander/randring.c\
 		src/rander/draw.c\
 		src/rander/player_movment.c
+
+SRCS = $(SRC_RANDRING) $(SRC)
 		
-OBJ = ${SRC:.c=.o} $(SRC_RANDRING)
+OBJ = ${SRCS:.c=.o} 
 LIBFT_DIR = libraries/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = /usr/include/minilibx-linux

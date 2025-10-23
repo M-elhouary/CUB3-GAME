@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:01:32 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/30 11:01:49 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/10/23 22:35:40 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int check_player_count(t_game *game)
                 player_count++;
 				game->player.x = x;
 				game->player.y = y;
-				game->player.dir = game->map->map_arr[x][y];
 			}
 		}
 	}

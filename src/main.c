@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/10/23 15:30:43 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/10/23 22:34:20 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ void init_data(t_game *game)
   game->map->height = 0;
   game->player.x = 0;
   game->player.y = 0;
+  game->move_speed = 0.05;
+  game->move_speed = 0.03;
+  game->keys.w = 0;
+  game->keys.d = 0;
+  game->keys.a = 0;
+  game->keys.s = 0;
+  game->keys.esc = 0;
+  game->keys.left_arrow = 0;
+  game->keys.right_arrow = 0;
 }
 
 int init_game(t_game **gamedata, char *file)
@@ -50,7 +59,8 @@ int main(int ac, char **av)
     return (close_and_free(game), 1);
   game->win_width = game->map->width * 40;
   game->win_height = game->map->height * 40;
-  ft_init_randring(game->img, game);
+  if (ft_init_randring(game->img, game) == 1)
+    return (1);
   close_and_free(game);
   return (0);
 }
