@@ -4,8 +4,12 @@ CFLAGS = -I include
 SRC = 	src/main.c src/parsing/parse.c src/parsing/parse_color_and_texture.c  src/parsing/parse_map.c \
 		src/parsing/parsing_utils.c src/parsing/validate_map.c \
 		libraries/get_next_line/get_next_line.c libraries/get_next_line/get_next_line_utils.c\
+
+SRC_RANDRING =  src/rander/randring.c\
+		src/rander/draw.c\
+		src/rander/player_movment.c
 		
-OBJ = ${SRC:.c=.o}
+OBJ = ${SRC:.c=.o} $(SRC_RANDRING)
 LIBFT_DIR = libraries/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = /usr/include/minilibx-linux

@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/10/23 15:04:27 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:30:43 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int main(int ac, char **av)
     return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
   if (!init_game(&game, av[1]))
     return (close_and_free(game), 1);
+  game->win_width = game->map->width * 40;
+  game->win_height = game->map->height * 40;
+  ft_init_randring(game->img, game);
   close_and_free(game);
   return (0);
 }
+
