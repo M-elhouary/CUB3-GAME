@@ -56,7 +56,7 @@ void draw_wall(t_img *img, t_game *game, int x, int y)
         dy++;
     }
 }
-void draw_player(t_img *img, t_game *game, int x, int y)
+void draw_player(t_img *img, t_game *game, double x, double y)
 {
     int dx;
     int dy = 0;
@@ -65,10 +65,25 @@ void draw_player(t_img *img, t_game *game, int x, int y)
         dx = 0;
         while (dx < 20)
         {
-            put_pixel((x * 40 + dx + 10), y * 40 + dy + 10, img, 0x27F5F2);
+            put_pixel( (int)(x * 40 + dx + 10), (int)(y * 40 + dy + 10), img, 0x27F5F2);
             dx++;
         }
         dy++;
+    }
+}
+
+
+void draw_player_dir(t_img *img, t_game *game, double x, double y)
+{
+
+    double length = 0.90;    // length in tiles for the direction line
+    double step = 0.01;     // step in tiles
+    int steps = (int)(length / step);
+    for (int i = 0; i <= steps; ++i)
+    {
+        put_pixel((int)(x * 40 + 20), (int)(y * 40 + 20), img, 0xFF0000);
+        x += (double)game->player.dir_x * step;
+        y += (double)game->player.dir_y * step;
     }
 }
 
@@ -94,13 +109,14 @@ int draw(t_game *game, t_img *img)
                 else if(y < game->map->height && x < game->map->width && ( game->map->map_arr[y][x] == '0' || check_player(game->map->map_arr[y][x])))
                      draw_floor(img, game, x, y);
                 else if (y < game->map->height && x < game->map->width && game->map->map_arr[y][x] == ' ')
-                         draw_ceiling(img, game, 7, 7);
+                         draw_ceiling(img, game, x, y);
             x++;
         }
         y++;
     }
+    // printf("player pos : x= %.2f , y= %.2f \n", game->player.x, game->player.y);
     y = 0;
-    while (y <  game->height)
+    while (y < game->height)
     {
         x = 0;
         while (x < game->width)
@@ -111,6 +127,7 @@ int draw(t_game *game, t_img *img)
         }
         y++;
     }
+    draw_player_dir(img, game, game->player.x, game->player.y);
     mlx_put_image_to_window(game->mlx, game->win, img->img_ptr, 0, 0);
     return 0;
 }
