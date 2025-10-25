@@ -61,7 +61,7 @@ int ft_init_randring(t_img *image, t_game *game)
         &game->img->size_line, &game->img->endian);
     // handle key press 
     draw(game,  game->img);
-    // mlx_key_hook(game->win, handle_key, NULL);
+   //  mlx_key_hook(game->win, handle_key, NULL);
      mlx_hook(game->win, 17, 0, handle_win_close, NULL);
      move(game);
     mlx_loop(game->mlx);

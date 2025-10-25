@@ -59,8 +59,7 @@ void draw_wall(t_img *img, t_game *game, int x, int y)
 void draw_player(t_img *img, t_game *game, int x, int y)
 {
     int dx;
-    int dy = 0
-    ;
+    int dy = 0;
     while (dy < 20)
     {
         dx = 0;
@@ -95,12 +94,11 @@ int draw(t_game *game, t_img *img)
                 else if(y < game->map->height && x < game->map->width && ( game->map->map_arr[y][x] == '0' || check_player(game->map->map_arr[y][x])))
                      draw_floor(img, game, x, y);
                 else if (y < game->map->height && x < game->map->width && game->map->map_arr[y][x] == ' ')
-                         draw_ceiling(img, game, x, y);
+                         draw_ceiling(img, game, 7, 7);
             x++;
         }
         y++;
     }
-
     y = 0;
     while (y <  game->height)
     {

@@ -55,6 +55,10 @@ int main(int ac, char **av)
 		  return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
     if (!init_game(&game, av[1]))
         return (1);
+    printf("%f\n", game->player.x);
+    printf("%f\n", game->player.y);
+    camera(game);
+   //printf("%d\n", game->player.dir_x);
     win_scal(game);
     if(ft_init_randring(image, game) == 1)
       return 1;

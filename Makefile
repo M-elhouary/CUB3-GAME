@@ -11,9 +11,12 @@ SRCS_PARSING = src/main.c \
 			libraries/get_next_line/get_next_line_utils.c\
 
 # source for randring part
+##SRC_RANDRING = $(wildcard src/rander/*.c)
+
 SRC_RANDRING = src/rander/randring.c\
 				src/rander/draw.c\
-				src/rander/player_movment.c
+				src/rander/player_movment.c\
+				src/rander/raycasting.c
 
 SRCS = $(SRCS_PARSING)  $(SRC_RANDRING)
 

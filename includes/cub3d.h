@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <X11/keysym.h>
 
 
 typedef struct s_player
@@ -26,6 +27,11 @@ typedef struct s_player
     double x;
     double y;
     char dir;
+    int dir_x; 
+    int dir_y;
+    double plan_x;
+    double plan_y;
+
 } t_player;
 
 typedef struct s_color
@@ -34,6 +40,8 @@ typedef struct s_color
     int g;
     int b;
 } t_color;
+
+
 typedef struct s_map
 {
 	char	**map_arr;
@@ -67,12 +75,6 @@ typedef struct s_game {
 // ================================================ randring ============================================================
 
 
-
-
-
-
-
-
 #define key_down    65364
 #define key_up      65362
 #define key_left    65361
@@ -87,6 +89,7 @@ int ft_init_randring(t_img *image, t_game *game);
 int draw(t_game *game, t_img *img);
 void win_scal(t_game *game);
 int move(t_game *game);
+void camera(t_game *game);
 
 
 
