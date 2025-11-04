@@ -6,32 +6,15 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/09/23 15:38:22 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/04 23:12:05 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-
-// int handle_key(int key, void *param)
-// {
-//     (void)param;
-//     if (key == ESC_KEY)
-//         exit(0);
-//     return (0);
-// }
-
-int handle_win_close(void *param)
-{
-    (void)param;
-    //free
-    exit(0);
-}
-
-int ft_init_randring(t_img *image, t_game *game)
+int init_randring(t_img *image, t_game *game)
 {
      // initilize  connection to the graphical system  
-
     game->mlx = mlx_init();
     if (!game->mlx)
         return (printf("Error\nmlx_init fail!\n"), 1);
@@ -59,9 +42,9 @@ int ft_init_randring(t_img *image, t_game *game)
         &game->img->size_line, &game->img->endian);
     // handle key press 
     draw(game,  game->img);
-   //  mlx_key_hook(game->win, handle_key, NULL);
-     mlx_hook(game->win, 17, 0, handle_win_close, NULL);
-     move(game);
+    mlx_hook(game->win, 2, 1L<<0, handle_key, game);
+    mlx_hook(game->win, 17, 0, handle_win_close, NULL);
+    move(game);
     mlx_loop(game->mlx);
     return 0;
     

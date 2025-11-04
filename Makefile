@@ -16,7 +16,9 @@ SRCS_PARSING = src/main.c \
 SRC_RANDRING = src/rander/randring.c\
 				src/rander/draw.c\
 				src/rander/player_movment.c\
-				src/rander/raycasting.c
+				src/rander/raycasting.c\
+				src/rander/mini_map.c\
+				src/rander/handle_key.c
 
 SRCS = $(SRCS_PARSING)  $(SRC_RANDRING)
 

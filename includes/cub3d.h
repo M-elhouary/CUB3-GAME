@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/23 10:19:20 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/04 23:06:48 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,17 @@ typedef struct s_game
 
 
 // func of randring part
-int ft_init_randring(t_img *image, t_game *game);
+int init_randring(t_img *image, t_game *game);
 int draw(t_game *game, t_img *img);
 void win_scal(t_game *game);
 int move(t_game *game);
 void camera(t_game *game);
 int is_wall(t_game *game, double x, double y);
 double cast_ray(t_game *game, double ray_x, double ray_y);
+void put_pixel(int x, int y, t_img *img, int color);
+int mini_map(t_game *game, t_img *img);
+int handle_key(int key, void *param);
+int handle_win_close(void *param);
 
 
 

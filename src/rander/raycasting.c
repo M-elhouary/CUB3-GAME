@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/04 23:08:03 by mel-houa          #+#    #+#             */
+/*   Updated: 2025/11/04 23:09:40 by mel-houa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 
@@ -47,9 +59,10 @@ double cast_ray(t_game *game, double ray_x, double ray_y)
     double check_y;
 
     distance = 0.0;
+    max_distance = 0;
     step_size = 0.05;
-    max_distance = 30.0;
-
+    while(game->map->map_arr[0][(int)max_distance])
+        max_distance++;
     while (distance < max_distance)
     {
         check_x = game->player.x + ray_x * distance;
