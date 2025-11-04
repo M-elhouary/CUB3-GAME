@@ -27,11 +27,14 @@ typedef struct s_player
     double x;
     double y;
     char dir;
+
+    // added by rendering part
     int dir_x; 
     int dir_y;
     double plan_x;
     double plan_y;
-
+    double ray_dir_x;
+    double ray_dir_y;
 } t_player;
 
 typedef struct s_color
@@ -57,19 +60,21 @@ typedef struct s_image
     int  size_line;
     int  endian;
     char *img_pex_ptr;
-}t_img;
+}   t_img;
 
-typedef struct s_game {
-    void *mlx;
-    void *win;
-    t_map *map;
-    int		width;
-	int		height;
+
+typedef struct s_game 
+{
+    void    *mlx;
+    void    *win;
+    int		scren_width;
+	int		scren_height;
+    char    *tex_paths[4];
+    t_map   *map;
     t_player player;
     t_color floor_color;
-    t_img       *img;
+    t_img    *img;
     t_color ceiling_color;
-    char *tex_paths[4];
 }   t_game;
 
 // ================================================ randring ============================================================
@@ -90,6 +95,8 @@ int draw(t_game *game, t_img *img);
 void win_scal(t_game *game);
 int move(t_game *game);
 void camera(t_game *game);
+int is_wall(t_game *game, double x, double y);
+double cast_ray(t_game *game, double ray_x, double ray_y);
 
 
 

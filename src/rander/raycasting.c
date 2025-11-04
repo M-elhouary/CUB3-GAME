@@ -34,24 +34,29 @@ void camera(t_game *game)
         game->player.dir_y= 0;
         game->player.plan_x = 0;
         game->player.plan_y = -0.66;
-}
-
-
-
-
+    }
 
 }
 
-
-
-
-// check Vector Perpendicularity
-// double dot_product = (dir_x * plane_x) + (dir_y * plane_y);
-// printf("Dot product: %f (should be 0)\n", dot_product);
-
-int cast()
+double cast_ray(t_game *game, double ray_x, double ray_y)
 {
-    
+    double distance;
+    double max_distance;
+    double step_size;
+    double check_x;
+    double check_y;
 
+    distance = 0.0;
+    step_size = 0.05;
+    max_distance = 30.0;
 
+    while (distance < max_distance)
+    {
+        check_x = game->player.x + ray_x * distance;
+        check_y = game->player.y + ray_y * distance;
+        if (is_wall(game, check_x, check_y) == 1)
+            return (distance);
+        distance += step_size;
+    }
+    return (max_distance);
 }

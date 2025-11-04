@@ -1,5 +1,5 @@
 NAME = cub3D
-CC = cc
+CC = cc -g
 CFLAGS = -I include
 SRCS_PARSING = src/main.c \
 			src/parsing/parse.c\

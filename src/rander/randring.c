@@ -28,8 +28,6 @@ int handle_win_close(void *param)
     exit(0);
 }
 
-
-
 int ft_init_randring(t_img *image, t_game *game)
 {
      // initilize  connection to the graphical system  
@@ -38,7 +36,7 @@ int ft_init_randring(t_img *image, t_game *game)
     if (!game->mlx)
         return (printf("Error\nmlx_init fail!\n"), 1);
     // creation window
-    game->win =  mlx_new_window(game->mlx, game->width, game->height, WIN_TITLE);
+    game->win =  mlx_new_window(game->mlx, game->scren_width, game->scren_height, WIN_TITLE);
     if(!game->win)
     {
         mlx_destroy_display(game->mlx);
@@ -49,7 +47,7 @@ int ft_init_randring(t_img *image, t_game *game)
     game->img = malloc(sizeof(t_img));
     if(!game->img)
         return (printf("Error\nallocation  fail!\n"), 1);
-    game->img->img_ptr = mlx_new_image(game->mlx, game->width, game->height);
+    game->img->img_ptr = mlx_new_image(game->mlx, game->scren_width, game->scren_height);
     if(!game->img->img_ptr)
     {
         mlx_destroy_display(game->mlx);

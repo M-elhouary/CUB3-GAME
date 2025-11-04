@@ -43,8 +43,8 @@ int init_game(t_game **gamedata, char *file)
 
 void win_scal(t_game *game)
 {
-    game->height = game->map->height * 40;
-    game->width = game->map->width * 40;
+    game->scren_height = game->map->height * 40;
+    game->scren_width = game->map->width * 40;
 }
 
 int main(int ac, char **av)
@@ -58,9 +58,10 @@ int main(int ac, char **av)
     printf("%f\n", game->player.x);
     printf("%f\n", game->player.y);
     camera(game);
-   //printf("%d\n", game->player.dir_x);
     win_scal(game);
     if(ft_init_randring(image, game) == 1)
       return 1;
+    // printf("%f\n", game->player.x);
+    // printf("%f\n", game->player.y);
     return (0);
 }
