@@ -1,5 +1,5 @@
 NAME = cub3D
-CC = cc
+CC = cc -g
 CFLAGS = -I include
 SRCS_PARSING = src/main.c \
 			src/parsing/parse.c\
@@ -11,9 +11,14 @@ SRCS_PARSING = src/main.c \
 			libraries/get_next_line/get_next_line_utils.c\
 
 # source for randring part
+##SRC_RANDRING = $(wildcard src/rander/*.c)
+
 SRC_RANDRING = src/rander/randring.c\
 				src/rander/draw.c\
-				src/rander/player_movment.c
+				src/rander/player_movment.c\
+				src/rander/raycasting.c\
+				src/rander/mini_map.c\
+				src/rander/handle_key.c
 
 SRCS = $(SRCS_PARSING)  $(SRC_RANDRING)
 

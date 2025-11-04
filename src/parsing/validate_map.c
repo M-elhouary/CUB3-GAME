@@ -40,19 +40,21 @@ int check_player_count(t_game *game)
 	int		y;
     int player_count;
     
-	x = -1;
+
+	// chang cordoni  y <=> x in 
+	y = -1;
     player_count = 0;
-	while (++x < game->map->height)
+	while (++y < game->map->height)
 	{
-		y = -1;
-		while (game->map->map_arr[x][++y])
+		x = -1;
+		while (game->map->map_arr[y][++x])
 		{
-            if (is_player(game->map->map_arr[x][y]))
+            if (is_player(game->map->map_arr[y][x]))
 			{
                 player_count++;
 				game->player.x = x;
 				game->player.y = y;
-				game->player.dir = game->map->map_arr[x][y];
+				game->player.dir = game->map->map_arr[y][x];
 			}
 		}
 	}

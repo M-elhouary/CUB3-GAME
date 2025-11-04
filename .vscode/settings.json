@@ -2,6 +2,9 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "chrono": "c",
-        "cub3d.h": "c"
+        "cub3d.h": "c",
+        "ap_keysym.h": "c",
+        "keysym.h": "c",
+        "keysymdef.h": "c"
     }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/23 10:19:20 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/04 23:06:48 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <X11/keysym.h>
 
 
 typedef struct s_player
@@ -26,6 +27,14 @@ typedef struct s_player
     double x;
     double y;
     char dir;
+
+    // added by rendering part
+    int dir_x; 
+    int dir_y;
+    double plan_x;
+    double plan_y;
+    double ray_dir_x;
+    double ray_dir_y;
 } t_player;
 
 typedef struct s_color
@@ -34,6 +43,8 @@ typedef struct s_color
     int g;
     int b;
 } t_color;
+
+
 typedef struct s_map
 {
 	char	**map_arr;
@@ -49,28 +60,24 @@ typedef struct s_image
     int  size_line;
     int  endian;
     char *img_pex_ptr;
-}t_img;
+}   t_img;
 
-typedef struct s_game {
-    void *mlx;
-    void *win;
-    t_map *map;
-    int		width;
-	int		height;
+
+typedef struct s_game 
+{
+    void    *mlx;
+    void    *win;
+    int		scren_width;
+	int		scren_height;
+    char    *tex_paths[4];
+    t_map   *map;
     t_player player;
     t_color floor_color;
-    t_img       *img;
+    t_img    *img;
     t_color ceiling_color;
-    char *tex_paths[4];
 }   t_game;
 
 // ================================================ randring ============================================================
-
-
-
-
-
-
 
 
 #define key_down    65364
@@ -83,10 +90,17 @@ typedef struct s_game {
 
 
 // func of randring part
-int ft_init_randring(t_img *image, t_game *game);
+int init_randring(t_img *image, t_game *game);
 int draw(t_game *game, t_img *img);
 void win_scal(t_game *game);
 int move(t_game *game);
+void camera(t_game *game);
+int is_wall(t_game *game, double x, double y);
+double cast_ray(t_game *game, double ray_x, double ray_y);
+void put_pixel(int x, int y, t_img *img, int color);
+int mini_map(t_game *game, t_img *img);
+int handle_key(int key, void *param);
+int handle_win_close(void *param);
 
 
 
