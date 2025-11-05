@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/04 23:12:05 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/05 23:01:35 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ int init_randring(t_img *image, t_game *game)
     }
     game->img->img_pex_ptr =  mlx_get_data_addr(game->img->img_ptr, &game->img->bit_per_pixel, 
         &game->img->size_line, &game->img->endian);
-    // handle key press 
+    // initial draw  
     draw(game,  game->img);
+    // handle key press and window close
     mlx_hook(game->win, 2, 1L<<0, handle_key, game);
     mlx_hook(game->win, 17, 0, handle_win_close, NULL);
+    // for move player
     move(game);
     mlx_loop(game->mlx);
     return 0;

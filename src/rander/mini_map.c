@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 22:59:34 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/04 23:15:58 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/06 00:05:43 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ void draw_ceiling(t_img *img, t_game *game, int x, int y)
 {
     int dx;
     int dy = 0;
-    while (dy < 10)
+    int offset_x = game->scren_width - (game->map->width * 5) - 5;  // right side
+    int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
+    
+    while (dy < 5)
     {
         dx = 0;
-        while (dx < 10)
+        while (dx < 5)
         {
-                put_pixel(x * 10 + dx, y * 10 + dy, img, 0xfb2b);
+                put_pixel(offset_x + x * 5 + dx, offset_y + y * 5 + dy, img, 0xfb2b);
                 dx++;
         }
         dy++;
@@ -33,12 +36,15 @@ void draw_floor(t_img *img, t_game *game, int x, int y)
 {
     int dx;
     int dy = 0;
-    while (dy < 10)
+    int offset_x = game->scren_width - (game->map->width * 5) - 5;  // right side
+    int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
+    
+    while (dy < 5)
     {
         dx = 0;
-        while (dx < 10)
+        while (dx < 5)
         {
-                put_pixel(x * 10 + dx, y * 10 + dy, img, 0xfbf82b);
+                put_pixel(offset_x + x * 5 + dx, offset_y + y * 5 + dy, img, 0xfbf82b);
                 dx++;
         }
         dy++;
@@ -49,13 +55,16 @@ void draw_wall(t_img *img, t_game *game, int x, int y)
 {
     int dx;
     int dy;
+    int offset_x = game->scren_width - (game->map->width * 5) - 5;  // right side
+    int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
+    
     dy = 0;
-    while (dy < 10)
+    while (dy < 5)
     {
         dx = 0;
-        while (dx < 10)
+        while (dx < 5)
         {
-            put_pixel((x * 10 + dx), y * 10 + dy, img, 0x2b41fb);
+            put_pixel(offset_x + (x * 5 + dx), offset_y + y * 5 + dy, img, 0x2b41fb);
             dx++;
         }
         dy++;
@@ -67,14 +76,16 @@ void draw_player(t_img *img, t_game *game, double x, double y)
 {
     int dx;
     int dy;
+    int offset_x = game->scren_width - (game->map->width * 3) - 3;  // right side
+    int offset_y = game->scren_height - (game->map->height * 3) - 3; // bottom
     
-    dy = -4;
-    while (dy < 5)
+    dy = -2;
+    while (dy < 3)
     {
-        dx = -4;
-        while (dx < 5)
+        dx = -2;
+        while (dx < 2)
         {
-            put_pixel( (int)(x * 10 )+ (dx), (int)(y * 10 )+ (dy), img, 0x27F5F2);
+            put_pixel(offset_x + (int)(x * 3 )+ (dx), offset_y + (int)(y * 3)+ (dy), img, 0x27F5F2);
             dx++;
         }
         dy++;
@@ -82,26 +93,28 @@ void draw_player(t_img *img, t_game *game, double x, double y)
 }
 
 
-void draw_player_dir(t_img *img, t_game *game, double x, double y)
-{
+// void draw_player_dir(t_img *img, t_game *game, double x, double y)
+// {
 
-    double step;
-    double length;
-    int steps ;
-    int i;
+//     double step;
+//     double length;
+//     int steps ;
+//     int i;
+//     int offset_x = game->scren_width - (game->map->width * 3) - 3;  // right side
+//     int offset_y = game->scren_height - (game->map->height * 3) - 3; // bottom
     
-    i = 0;
-    length = 0.90;    // length in tiles for the direction line
-    step = 0.01;     // step in tiles
-    steps = (int)(length / step);
-    while(i < steps)
-    {
-        put_pixel((int)(x * 10), (int)(y * 10), img, 0xFF0000);
-        x += (double)game->player.dir_x * step;
-        y += (double)game->player.dir_y * step;
-        i++;
-    }
-}
+//     i = 0;
+//     length = 0.90;    // length in tiles for the direction line
+//     step = 0.01;     // step in tiles
+//     steps = (int)(length / step);
+//     while(i < steps)
+//     {
+//         put_pixel(offset_x + (int)(x * 3), offset_y + (int)(y * 3), img, 0xFF0000);
+//         x += (double)game->player.dir_x * step;
+//         y += (double)game->player.dir_y * step;
+//         i++;
+//     }
+// }
 
 int check_player(char player)
 {
