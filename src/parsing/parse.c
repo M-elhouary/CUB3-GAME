@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 21:53:36 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/30 10:03:18 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:02:50 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 char *get_arg(char *line)
 {
-    int i = 0;
+	int i = 0;
 
-    while (line[i] && line[i] != ' ' && line[i] != '\t')
-        i++;
-    while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-        i++;
-    return (&line[i]);
+	while (line[i] && line[i] != ' ' && line[i] != '\t')
+		i++;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	return (&line[i]);
 }
 
 int parse_configurations(t_game *game, int fd, char **f_line)
@@ -28,12 +28,12 @@ int parse_configurations(t_game *game, int fd, char **f_line)
 	char *line;
 	char *trimmed;
 	int parsed = 0;
-	
+
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		trimmed = ft_strtrim(line, " \n\t");
 		if (!trimmed)
-            return (printf("Error\nMalloc failed\n"), 0);
+			return (printf("Error\nMalloc failed\n"), 0);
 		if (*trimmed == '\0')
 		{
 			free(trimmed);
@@ -73,24 +73,23 @@ int parse_configurations(t_game *game, int fd, char **f_line)
 	return (1);
 }
 
-
-int	parse(t_game *game, char *filedata)
+int parse(t_game *game, char *filedata)
 {
-	int	fd;
+	int fd;
 	char *f_line;
-    
-    if (!validate_file_extension(filedata, ".cub"))
-		return(printf("Error\nBad extension!\n"), 0);
+
+	if (!validate_file_extension(filedata, ".cub"))
+		return (printf("Error\nBad extension!\n"), 0);
 	fd = open(filedata, O_RDONLY);
 	if (fd == -1)
 		return (perror("Error\n"), 0);
 	if (is_dir(filedata))
-		return (printf("Error\nArgument is a derctory!\n"), close(fd),0);
+		return (printf("Error\nArgument is a derctory!\n"), close(fd), 0);
 	f_line = NULL;
-    if (!parse_configurations(game, fd, &f_line))
+	if (!parse_configurations(game, fd, &f_line))
 		return (close(fd), 0);
 	if (!parse_map(game, fd, f_line))
 		return (close(fd), 0);
-    close (fd);
-    return (1);
+	close(fd);
+	return (1);
 }

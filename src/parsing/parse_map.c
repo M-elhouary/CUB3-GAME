@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 20:06:42 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/23 10:57:19 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:03:04 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,6 @@ int parse_map(t_game *game, int fd, char *first_line)
 	game->map->map_arr = map;
 	game->map->height = rows;
 	game->map->width = max_width;
-	// printf("rows	-> %d\n", game->map->height);
-	// printf("cols	-> %d\n", game->map->width);
-	// printf("len 	-> %d\n", ft_strlen_2d(game->map->map_arr));
 	if (!validate_map(game))
 		return (0);
 	return (1);

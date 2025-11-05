@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/10/23 22:34:20 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:53:46 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void init_data(t_game *game)
   game->map->map_arr = NULL;
   game->map->width = 0;
   game->map->height = 0;
-  game->player.x = 0;
-  game->player.y = 0;
+  game->player.pos_x = 0;
+  game->player.pos_y = 0;
   game->move_speed = 0.05;
-  game->move_speed = 0.03;
+  game->rot_speed = 0.03;
   game->keys.w = 0;
   game->keys.d = 0;
   game->keys.a = 0;

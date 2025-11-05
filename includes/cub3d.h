@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/10/23 22:20:47 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:00:50 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ typedef struct s_keys
 
 typedef struct s_player
 {
-    double x;
-    double y;
+    double pos_x;
+    double pos_y;
     double dir_x;
     double dir_y;
     double plane_x;
     double plane_y;
+    char player_char;
 } t_player;
 
 typedef struct s_color

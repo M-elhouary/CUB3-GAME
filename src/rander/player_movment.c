@@ -11,13 +11,13 @@ int handl_move(int key, t_game *game)
 {
     printf("%d\n", key);
     if(key_up == key)
-        game->player.y -= 0.5;
+        game->player.pos_y -= 0.5;
     else if(key_down == key)
-        game->player.y += 0.5;
+        game->player.pos_y += 0.5;
     else if(key_left == key)
-        game->player.x -= 0.5;
+        game->player.pos_x -= 0.5;
     else if(key_right == key)
-        game->player.x += 0.5;
+        game->player.pos_x += 0.5;
     draw(game, game->img);
     return 0;
 }

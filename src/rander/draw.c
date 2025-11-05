@@ -108,7 +108,7 @@ int draw(t_game *game, t_img *img)
         while (x < game->win_width)
         {
                if(y < game->map->height && x < game->map->width && check_player(game->map->map_arr[y][x]))
-                         draw_player(img, game, game->player.x, game->player.y);
+                         draw_player(img, game, game->player.pos_x, game->player.pos_x);
             x++;
         }
         y++;
