@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/05 23:12:30 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/06 21:23:53 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void draw_ceiling_and_floor(t_game *game, t_img *img)
     }
 }
 
+
 int draw(t_game *game, t_img *img)
 {
     t_draw_vars vars; 
@@ -77,8 +78,8 @@ int draw(t_game *game, t_img *img)
         // Calculate t (0.0 to 1.0) for this screen column
         vars.t = (double)vars.screen_x / game->scren_width;
         // Calculate ray direction for this column
-        vars.ray_x = game->player.dir_x + (game->player.plan_x * vars.t);
-        vars.ray_y = game->player.dir_y + (game->player.plan_y * vars.t);
+        vars.ray_x = game->player.dir_x + (game->player.plane_x * vars.t);
+        vars.ray_y = game->player.dir_y + (game->player.plane_y * vars.t);
         // Cast ray and get distance to wall
         vars.distance = cast_ray(game, vars.ray_x, vars.ray_y);
         // Calculate wall height based on distance
@@ -93,13 +94,14 @@ int draw(t_game *game, t_img *img)
         vars.y = vars.start_y;
         while (vars.y < vars.end_y)
         {
-            put_pixel(vars.screen_x, vars.y, img, 0x304f24);  // wall color
+            put_pixel(vars.screen_x, vars.y, img, 0xeee6e3);  // wall color
             vars.y++;
         }
         vars.screen_x++;
     }
     //Display on screen
     mini_map(game, img);
+   // first_draw_player(img, game, game->player.x, game->player.y);
     mlx_put_image_to_window(game->mlx, game->win, img->img_ptr, 0, 0);
     return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/05 14:07:59 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/06 21:00:34 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,36 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <X11/keysym.h>
+#include <math.h>
 
 
 typedef struct s_player
 {
-    double x;
-    double y;
+    double pos_x;
+    double pos_y;
     char dir;
 
     // added by rendering part
     int dir_x; 
     int dir_y;
-    double plan_x;
-    double plan_y;
+    double plane_x;
+    double plane_y;
     double ray_dir_x;
     double ray_dir_y;
 } t_player;
+
+
+typedef struct s_keys
+{
+    int w;
+    int a;
+    int s;
+    int d;
+    int left_arrow;
+    int right_arrow;
+    int esc;
+}   t_keys;
+
 
 typedef struct s_color
 {
@@ -76,6 +90,9 @@ typedef struct s_game
     t_color floor_color;
     t_img    *img;
     t_color ceiling_color;
+    t_keys keys;
+    double move_speed;
+    double rot_speed;
 }   t_game;
 
 // ================================================ randring ============================================================
@@ -91,7 +108,6 @@ typedef struct s_game
 
 
 // func of randring part
-int init_randring(t_img *image, t_game *game);
 int draw(t_game *game, t_img *img);
 void win_scal(t_game *game);
 int move(t_game *game);
@@ -102,7 +118,16 @@ void put_pixel(int x, int y, t_img *img, int color);
 int mini_map(t_game *game, t_img *img);
 int handle_key(int key, void *param);
 int handle_win_close(void *param);
+void draw_player(t_img *img, t_game *game, double x, double y);
 
+
+int key_press_handler(int keycode, t_game *game);
+int key_release_handler(int keycode, t_game *game);
+void init_keys(t_game *game);
+void move_player(t_game *game);
+void rotate_player(t_game *game);
+int game_update(t_game *game);
+int init_randring(t_game *game);
 
 
 

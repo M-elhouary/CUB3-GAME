@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/04 23:16:38 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/06 21:05:58 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	init_data(t_game *game)
   game->map->map_arr = NULL;
   game->map->width = 0;
   game->map->height = 0;
-  game->player.x = 0;
-  game->player.y = 0;
+  game->player.pos_x = 0;
+  game->player.pos_y = 0;
 }
 
 int init_game(t_game **gamedata, char *file)
@@ -58,7 +58,7 @@ int main(int ac, char **av)
         
     camera(game);
     win_scal(game);
-    if(init_randring(image, game) == 1)
+    if(init_randring(game) == 1)
       return 1;
     return (0);
 }
