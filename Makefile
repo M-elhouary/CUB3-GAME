@@ -31,7 +31,7 @@ MLX_DIR = /usr/include/minilibx-linux
 all: $(NAME)
 
 $(NAME): $(LIBFT)  $(OBJ)
-	$(CC) $(OBJ) -L $(LIBFT_DIR) -L$(MLX_DIR) -lmlx -lft -lXext -lX11  -o $(NAME)
+	$(CC) $(OBJ) -L $(LIBFT_DIR) -L$(MLX_DIR) -lmlx -lft -lm -lXext -lX11  -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)

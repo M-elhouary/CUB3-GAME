@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:01:32 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/30 11:01:49 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/06 21:08:15 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ int check_player_count(t_game *game)
             if (is_player(game->map->map_arr[y][x]))
 			{
                 player_count++;
-				game->player.x = x;
-				game->player.y = y;
+				game->player.pos_x = x;
+				game->player.pos_y = y;
 				game->player.dir = game->map->map_arr[y][x];
+				game->map->map_arr[y][x] = '0';
 			}
 		}
 	}

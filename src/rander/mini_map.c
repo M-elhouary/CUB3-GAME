@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 22:59:34 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/06 00:05:43 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/06 21:23:28 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,45 +76,22 @@ void draw_player(t_img *img, t_game *game, double x, double y)
 {
     int dx;
     int dy;
-    int offset_x = game->scren_width - (game->map->width * 3) - 3;  // right side
-    int offset_y = game->scren_height - (game->map->height * 3) - 3; // bottom
+    int offset_x = game->scren_width - (game->map->width * 5) - 5;  // right side
+    int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
     
-    dy = -2;
-    while (dy < 3)
+    dy = -4;
+    while (dy < 5)
     {
-        dx = -2;
-        while (dx < 2)
+        dx = -4;
+        while (dx < 5)
         {
-            put_pixel(offset_x + (int)(x * 3 )+ (dx), offset_y + (int)(y * 3)+ (dy), img, 0x27F5F2);
+            put_pixel((offset_x + (int)(x * 5 )+ (dx)), (offset_y + (int)(y * 5)+ (dy)), img, 0x27F5F2);
             dx++;
         }
         dy++;
     }
 }
 
-
-// void draw_player_dir(t_img *img, t_game *game, double x, double y)
-// {
-
-//     double step;
-//     double length;
-//     int steps ;
-//     int i;
-//     int offset_x = game->scren_width - (game->map->width * 3) - 3;  // right side
-//     int offset_y = game->scren_height - (game->map->height * 3) - 3; // bottom
-    
-//     i = 0;
-//     length = 0.90;    // length in tiles for the direction line
-//     step = 0.01;     // step in tiles
-//     steps = (int)(length / step);
-//     while(i < steps)
-//     {
-//         put_pixel(offset_x + (int)(x * 3), offset_y + (int)(y * 3), img, 0xFF0000);
-//         x += (double)game->player.dir_x * step;
-//         y += (double)game->player.dir_y * step;
-//         i++;
-//     }
-// }
 
 int check_player(char player)
 {
@@ -146,8 +123,8 @@ int mini_map(t_game *game, t_img *img)
         }
         y++;
     }
-    draw_player(img, game, game->player.x, game->player.y);
-    draw_player_dir(img, game, game->player.x, game->player.y);
+    draw_player(img, game, game->player.pos_x, game->player.pos_y);
+   // draw_player_dir(img, game, game->player.x, game->player.y);
     mlx_put_image_to_window(game->mlx, game->win, img->img_ptr, 0, 0);
     return 0;
 }
