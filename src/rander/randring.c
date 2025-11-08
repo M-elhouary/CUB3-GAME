@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   randring.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/06 21:26:46 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/06 22:31:08 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-
-
-
-
 
 int init_randring(t_game *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (printf("Error\nmlx_init failed!\n"), 1);
+
+	if (!load_all_textures(game))
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+		return (printf("Error: Texture loading failed!\n"), 1);
+	}
 	game->win = mlx_new_window(game->mlx, game->scren_width, game->scren_height, WIN_TITLE);
 	if (!game->win)
 	{
@@ -47,7 +49,7 @@ int init_randring(t_game *game)
 	mlx_hook(game->win, 3, 1L << 1, key_release_handler, game);
 	mlx_hook(game->win, 17, 0, close_and_free, game);
 	mlx_loop_hook(game->mlx, game_update, game);
-	
+
 	mlx_loop(game->mlx);
 	return 0;
 }

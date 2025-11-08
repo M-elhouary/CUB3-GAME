@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   player_movment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:07:38 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/06 21:30:12 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:56:15 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
 
-// Up = 65362, Down = 65364, Left = 65361, Right = 65363
 
 int is_wall(t_game *game, double x, double y)
 {
@@ -22,10 +21,8 @@ int is_wall(t_game *game, double x, double y)
     int new_y;
     new_x = (int)(x);
     new_y = (int)(y);
-    // boundary check
     if(new_x < 0 || new_y < 0 || new_y >= game->map->height || game->map->width <= new_x)
         return 1; 
-    // check wall
     if(game->map->map_arr[new_y][new_x] == '1')
         return 1;
     return 0;
