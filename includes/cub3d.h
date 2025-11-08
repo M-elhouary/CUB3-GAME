@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/08 21:45:44 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/08 22:22:32 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_color
     int r;
     int g;
     int b;
-    char *hex_color;
+    int hex_color;
 } t_color;
 
 

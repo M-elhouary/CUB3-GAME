@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:07:38 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/07 15:56:15 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/08 22:29:48 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,15 @@ void rotate_player(t_game *game)
 	double old_plane_x;
 	
 	if (game->keys.right_arrow == 1)
+	{
+		printf("left arrow\n");
 		rot_speed = -game->rot_speed;
+	}
 	if (game->keys.left_arrow == 1)
+	{
 		rot_speed = game->rot_speed;
+		printf("left arrow\n");
+	}
 	else
 		return ;
 		

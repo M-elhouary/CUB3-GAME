@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 20:04:41 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/08 22:03:01 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/08 22:24:04 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,43 +54,11 @@ int parse_texture(char *path, char **dest)
 	return (1);
 }
 
-static char	to_hex_char(int n)
+int	rgb_to_int(t_color *c)
 {
-	if (n < 10)
-		return ('0' + n);
-	return ('A' + (n - 10));
+	return ((c->r << 16) | (c->g << 8) | c->b);
 }
 
-char *color_to_hex(t_color *color)
-{
-	char *hex;
-	int values[3];
-	int i;
-	int high;
-	int low;
-	int j;
-
-	values[0] = color->r;
-	values[1] = color->g;
-	values[2] = color->b;
-	
-	hex = malloc(8);
-	if (!hex)
-		return (NULL);
-	hex[0] = '#';
-	i = 0;
-	j = 1;
-	while (i < 3)
-	{
-		high = values[i] / 16;
-		low = values[i] % 16;
-		hex[j++] = to_hex_char(high);
-		hex[j++] = to_hex_char(low);
-		i++;
-	}
-	hex[j] = '\0';
-	return (hex);
-}
 
 
 int parse_color(char *path, t_color *dest)
@@ -124,6 +92,6 @@ int parse_color(char *path, t_color *dest)
 	dest->r = colors[0];
 	dest->g = colors[1];
 	dest->b = colors[2];
-	dest->hex_color = color_to_hex(dest);
+	dest->hex_color = rgb_to_int(dest);
 	return (1);
 }

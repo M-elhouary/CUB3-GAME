@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/08 21:51:59 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/08 22:22:50 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void init_data(t_game *game)
   game->tex_paths[3] = NULL;
   game->ceiling_color.r = -1;
   game->floor_color.r = -1;
-  game->ceiling_color.hex_color = NULL;
-  game->floor_color.hex_color = NULL;
+  game->ceiling_color.hex_color = 0;
+  game->floor_color.hex_color = 0;
   game->map->map_arr = NULL;
   game->map->width = 0;
   game->map->height = 0;
