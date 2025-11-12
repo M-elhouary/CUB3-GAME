@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:08:03 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/08 21:01:45 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/12 22:20:17 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,43 +50,21 @@ void camera(t_game *game)
 
 }
 
-// double cast_ray(t_game *game, double ray_x, double ray_y)
-// {
-//     double distance;
-//     double max_distance;
-//     double step_size;
-//     double check_x;
-//     double check_y;
 
-//     distance = 0.0;
-//     max_distance = 0;
-//     step_size = 0.05;
-//     while(game->map->map_arr[0][(int)max_distance])
-//         max_distance++;
-//     while (distance < max_distance)
-//     {
-//         check_x = game->player.pos_x + ray_x * distance;
-//         check_y = game->player.pos_y + ray_y * distance;
-//         if (is_wall(game, check_x, check_y) == 1)
-//             return (distance);
-//         distance += step_size;
-//     }
-//     return (max_distance);
-// }
-
-
-/**
- * @brief Casts a ray and finds the wall it hits.
- * Still uses your raymarching method, but now returns more information.
- */
 t_ray_hit cast_ray(t_game *game, double ray_x, double ray_y)
 {
     t_ray_hit   hit;
     double      check_x;
     double      check_y;
+    int         max_distance ;
 
     hit.distance = 0.0;
-    while (hit.distance < 100) // A max distance to prevent infinite loops
+    // max disetance to prevent infinite
+    max_distance = 0;
+    while(game->map->map_arr[0][max_distance])
+        max_distance++;
+    
+    while (hit.distance <= max_distance)
     {
         check_x = game->player.pos_x + ray_x * hit.distance;
         check_y = game->player.pos_y + ray_y * hit.distance;
@@ -108,6 +86,6 @@ t_ray_hit cast_ray(t_game *game, double ray_x, double ray_y)
         }
         hit.distance += 0.01; // Take a small step
     }
-    hit.distance = 100; // If no wall found, return a large distance
+    hit.distance = (double)max_distance; // If no wall found, return a large distance
     return (hit);
 }

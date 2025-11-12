@@ -6,30 +6,32 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 22:59:34 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/06 21:23:28 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:17:15 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void draw_ceiling(t_img *img, t_game *game, int x, int y)
-{
-    int dx;
-    int dy = 0;
-    int offset_x = game->scren_width - (game->map->width * 5) - 5;  // right side
-    int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
+
+
+// void draw_ceiling(t_img *img, t_game *game, int x, int y)
+// {
+//     int dx;
+//     int dy = 0;
+//     int offset_x = game->scren_width - (game->map->width * 5) - 5;  // right side
+//     int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
     
-    while (dy < 5)
-    {
-        dx = 0;
-        while (dx < 5)
-        {
-                put_pixel(offset_x + x * 5 + dx, offset_y + y * 5 + dy, img, 0xfb2b);
-                dx++;
-        }
-        dy++;
-    }
-}
+//     while (dy < 5)
+//     {
+//         dx = 0;
+//         while (dx < 5)
+//         {
+//                 put_pixel(offset_x + x * 5 + dx, offset_y + y * 5 + dy, img, 0xfb2b);
+//                 dx++;
+//         }
+//         dy++;
+//     }
+// }
 
 
 void draw_floor(t_img *img, t_game *game, int x, int y)
@@ -44,7 +46,8 @@ void draw_floor(t_img *img, t_game *game, int x, int y)
         dx = 0;
         while (dx < 5)
         {
-                put_pixel(offset_x + x * 5 + dx, offset_y + y * 5 + dy, img, 0xfbf82b);
+                put_pixel(offset_x + x * 5 + dx, offset_y + y * 5 + dy, img, game->floor_color.hex_color);
+                put_pixel(offset_x + x * 5 + dx, offset_y + y * 5 + dy, img, 0x887f7d);
                 dx++;
         }
         dy++;
@@ -64,7 +67,7 @@ void draw_wall(t_img *img, t_game *game, int x, int y)
         dx = 0;
         while (dx < 5)
         {
-            put_pixel(offset_x + (x * 5 + dx), offset_y + y * 5 + dy, img, 0x2b41fb);
+            put_pixel(offset_x + (x * 5 + dx), offset_y + y * 5 + dy, img, 0x04d4e3);
             dx++;
         }
         dy++;
@@ -85,7 +88,7 @@ void draw_player(t_img *img, t_game *game, double x, double y)
         dx = -4;
         while (dx < 5)
         {
-            put_pixel((offset_x + (int)(x * 5 )+ (dx)), (offset_y + (int)(y * 5)+ (dy)), img, 0x27F5F2);
+            put_pixel((offset_x + (int)(x * 5 )+ (dx)), (offset_y + (int)(y * 5)+ (dy)), img, 0xe31d04);
             dx++;
         }
         dy++;
@@ -117,14 +120,14 @@ int mini_map(t_game *game, t_img *img)
                     draw_wall(img, game, x, y);
                 else if(y < game->map->height && x < game->map->width && ( game->map->map_arr[y][x] == '0' || check_player(game->map->map_arr[y][x])))
                      draw_floor(img, game, x, y);
-                else if (y < game->map->height && x < game->map->width && game->map->map_arr[y][x] == ' ')
-                         draw_ceiling(img, game, x, y);
+                // else if (y < game->map->height && x < game->map->width && game->map->map_arr[y][x] == ' ')
+                //          draw_ceiling(img, game, x, y);
             x++;
         }
         y++;
     }
     draw_player(img, game, game->player.pos_x, game->player.pos_y);
-   // draw_player_dir(img, game, game->player.x, game->player.y);
+    // draw_player_dir(img, game, game->player.x, game->player.y);
     mlx_put_image_to_window(game->mlx, game->win, img->img_ptr, 0, 0);
     return 0;
 }

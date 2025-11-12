@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/08 22:22:32 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/11 21:23:55 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_ray_hit
 }   t_ray_hit;
 
 
+
+// ?? 
 typedef struct s_texture
 {
     void    *img_ptr;
