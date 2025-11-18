@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/08 22:10:19 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:59:59 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,55 +65,6 @@ void draw_ceiling_and_floor(t_game *game, t_img *img)
     }
 }
 
-
-// int draw(t_game *game, t_img *img)
-// {
-//     t_draw_vars vars; 
-//     // drawing ceiling and floor
-//     draw_ceiling_and_floor(game, img);
-//     //Raycasting loop - One ray per screen column
-//     vars.screen_x = 0;
-//     while (vars.screen_x < game->scren_width)
-//     {
-//         // Calculate t (0.0 to 1.0) for this screen column
-//         vars.t = (double)vars.screen_x / game->scren_width;
-//         // Calculate ray direction for this column
-//         vars.ray_x = game->player.dir_x + (game->player.plane_x * vars.t);
-//         vars.ray_y = game->player.dir_y + (game->player.plane_y * vars.t);
-//         // Cast ray and get distance to wall
-//         vars.distance = cast_ray(game, vars.ray_x, vars.ray_y);
-//         // Calculate wall height based on distance
-//         vars.wall_height = (int)(game->scren_height / vars.distance);
-//         // Clamp wall height to screen
-//         if (vars.wall_height > game->scren_height)
-//             vars.wall_height = game->scren_height;
-//         // Calculate where to start drawing (center vertically)
-//         vars.start_y = (game->scren_height - vars.wall_height) / 2;
-//         vars.end_y = vars.start_y + vars.wall_height;
-//         // Draw vertical line at this screen column
-//         vars.y = vars.start_y;
-//         while (vars.y < vars.end_y)
-//         {
-//             put_pixel(vars.screen_x, vars.y, img, 0xeee6e3);  // wall color
-//             vars.y++;
-//         }
-//         vars.screen_x++;
-//     }
-//     //Display on screen
-//     mini_map(game, img);
-//    // first_draw_player(img, game, game->player.x, game->player.y);
-//     mlx_put_image_to_window(game->mlx, game->win, img->img_ptr, 0, 0);
-//     return 0;
-// }
-
-
-
-
- 
- 
- /**
- * @brief Gets the color of a single pixel from a texture.
- */
 unsigned int get_texture_color(t_texture *texture, int tex_x, int tex_y)
 {
     char    *dst;
@@ -161,13 +112,20 @@ int draw(t_game *game, t_img *img)
         vars.end_y = vars.start_y + vars.wall_height;
         if (vars.end_y >= game->scren_height) vars.end_y = game->scren_height - 1;
         
-        // --- TEXTURE LOGIC ---
-        // 1. Determine which texture to use based on which side was hit.
-        if (hit.side == 1 && vars.ray_y < 0) texture = &game->textures[0];
-        else if (hit.side == 1 && vars.ray_y > 0) texture = &game->textures[1];
-        else if (hit.side == 0 && vars.ray_x < 0) texture = &game->textures[2];
-        else texture = &game->textures[3];
-
+        //++++++++++++++++++++++++++++++++++++++++add this to detect the wall ++++++++++++++++++++++++++++=
+        char hit_char = game->map->map_arr[hit.map_y][hit.map_x];
+        if (hit_char == 'D')
+        {
+            texture = &game->textures[4];
+        }
+        else
+        {
+            if (hit.side == 1 && vars.ray_y < 0) texture = &game->textures[0]; // NORTH
+            else if (hit.side == 1 && vars.ray_y > 0) texture = &game->textures[1]; // SOUTH
+            else if (hit.side == 0 && vars.ray_x < 0) texture = &game->textures[2]; // WEST
+            else texture = &game->textures[3]; // EAST
+        }
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ++++++++++++++++++++++++++++=
         // 2. Calculate the x-coordinate on the texture.
         tex_x = (int)(hit.wall_x * (double)texture->width);
 

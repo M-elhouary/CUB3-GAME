@@ -1,0 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_key.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/04 23:03:50 by mel-houa          #+#    #+#             */
+/*   Updated: 2025/11/13 22:46:58 by moirhira         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/cub3d.h"
+
+int key_press_handler(int keycode, t_game *game)
+{
+	printf("Key pressed! Keycode: %d\n", keycode);
+	if (keycode == ESC_KEY)
+	{
+		close_and_free(game);
+		exit(0);
+	}
+	else if (keycode == 'w' || keycode == key_up)
+		game->keys.w = 1;
+	else if (keycode == 's' || keycode == key_down)
+		game->keys.s = 1;
+	else if (keycode == 'a')
+		game->keys.a = 1;
+	else if (keycode == 'd')
+		game->keys.d = 1;
+	else if (keycode == 'e')
+		game->keys.e = 1;
+	else if (keycode == key_left)
+		game->keys.left_arrow = 1;
+	else if (keycode == key_right)
+		game->keys.right_arrow = 1;
+	return (0);
+}
+
+int key_release_handler(int keycode, t_game *game)
+{
+	printf("Key released! Keycode: %d\n", keycode);
+	if (keycode == 'w' || keycode == key_up)
+		game->keys.w = 0;
+	else if (keycode == 's' || keycode == key_down)
+		game->keys.s = 0;
+	else if (keycode == 'a')
+		game->keys.a = 0;
+	else if (keycode == 'd')
+		game->keys.d = 0;
+	else if (keycode == 'e')
+		game->keys.e = 0;
+	else if (keycode == key_left)
+		game->keys.left_arrow = 0;
+	else if (keycode == key_right)
+		game->keys.right_arrow = 0;
+	return (0);
+}
+
+void init_keys(t_game *game)
+{
+	game->keys.w = 0;
+	game->keys.a = 0;
+	game->keys.s = 0;
+	game->keys.d = 0;
+	game->keys.e = 0;
+	game->keys.left_arrow = 0;
+	game->keys.right_arrow = 0;
+	game->move_speed = 0.03;
+	game->rot_speed = 0.02;
+}

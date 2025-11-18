@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/08 22:22:32 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:27:49 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ typedef struct s_ray_hit
     double  distance;       // Distance to the wall
     double  wall_x;         // Where exactly on the wall the ray hit (a value from 0.0 to 1.0)
     int     side;           // Which side of a grid cell was hit? (0 for E/W, 1 for N/S)
+    int map_x;
+    int map_y;
 }   t_ray_hit;
-
+//++++++++++++++++++++++++++++++++++xhange here i add map_x map_yu+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 typedef struct s_texture
 {
@@ -65,6 +67,7 @@ typedef struct s_keys
     int a;
     int s;
     int d;
+    int e;
     int left_arrow;
     int right_arrow;
     int esc;
@@ -104,14 +107,14 @@ typedef struct s_game
     void    *win;
     int		scren_width;
 	int		scren_height;
-    char    *tex_paths[4];
+    char    *tex_paths[5];
     t_map   *map;
     t_player player;
     t_color floor_color;
     t_img    *img;
     t_color ceiling_color;
     t_keys keys;
-    t_texture textures[4];
+    t_texture textures[5];
     double move_speed;
     double rot_speed;
 }   t_game;
@@ -147,7 +150,7 @@ int key_press_handler(int keycode, t_game *game);
 int key_release_handler(int keycode, t_game *game);
 void init_keys(t_game *game);
 void move_player(t_game *game);
-void rotate_player(t_game *game);
+void rotate_player(t_game *game, double rot, int f);
 int game_update(t_game *game);
 int init_randring(t_game *game);
 

@@ -6,7 +6,7 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 21:53:36 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/06 23:32:46 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/12 23:15:56 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int parse_configurations(t_game *game, int fd, char **f_line)
 			free(line);
 			continue;
 		}
-		if (parsed == 6)
+		if (parsed == 7)
 		{
 			*f_line = line;
 			return (1);
@@ -55,6 +55,8 @@ int parse_configurations(t_game *game, int fd, char **f_line)
 			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[2]);
 		else if (ft_strncmp("EA ", trimmed, 3) == 0)
 			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[3]);
+		else if (ft_strncmp("DO ", trimmed, 3) == 0)
+			parsed += parse_texture(get_arg(trimmed), &game->tex_paths[4]);
 		else if ((ft_strncmp("F ", trimmed, 2) == 0))
 			parsed += parse_color(get_arg(trimmed), &game->floor_color);
 		else if ((ft_strncmp("C ", trimmed, 2) == 0))
@@ -68,7 +70,7 @@ int parse_configurations(t_game *game, int fd, char **f_line)
 		free(trimmed);
 		free(line);
 	}
-	if (parsed != 6)
+	if (parsed != 7)
 		return (printf("Error\nMissing configuration element\n"), 0);
 	f_line = NULL;
 	return (1);

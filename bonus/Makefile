@@ -1,4 +1,4 @@
-NAME = cub3D
+NAME = cub3D_bonus
 CC = cc -g
 CFLAGS = -I include
 SRCS_PARSING = src/main.c \
