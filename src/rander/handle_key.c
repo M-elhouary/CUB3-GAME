@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_key.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:03:50 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/08 14:43:43 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/19 22:59:45 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int key_press_handler(int keycode, t_game *game)
+int	key_press_handler(int keycode, t_game *game)
 {
 	printf("Key pressed! Keycode: %d\n", keycode);
 	if (keycode == ESC_KEY)
@@ -35,7 +35,7 @@ int key_press_handler(int keycode, t_game *game)
 	return (0);
 }
 
-int key_release_handler(int keycode, t_game *game)
+int	key_release_handler(int keycode, t_game *game)
 {
 	printf("Key released! Keycode: %d\n", keycode);
 	if (keycode == 'w' || keycode == key_up)
@@ -53,7 +53,7 @@ int key_release_handler(int keycode, t_game *game)
 	return (0);
 }
 
-void init_keys(t_game *game)
+void	init_keys(t_game *game)
 {
 	game->keys.w = 0;
 	game->keys.a = 0;

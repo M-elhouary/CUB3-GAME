@@ -1,10 +1,11 @@
-WE assets/wall.xpm
-NO assets/wall.xpm
-SO assets/wall.xpm
-EA assets/wall.xpm
+WE assets/hony.xpm
+NO assets/moncky.xpm
+SO assets/liong.xpm
+EA assets/spiderg.xpm
 DO assets/door.xpm
-F 220,100,0
-C 00,0,0
+
+F 110,110,160
+C 0,245,255
 
 
 111111111111111111111111111111111111

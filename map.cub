@@ -1,10 +1,9 @@
-WE assets/door.xpm
-NO assets/door.xpm
-SO assets/door.xpm
-EA assets/door.xpm
-F 220,100,0
-C 00,0,0
-
+WE assets/hony.xpm
+NO assets/AnyConv.xpm
+SO assets/liong.xpm
+EA assets/spiderg.xpm
+F 110,110,160
+C 0,245,255
 
 	111111111111111111111111111111111111
 	110000000000000000000000000011111111
