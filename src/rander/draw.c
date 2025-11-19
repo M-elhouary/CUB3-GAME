@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/19 23:11:55 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/19 23:28:16 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_draw
 // Determine which texture to use based on which side was hit
 t_texture	*side_hit(int hit_side, double ray_y, double ray_x, t_game *game)
 {
+	
 	if (hit_side == 1 && ray_y < 0)
 		return (&game->textures[0]);
 	else if (hit_side == 1 && ray_y > 0)

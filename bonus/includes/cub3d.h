@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/14 22:27:49 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/19 23:42:54 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,12 @@ void put_pixel(int x, int y, t_img *img, int color);
 int mini_map(t_game *game, t_img *img);
 int handle_key(int key, void *param);
 int handle_win_close(void *param);
+void	draw_ceiling_and_floor(t_game *game, t_img *img);
 void draw_player(t_img *img, t_game *game, double x, double y);
+void	put_pixel(int x, int y, t_img *img, int color);
+unsigned int	get_texture_color(t_texture *texture, int tex_x, int tex_y);
 
+int	check_player(char player);
 
 int key_press_handler(int keycode, t_game *game);
 int key_release_handler(int keycode, t_game *game);

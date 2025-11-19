@@ -3,35 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   player_movment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:07:38 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/14 22:34:05 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/11/19 23:32:19 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int is_wall(t_game *game, double x, double y)
+int	is_wall(t_game *game, double x, double y)
 {
+	int	new_x;
+	int	new_y;
 
-	int new_x;
-	int new_y;
 	new_x = (int)(x);
 	new_y = (int)(y);
-	if (new_x < 0 || new_y < 0 || new_y >= game->map->height || game->map->width <= new_x)
-		return 1;
-	if (game->map->map_arr[new_y][new_x] == '1' || game->map->map_arr[new_y][new_x] == 'D')
-		return 1;
-	return 0;
+	if (new_x < 0 || new_y < 0 || new_y >= game->map->height
+		|| game->map->width <= new_x)
+		return (1);
+	if (game->map->map_arr[new_y][new_x] == '1'
+		|| game->map->map_arr[new_y][new_x] == 'D')
+		return (1);
+	return (0);
 }
 
-void move_player(t_game *game)
+void	move_player(t_game *game)
 {
-	double move_x;
-	double move_y;
-	double new_x;
-	double new_y;
+	double	move_x;
+	double	move_y;
+	double	new_x;
+	double	new_y;
 
 	move_x = 0.0;
 	move_y = 0.0;
@@ -60,19 +62,17 @@ void move_player(t_game *game)
 	//         game->player.dir_x, game->player.dir_y);
 	new_x = game->player.pos_x + move_x;
 	new_y = game->player.pos_y + move_y;
-
 	if (is_wall(game, new_x, game->player.pos_y) == 0)
 		game->player.pos_x = new_x;
-
 	if (is_wall(game, game->player.pos_x, new_y) == 0)
 		game->player.pos_y = new_y;
 }
 
-void rotate_player(t_game *game, double rot, int f)
+void	rotate_player(t_game *game, double rot, int f)
 {
-	double rot_speed;
-	double old_dir_x;
-	double old_plane_x;
+	double	rot_speed;
+	double	old_dir_x;
+	double	old_plane_x;
 
 	rot_speed = 0;
 	if (f == 1)
@@ -92,28 +92,32 @@ void rotate_player(t_game *game, double rot, int f)
 			printf("left arrow\n");
 		}
 		else
-			return;
+			return ;
 	}
-
 	old_dir_x = game->player.dir_x;
-	game->player.dir_x = game->player.dir_x * cos(rot_speed) - game->player.dir_y * sin(rot_speed);
-	game->player.dir_y = old_dir_x * sin(rot_speed) + game->player.dir_y * cos(rot_speed);
-
+	game->player.dir_x = game->player.dir_x * cos(rot_speed)
+		- game->player.dir_y * sin(rot_speed);
+	game->player.dir_y = old_dir_x * sin(rot_speed) + game->player.dir_y
+		* cos(rot_speed);
 	old_plane_x = game->player.plane_x;
-	game->player.plane_x = game->player.plane_x * cos(rot_speed) - game->player.plane_y * sin(rot_speed);
-	game->player.plane_y = old_plane_x * sin(rot_speed) + game->player.plane_y * cos(rot_speed);
+	game->player.plane_x = game->player.plane_x * cos(rot_speed)
+		- game->player.plane_y * sin(rot_speed);
+	game->player.plane_y = old_plane_x * sin(rot_speed) + game->player.plane_y
+		* cos(rot_speed);
 }
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++add this to check the open the doo +++++++++++++++++++++++++++++
-void open_door(t_game *game)
+void	open_door(t_game *game)
 {
+	int		check_x;
+	int		check_y;
+	char	tile;
+
 	if (game->keys.e == 1)
 	{
 		printf("opne door\n");
-		int check_x = (int)(game->player.pos_x + game->player.dir_x * 0.8);
-		int check_y = (int)(game->player.pos_y + game->player.dir_y * 0.8);
-
-		char tile = game->map->map_arr[check_y][check_x];
-
+		check_x = (int)(game->player.pos_x + game->player.dir_x * 0.8);
+		check_y = (int)(game->player.pos_y + game->player.dir_y * 0.8);
+		tile = game->map->map_arr[check_y][check_x];
 		if (tile == 'D')
 			game->map->map_arr[check_y][check_x] = 'O';
 		else if (tile == 'O')
@@ -122,9 +126,7 @@ void open_door(t_game *game)
 }
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
-
-int game_update(t_game *game)
+int	game_update(t_game *game)
 {
 	move_player(game);
 	rotate_player(game, 0, 0);

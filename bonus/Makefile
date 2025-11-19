@@ -19,7 +19,9 @@ SRC_RANDRING = src/rander/randring.c\
 				src/rander/raycasting.c\
 				src/rander/mini_map.c\
 				src/rander/handle_key.c\
-				src/rander/load_textures.c
+				src/rander/load_textures.c\
+				src/rander/mini_map_utils.c\
+				src/rander/draw_utils.c
 
 SRCS = $(SRCS_PARSING)  $(SRC_RANDRING)
 
