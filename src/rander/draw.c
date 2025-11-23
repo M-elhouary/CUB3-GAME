@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/19 23:28:16 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/20 14:50:08 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	draw(t_game *game, t_img *img)
 	vars.screen_x = 0;
 	while (vars.screen_x < game->scren_width)
 	{
-		// 'camera_x' maps the screen column to the range [-1,1] for a correct FOV.
+		//camera_x maps the screen column to the range [-1,1] for a correct FOV.
 		camera_x = 2 * (double)vars.screen_x / (double)game->scren_width - 1;
 		vars.ray_x = game->player.dir_x + game->player.plane_x * camera_x;
 		vars.ray_y = game->player.dir_y + game->player.plane_y * camera_x;

@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 22:59:34 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/19 23:30:01 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/20 14:47:04 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ int	mini_map(t_game *game, t_img *img)
 		y++;
 	}
 	draw_player(img, game, game->player.pos_x, game->player.pos_y);
-	// draw_player_dir(img, game, game->player.x, game->player.y);
 	mlx_put_image_to_window(game->mlx, game->win, img->img_ptr, 0, 0);
 	return (0);
 }

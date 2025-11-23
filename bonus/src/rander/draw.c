@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/19 23:44:33 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/20 14:48:53 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
 
 	while (vars->y < vars->end_y)
 	{
-		// 4. Get the y-coordinate on the texture and get the color.
+		//Get the y-coordinate on the texture and get the color.
 		vars->tex_y = (int)vars->tex_pos;
 		vars->tex_pos += vars->tex_step;
 		color = get_texture_color(texture, vars->tex_x, vars->tex_y);
@@ -92,7 +92,7 @@ void	draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
 	}
 }
 
-// 'camera_x' maps the screen column to the range [-1, 1] for a correct FOV.
+//camera_x maps the screen column to the range [-1, 1] for a correct FOV.
 
 void	calcule_dist_wall_height(t_game *game, t_draw_vars *vars, t_ray_hit hit)
 {
@@ -121,7 +121,7 @@ int	draw(t_game *game, t_img *img)
 	vars.screen_x = 0;
 	while (vars.screen_x < game->scren_width)
 	{
-		// 'camera_x' maps the screen column to the range [-1,1] for a correct FOV.
+		// camera_x maps the screen column to the range [-1,1] for a correct FOV.
 		camera_x = 2 * (double)vars.screen_x / (double)game->scren_width - 1;
 		vars.ray_x = game->player.dir_x + game->player.plane_x * camera_x;
 		vars.ray_y = game->player.dir_y + game->player.plane_y * camera_x;
