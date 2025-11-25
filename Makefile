@@ -20,8 +20,9 @@ SRC_RANDRING = src/rander/randring.c\
 				src/rander/mini_map.c\
 				src/rander/handle_key.c\
 				src/rander/load_textures.c\
-				src/rander/drwa_urils.c\
-				src/rander/mini_map_utils.c
+				src/rander/drwa_utils.c\
+				src/rander/mini_map_utils.c\
+				src/rander/camera_plan.c\
 
 SRCS = $(SRCS_PARSING)  $(SRC_RANDRING)
 

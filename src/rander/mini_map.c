@@ -6,34 +6,34 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 22:59:34 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/19 22:59:28 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/25 01:21:41 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	draw_ceiling(t_img *img, t_game *game, int x, int y)
-{
-	int	dx;
-	int	dy;
-	int	offset_x;
+// void	draw_ceiling(t_img *img, t_game *game, int x, int y)
+// {
+// 	int	dx;
+// 	int	dy;
+// 	int	offset_x;
 
-	dy = 0;
-	offset_x = game->scren_width - (game->map->width * 5) - 5;
-	// right side
-	int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
-	while (dy < 5)
-	{
-		dx = 0;
-		while (dx < 5)
-		{
-			put_pixel(offset_x + x * 5 + dx, offset_y + y * 5 + dy, img,
-				0xfb2b);
-			dx++;
-		}
-		dy++;
-	}
-}
+// 	dy = 0;
+// 	offset_x = game->scren_width - (game->map->width * 5) - 5;
+// 	// right side
+// 	int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
+// 	while (dy < 5)
+// 	{
+// 		dx = 0;
+// 		while (dx < 5)
+// 		{
+// 			put_pixel(offset_x + x * 5 + dx, offset_y + y * 5 + dy, img,
+// 				0xfb2b);
+// 			dx++;
+// 		}
+// 		dy++;
+// 	}
+// }
 
 void	draw_floor(t_img *img, t_game *game, int x, int y)
 {
@@ -121,9 +121,6 @@ int	mini_map(t_game *game, t_img *img)
 				&& (game->map->map_arr[y][x] == '0'
 					|| check_player(game->map->map_arr[y][x])))
 				draw_floor(img, game, x, y);
-			else if (y < game->map->height && x < game->map->width
-				&& game->map->map_arr[y][x] == ' ')
-				draw_ceiling(img, game, x, y);
 			x++;
 		}
 		y++;

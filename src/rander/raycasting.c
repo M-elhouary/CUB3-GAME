@@ -6,89 +6,111 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:08:03 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/20 15:34:05 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:56:06 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	north_east(t_game *game)
+typedef struct s_dda
 {
-	if (game->player.dir == 'N') // NORTH DIRECTION AND PLANE
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit_wall;
+	int		side;
+}			t_dda;
+
+static void	calc_side_x(t_game *game, t_dda *dda, double ray_x)
+{
+	if (ray_x < 0)
 	{
-		game->player.dir_x = 0;
-		game->player.dir_y = -1;
-		game->player.plane_x = 0.66;
-		game->player.plane_y = 0;
+		dda->step_x = -1;
+		dda->side_dist_x = (game->player.pos_x - dda->map_x)
+			* dda->delta_dist_x;
 	}
-	else if (game->player.dir == 'E') // EAST DIRECTION AND PLANE
+	else
 	{
-		game->player.dir_x = 1;
-		game->player.dir_y = 0;
-		game->player.plane_x = 0;
-		game->player.plane_y = 0.66;
+		dda->step_x = 1;
+		dda->side_dist_x = (dda->map_x + 1.0 - game->player.pos_x)
+			* dda->delta_dist_x;
 	}
 }
 
-void	south_west(t_game *game)
+static void	calc_side_y(t_game *game, t_dda *dda, double ray_y)
 {
-	if (game->player.dir == 'S') // SOUTH DIRECTION AND PLANE
+	if (ray_y < 0)
 	{
-		game->player.dir_x = 0;
-		game->player.dir_y = 1;
-		game->player.plane_x = -0.66;
-		game->player.plane_y = 0;
+		dda->step_y = -1;
+		dda->side_dist_y = (game->player.pos_y - dda->map_y)
+			* dda->delta_dist_y;
 	}
-	else if (game->player.dir == 'W') // WEST DIRECTION AND PLANE
+	else
 	{
-		game->player.dir_x = -1;
-		game->player.dir_y = 0;
-		game->player.plane_x = 0;
-		game->player.plane_y = -0.66;
+		dda->step_y = 1;
+		dda->side_dist_y = (dda->map_y + 1.0 - game->player.pos_y)
+			* dda->delta_dist_y;
 	}
 }
 
-// Set initial direction and camera plane based on player starting orientation
-void	camera(t_game *game)
+void	calcule_side(t_game *game, t_dda *dda, double ray_x, double ray_y)
 {
-	north_east(game);
-	south_west(game);
+	dda->map_x = (int)game->player.pos_x;
+	dda->map_y = (int)game->player.pos_y;
+	dda->delta_dist_x = fabs(1 / ray_x);
+	dda->delta_dist_y = fabs(1 / ray_y);
+	calc_side_x(game, dda, ray_x);
+	calc_side_y(game, dda, ray_y);
 }
 
-int	check_wall(double check_x, double check_y, t_ray_hit *hit, t_game *game)
+void	calc_perp_dist(t_dda *dda, t_game *game)
 {
-	if (is_wall(game, check_x, check_y) == 1)
+	while (dda->hit_wall == 0)
 	{
-		// We hit a wall! Now, figure out wall_x for texturing.
-		if (fabs(check_x - round(check_x)) < 0.01) // Hit a vertical (E/W) wall
+		if (dda->side_dist_x < dda->side_dist_y)
 		{
-			hit->side = 0;
-			hit->wall_x = check_y - floor(check_y);
+			dda->side_dist_x += dda->delta_dist_x;
+			dda->map_x += dda->step_x;
+			dda->side = 0;
 		}
-		else // Hit a horizontal (N/S) wall
+		else
 		{
-			hit->side = 1;
-			hit->wall_x = check_x - floor(check_x);
+			dda->side_dist_y += dda->delta_dist_y;
+			dda->map_y += dda->step_y;
+			dda->side = 1;
 		}
-		return (1); // Return all the hit info
+		if (dda->map_y < 0 || dda->map_y >= game->map->height || dda->map_x < 0
+			|| dda->map_x >= game->map->width)
+			dda->hit_wall = 1;
+		else if (game->map->map_arr[dda->map_y][dda->map_x] == '1')
+			dda->hit_wall = 1;
 	}
-	return (0);
 }
+
 t_ray_hit	cast_ray(t_game *game, double ray_x, double ray_y)
 {
 	t_ray_hit	hit;
-	double		check_x;
-	double		check_y;
+	t_dda		dda;
 
-	hit.distance = 0.0;
-	while (hit.distance < 100) // A max distance to prevent infinite loops
-	{
-		check_x = game->player.pos_x + ray_x * hit.distance;
-		check_y = game->player.pos_y + ray_y * hit.distance;
-		if (check_wall(check_x, check_y, &hit, game))
-			return (hit);
-		hit.distance += 0.01; // Take a small step
-	}
-	hit.distance = 100; // If no wall found, return a large distance
+	dda.hit_wall = 0;
+	calcule_side(game, &dda, ray_x, ray_y);
+	calc_perp_dist(&dda, game);
+	if (dda.side == 0)
+		dda.perp_wall_dist = (dda.side_dist_x - dda.delta_dist_x);
+	else
+		dda.perp_wall_dist = (dda.side_dist_y - dda.delta_dist_y);
+	hit.distance = dda.perp_wall_dist;
+	hit.side = dda.side;
+	if (dda.side == 0)
+		hit.wall_x = game->player.pos_y + dda.perp_wall_dist * ray_y;
+	else
+		hit.wall_x = game->player.pos_x + dda.perp_wall_dist * ray_x;
+	hit.wall_x -= floor(hit.wall_x);
 	return (hit);
 }

@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/20 14:51:24 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:57:58 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	win_scal(t_game *game)
 {
 	game->scren_height = game->map->height * 40;
 	game->scren_width = game->map->width * 40;
+	if (game->scren_height > 1080)
+		game->scren_height = 1080;
+	if (game->scren_width > 1920)
+		game->scren_width = 1920;
 }
 
 int	main(int ac, char **av)
@@ -57,7 +61,7 @@ int	main(int ac, char **av)
 		return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
 	if (!init_game(&game, av[1]))
 		return (1);
-	// camera 
+	// camera
 	camera(game);
 	win_scal(game);
 	if (init_randring(game) == 1)

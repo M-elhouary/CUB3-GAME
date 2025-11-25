@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 20:50:14 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/19 22:59:50 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:59:01 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_ceiling_and_floor(t_game *game, t_img *img)
 		while (screen_x < game->scren_width)
 		{
 			put_pixel(screen_x, y, img, game->ceiling_color.hex_color);
-				// add the color from the map.cup file
+			// add the color from the map.cup file
 			screen_x++;
 		}
 		y++;
@@ -35,7 +35,7 @@ void	draw_ceiling_and_floor(t_game *game, t_img *img)
 		while (screen_x < game->scren_width)
 		{
 			put_pixel(screen_x, y, img, game->floor_color.hex_color);
-				// add the color from the map.cup file
+			// add the color from the map.cup file
 			screen_x++;
 		}
 		y++;

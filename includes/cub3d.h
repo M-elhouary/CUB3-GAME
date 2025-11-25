@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/19 21:12:36 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:44:34 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void put_pixel(int x, int y, t_img *img, int color);
 int mini_map(t_game *game, t_img *img);
 void draw_player(t_img *img, t_game *game, double x, double y);
 int check_player(char player);
+void	camera(t_game *game);
 
 
 int key_press_handler(int keycode, t_game *game);
