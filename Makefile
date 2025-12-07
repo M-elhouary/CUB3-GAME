@@ -1,5 +1,5 @@
 NAME = cub3D
-CC = cc -g
+CC = cc
 CFLAGS = -I include
 SRCS_PARSING = src/main.c \
 			src/parsing/parse.c\
@@ -16,7 +16,7 @@ SRCS_PARSING = src/main.c \
 SRC_RANDRING = src/rander/randring.c\
 				src/rander/draw.c\
 				src/rander/player_movment.c\
-				src/rander/raycasting.c\
+				src/rander/ddaAlgo.c\
 				src/rander/mini_map.c\
 				src/rander/handle_key.c\
 				src/rander/load_textures.c\

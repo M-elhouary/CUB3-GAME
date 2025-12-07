@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/19 23:32:25 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:58:11 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,8 @@ int	init_randring(t_game *game)
 	if (init_image(game, game->img))
 		return (1);
 	init_keys(game);
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	mlx_mouse_hide(game->mlx, game->win);
 	mlx_hook(game->win, 6, 1L << 6, handel_mouse_move, game);
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	mlx_hook(game->win, 2, 1L << 0, key_press_handler, game);
 	mlx_hook(game->win, 3, 1L << 1, key_release_handler, game);
 	mlx_hook(game->win, 17, 0, close_and_free, game);

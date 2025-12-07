@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/25 15:44:34 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/26 01:44:44 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef struct s_ray_hit
 {
     double  distance;       // Distance to the wall
     double  wall_x;         // Where exactly on the wall the ray hit (a value from 0.0 to 1.0)
-    int     side;           // Which side of a grid cell was hit? (0 for E/W, 1 for N/S)
+    int     side;  
+    int map_x;
+    int map_y;         // Which side of a grid cell was hit? (0 for E/W, 1 for N/S)
 }   t_ray_hit;
 
 

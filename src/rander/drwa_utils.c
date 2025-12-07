@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drwa_urils.c                                       :+:      :+:    :+:   */
+/*   drwa_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 20:50:14 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/25 15:59:01 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/03 22:12:33 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	draw_ceiling_and_floor(t_game *game, t_img *img)
 		while (screen_x < game->scren_width)
 		{
 			put_pixel(screen_x, y, img, game->ceiling_color.hex_color);
-			// add the color from the map.cup file
 			screen_x++;
 		}
 		y++;
@@ -35,7 +34,6 @@ void	draw_ceiling_and_floor(t_game *game, t_img *img)
 		while (screen_x < game->scren_width)
 		{
 			put_pixel(screen_x, y, img, game->floor_color.hex_color);
-			// add the color from the map.cup file
 			screen_x++;
 		}
 		y++;
@@ -56,7 +54,7 @@ unsigned int	get_texture_color(t_texture *texture, int tex_x, int tex_y)
 
 	if (tex_x < 0 || tex_x >= texture->width || tex_y < 0
 		|| tex_y >= texture->height)
-		return (0x0); // Return black if coordinates are out of bounds
+		return (0x0);
 	dst = texture->addr + (tex_y * texture->size_line + tex_x
 			* (texture->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);

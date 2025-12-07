@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:08:03 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/25 15:56:06 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/11/26 01:10:04 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,7 @@ t_ray_hit	cast_ray(t_game *game, double ray_x, double ray_y)
 	else
 		hit.wall_x = game->player.pos_x + dda.perp_wall_dist * ray_x;
 	hit.wall_x -= floor(hit.wall_x);
+	hit.map_x = dda.map_x;
+	hit.map_y = dda.map_y;
 	return (hit);
 }

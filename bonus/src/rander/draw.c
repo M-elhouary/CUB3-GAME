@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/20 14:48:53 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:57:30 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_draw
 	double	tex_pos;
 }			t_draw_vars;
 
-// Determine which texture to use based on which side was hit
 t_texture	*side_hit(t_ray_hit *hit, double ray_y, double ray_x, t_game *game)
 {
 	char	hit_char;
@@ -54,9 +53,8 @@ t_texture	*side_hit(t_ray_hit *hit, double ray_y, double ray_x, t_game *game)
 	}
 	return (NULL);
 }
-// Calculate the x-coordinate on the texture
-void	tex_cordinates(t_texture *texture, t_ray_hit hit, t_game *game,
-		t_draw_vars *vars)
+void tex_cordinates(t_texture *texture, t_ray_hit hit, t_game *game,
+					t_draw_vars *vars)
 {
 	if (vars->wall_height <= 0 || texture->height <= 0)
 	{
@@ -64,27 +62,31 @@ void	tex_cordinates(t_texture *texture, t_ray_hit hit, t_game *game,
 		vars->tex_y = 0;
 		vars->tex_step = 0.0;
 		vars->tex_pos = 0.0;
-		return ;
+		return;
 	}
 	vars->tex_x = (int)(hit.wall_x * (double)texture->width);
+	if ((hit.side == 0 && vars->ray_x > 0) || (hit.side == 1 && vars->ray_y < 0))
+		vars->tex_x = texture->width - vars->tex_x - 1;
 	if (vars->tex_x < 0)
 		vars->tex_x = 0;
 	if (vars->tex_x >= texture->width)
 		vars->tex_x = texture->width - 1;
 	vars->tex_step = (double)texture->height / (double)vars->wall_height;
-	vars->tex_pos = ((double)vars->start_y - (double)game->scren_height / 2.0
-			+ (double)vars->wall_height / 2.0) * vars->tex_step;
+	vars->tex_pos = ((double)vars->start_y - (double)game->scren_height / 2.0 + (double)vars->wall_height / 2.0) * vars->tex_step;
 }
 
-//  Draw the vertical line at this screen column
-void	draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
+void draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
 {
-	unsigned int	color;
+	unsigned int color;
 
 	while (vars->y < vars->end_y)
 	{
-		//Get the y-coordinate on the texture and get the color.
 		vars->tex_y = (int)vars->tex_pos;
+		if (vars->tex_y >= texture->height)
+			vars->tex_y = texture->height - 1;
+		if (vars->tex_y < 0)
+			vars->tex_y = 0;
+
 		vars->tex_pos += vars->tex_step;
 		color = get_texture_color(texture, vars->tex_x, vars->tex_y);
 		put_pixel(vars->screen_x, vars->y, img, color);
@@ -92,16 +94,9 @@ void	draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
 	}
 }
 
-//camera_x maps the screen column to the range [-1, 1] for a correct FOV.
-
-void	calcule_dist_wall_height(t_game *game, t_draw_vars *vars, t_ray_hit hit)
+void calcule_dist_wall_height(t_game *game, t_draw_vars *vars, t_ray_hit hit)
 {
-	// FIX Correct for Fisheye Distortion
-	//  This math corrects the distance to prevent walls from looking curved.
-	vars->correct_dist = hit.distance * (vars->ray_x * game->player.dir_x
-			+ vars->ray_y * game->player.dir_y);
-	// Calculate wall height based on the CORRECTED distance
-	vars->wall_height = (int)(game->scren_height / vars->correct_dist);
+	vars->wall_height = (int)(game->scren_height / hit.distance);
 	vars->start_y = (game->scren_height - vars->wall_height) / 2;
 	if (vars->start_y < 0)
 		vars->start_y = 0;
@@ -121,11 +116,9 @@ int	draw(t_game *game, t_img *img)
 	vars.screen_x = 0;
 	while (vars.screen_x < game->scren_width)
 	{
-		// camera_x maps the screen column to the range [-1,1] for a correct FOV.
 		camera_x = 2 * (double)vars.screen_x / (double)game->scren_width - 1;
 		vars.ray_x = game->player.dir_x + game->player.plane_x * camera_x;
 		vars.ray_y = game->player.dir_y + game->player.plane_y * camera_x;
-		// Cast the ray using our upgraded function
 		hit = cast_ray(game, vars.ray_x, vars.ray_y);
 		calcule_dist_wall_height(game, &vars, hit);
 		texture = side_hit(&hit, vars.ray_y, vars.ray_x, game);

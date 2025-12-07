@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/25 15:57:58 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/03 21:33:32 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	main(int ac, char **av)
 		return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
 	if (!init_game(&game, av[1]))
 		return (1);
-	// camera
 	camera(game);
 	win_scal(game);
 	if (init_randring(game) == 1)

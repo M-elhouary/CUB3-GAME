@@ -5,12 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 15:43:13 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/03 16:01:42 by mel-houa         ###   ########.fr       */
+/*   Created: 2025/11/26 00:26:53 by mel-houa          #+#    #+#             */
+/*   Updated: 2025/12/03 15:57:02 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+
+
+
 
 void	north_east(t_game *game)
 {
@@ -20,8 +24,7 @@ void	north_east(t_game *game)
 		game->player.dir_y = -1;
 		game->player.plane_x = 0.66;
 		game->player.plane_y = 0;
-	}
-	else if (game->player.dir == 'E')
+	} // EAST DIRECTION AND PLANE
 	{
 		game->player.dir_x = 1;
 		game->player.dir_y = 0;
@@ -32,7 +35,7 @@ void	north_east(t_game *game)
 
 void	south_west(t_game *game)
 {
-	if (game->player.dir == 'S')
+	if (game->player.dir == 'S') 
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = 1;

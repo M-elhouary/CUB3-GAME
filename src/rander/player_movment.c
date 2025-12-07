@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:07:38 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/25 15:58:24 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:56:25 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	move_player(t_game *game)
 
 	move_x = 0.0;
 	move_y = 0.0;
-	// W S A D MOVEMENT
 	w_s_a_d_movement(game, &move_x, &move_y);
 	new_x = game->player.pos_x + move_x;
 	new_y = game->player.pos_y + move_y;

@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:07:38 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/19 23:32:19 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:58:05 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,33 @@ int	is_wall(t_game *game, double x, double y)
 	if (new_x < 0 || new_y < 0 || new_y >= game->map->height
 		|| game->map->width <= new_x)
 		return (1);
-	if (game->map->map_arr[new_y][new_x] == '1'
-		|| game->map->map_arr[new_y][new_x] == 'D')
+	if (game->map->map_arr[new_y][new_x] == '1')
 		return (1);
 	return (0);
+}
+
+void	w_s_a_d_movement(t_game *game, double *move_x, double *move_y)
+{
+	if (game->keys.w == 1)
+	{
+		*move_x += game->player.dir_x * game->move_speed;
+		*move_y += game->player.dir_y * game->move_speed;
+	}
+	if (game->keys.s == 1)
+	{
+		*move_x -= game->player.dir_x * game->move_speed;
+		*move_y -= game->player.dir_y * game->move_speed;
+	}
+	if (game->keys.a == 1)
+	{
+		*move_x -= game->player.plane_x * game->move_speed;
+		*move_y -= game->player.plane_y * game->move_speed;
+	}
+	if (game->keys.d == 1)
+	{
+		*move_x += game->player.plane_x * game->move_speed;
+		*move_y += game->player.plane_y * game->move_speed;
+	}
 }
 
 void	move_player(t_game *game)
@@ -37,29 +60,7 @@ void	move_player(t_game *game)
 
 	move_x = 0.0;
 	move_y = 0.0;
-	if (game->keys.w == 1)
-	{
-		move_x += game->player.dir_x * game->move_speed;
-		move_y += game->player.dir_y * game->move_speed;
-	}
-	if (game->keys.s == 1)
-	{
-		move_x -= game->player.dir_x * game->move_speed;
-		move_y -= game->player.dir_y * game->move_speed;
-	}
-	if (game->keys.a == 1)
-	{
-		move_x -= game->player.plane_x * game->move_speed;
-		move_y -= game->player.plane_y * game->move_speed;
-	}
-	if (game->keys.d == 1)
-	{
-		move_x += game->player.plane_x * game->move_speed;
-		move_y += game->player.plane_y * game->move_speed;
-	}
-	// printf("Pos: (%.2f, %.2f) | Dir: (%.2f, %.2f)\n",
-	//         game->player.pos_x, game->player.pos_y,
-	//         game->player.dir_x, game->player.dir_y);
+	w_s_a_d_movement(game, &move_x, &move_y);
 	new_x = game->player.pos_x + move_x;
 	new_y = game->player.pos_y + move_y;
 	if (is_wall(game, new_x, game->player.pos_y) == 0)
@@ -76,21 +77,13 @@ void	rotate_player(t_game *game, double rot, int f)
 
 	rot_speed = 0;
 	if (f == 1)
-	{
 		rot_speed = rot;
-	}
 	else
 	{
 		if (game->keys.right_arrow == 1)
-		{
-			printf("right arrow\n");
 			rot_speed = game->rot_speed;
-		}
 		else if (game->keys.left_arrow == 1)
-		{
 			rot_speed = -game->rot_speed;
-			printf("left arrow\n");
-		}
 		else
 			return ;
 	}
@@ -105,7 +98,6 @@ void	rotate_player(t_game *game, double rot, int f)
 	game->player.plane_y = old_plane_x * sin(rot_speed) + game->player.plane_y
 		* cos(rot_speed);
 }
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++add this to check the open the doo +++++++++++++++++++++++++++++
 void	open_door(t_game *game)
 {
 	int		check_x;
@@ -124,7 +116,6 @@ void	open_door(t_game *game)
 			game->map->map_arr[check_y][check_x] = 'D';
 	}
 }
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 int	game_update(t_game *game)
 {
