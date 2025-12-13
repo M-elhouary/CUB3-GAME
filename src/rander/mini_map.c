@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 22:59:34 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/03 16:12:04 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/12 12:26:17 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void	draw_floor(t_img *img, t_game *game, int x, int y)
 	int	dx;
 	int	dy;
 	int	offset_x;
+	int	offset_y;
 
 	dy = 0;
 	offset_x = game->scren_width - (game->map->width * 5) - 5;
-	int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
+	offset_y = game->scren_height - (game->map->height * 5) - 5;
 	while (dy < 5)
 	{
 		dx = 0;
@@ -39,9 +40,10 @@ void	draw_wall(t_img *img, t_game *game, int x, int y)
 	int	dx;
 	int	dy;
 	int	offset_x;
+	int	offset_y;
 
 	offset_x = game->scren_width - (game->map->width * 5) - 5;
-	int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
+	offset_y = game->scren_height - (game->map->height * 5) - 5;
 	dy = 0;
 	while (dy < 5)
 	{
@@ -61,10 +63,10 @@ void	draw_player(t_img *img, t_game *game, double x, double y)
 	int	dx;
 	int	dy;
 	int	offset_x;
+	int	offset_y;
 
 	offset_x = game->scren_width - (game->map->width * 5) - 5;
-	// right side
-	int offset_y = game->scren_height - (game->map->height * 5) - 5; // bottom
+	offset_y = game->scren_height - (game->map->height * 5) - 5;
 	dy = -4;
 	while (dy < 5)
 	{
@@ -81,7 +83,9 @@ void	draw_player(t_img *img, t_game *game, double x, double y)
 
 int	mini_map(t_game *game, t_img *img)
 {
-	int y, x;
+	int	y;
+	int	x;
+
 	y = 0;
 	x = 0;
 	while (y < game->scren_height)
@@ -92,9 +96,9 @@ int	mini_map(t_game *game, t_img *img)
 			if (y < game->map->height && x < game->map->width
 				&& game->map->map_arr[y][x] == '1')
 				draw_wall(img, game, x, y);
-			else if (y < game->map->height && x < game->map->width
+			else if ((y < game->map->height && x < game->map->width)
 				&& (game->map->map_arr[y][x] == '0'
-					|| check_player(game->map->map_arr[y][x])))
+				|| is_player(game->map->map_arr[y][x])))
 				draw_floor(img, game, x, y);
 			x++;
 		}

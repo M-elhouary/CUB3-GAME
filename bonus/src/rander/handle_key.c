@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_key.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:03:50 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/19 23:31:44 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/12 12:29:05 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	key_press_handler(int keycode, t_game *game)
 		close_and_free(game);
 		exit(0);
 	}
-	else if (keycode == 'w' || keycode == key_up)
+	else if (keycode == 'w' || keycode == KEY_UP)
 		game->keys.w = 1;
-	else if (keycode == 's' || keycode == key_down)
+	else if (keycode == 's' || keycode == KEY_DOWN)
 		game->keys.s = 1;
 	else if (keycode == 'a')
 		game->keys.a = 1;
@@ -30,9 +30,9 @@ int	key_press_handler(int keycode, t_game *game)
 		game->keys.d = 1;
 	else if (keycode == 'e')
 		game->keys.e = 1;
-	else if (keycode == key_left)
+	else if (keycode == KEY_LEFT)
 		game->keys.left_arrow = 1;
-	else if (keycode == key_right)
+	else if (keycode == KEY_RIGHT)
 		game->keys.right_arrow = 1;
 	return (0);
 }
@@ -40,9 +40,9 @@ int	key_press_handler(int keycode, t_game *game)
 int	key_release_handler(int keycode, t_game *game)
 {
 	printf("Key released! Keycode: %d\n", keycode);
-	if (keycode == 'w' || keycode == key_up)
+	if (keycode == 'w' || keycode == KEY_UP)
 		game->keys.w = 0;
-	else if (keycode == 's' || keycode == key_down)
+	else if (keycode == 's' || keycode == KEY_DOWN)
 		game->keys.s = 0;
 	else if (keycode == 'a')
 		game->keys.a = 0;
@@ -50,22 +50,9 @@ int	key_release_handler(int keycode, t_game *game)
 		game->keys.d = 0;
 	else if (keycode == 'e')
 		game->keys.e = 0;
-	else if (keycode == key_left)
+	else if (keycode == KEY_LEFT)
 		game->keys.left_arrow = 0;
-	else if (keycode == key_right)
+	else if (keycode == KEY_RIGHT)
 		game->keys.right_arrow = 0;
 	return (0);
-}
-
-void	init_keys(t_game *game)
-{
-	game->keys.w = 0;
-	game->keys.a = 0;
-	game->keys.s = 0;
-	game->keys.d = 0;
-	game->keys.e = 0;
-	game->keys.left_arrow = 0;
-	game->keys.right_arrow = 0;
-	game->move_speed = 0.03;
-	game->rot_speed = 0.02;
 }

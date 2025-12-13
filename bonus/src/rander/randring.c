@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   randring.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/03 15:58:11 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/12 12:28:57 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	window(t_game *game)
 	}
 	return (0);
 }
+
 int	init_randring(t_game *game)
 {
 	game->mlx = mlx_init();
@@ -74,7 +75,6 @@ int	init_randring(t_game *game)
 		return (1);
 	if (init_image(game, game->img))
 		return (1);
-	init_keys(game);
 	mlx_mouse_hide(game->mlx, game->win);
 	mlx_hook(game->win, 6, 1L << 6, handel_mouse_move, game);
 	mlx_hook(game->win, 2, 1L << 0, key_press_handler, game);
