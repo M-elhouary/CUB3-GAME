@@ -65,8 +65,8 @@ static char	*copy_word(const char **s, char c)
 
 char	**free_split(char **res)
 {
-	int indx;
-	
+	int	indx;
+
 	if (!res || !*res)
 		return (NULL);
 	indx = ft_strlen_2d(res);

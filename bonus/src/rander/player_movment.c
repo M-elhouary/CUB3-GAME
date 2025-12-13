@@ -86,11 +86,8 @@ void	rotate_player(t_game *game, double rot, int f)
 		else
 			return ;
 	}
-	/* delegate the rotation math to a helper to keep this function short */
 	apply_rotation(game, rot_speed);
 }
-
-/* open_door moved to player_movment_utils.c to reduce functions/lines in this file */
 
 int	game_update(t_game *game)
 {

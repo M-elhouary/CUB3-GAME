@@ -3,7 +3,8 @@
 /*                                                        :::      ::::::::   */
 /*   player_movment_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auto <auto@local>                           +#+  +:+       +#+        */
+/*   By: auto <auto@local>                           +#+  +:+
+	+#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 12:00:00 by auto              #+#    #+#             */
 /*   Updated: 2025/12/13 12:00:00 by auto             ###   ########.fr       */
@@ -31,8 +32,8 @@ void	apply_rotation(t_game *game, double rot_speed)
 
 void	open_door(t_game *game)
 {
-	int	check_x;
-	int	check_y;
+	int		check_x;
+	int		check_y;
 	char	tile;
 
 	if (game->keys.e == 1)

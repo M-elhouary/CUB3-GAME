@@ -76,7 +76,6 @@ int	parse(t_game *game, char *filedata)
 		return (close(fd), 0);
 	if (!parse_map(game, fd, f_line))
 		return (close(fd), 0);
-	
 	close(fd);
 	return (1);
 }

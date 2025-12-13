@@ -87,20 +87,19 @@ int	mini_map(t_game *game, t_img *img)
 	int	x;
 
 	y = 0;
-	x = 0;
 	while (y < game->scren_height)
 	{
 		x = 0;
 		while (x < game->scren_width)
 		{
 			if (y < game->map->height && x < game->map->width
-					&& (game->map->map_arr[y][x] == '1'
-					|| game->map->map_arr[y][x] == 'D'))
+				&& (game->map->map_arr[y][x] == '1'
+				|| game->map->map_arr[y][x] == 'D'))
 				draw_wall(img, game, x, y);
-				else if (y < game->map->height && x < game->map->width
-					&& (game->map->map_arr[y][x] == '0'
-					|| is_player(game->map->map_arr[y][x])
-					|| game->map->map_arr[y][x] == 'O'))
+			else if (y < game->map->height && x < game->map->width
+				&& (game->map->map_arr[y][x] == '0'
+				|| is_player(game->map->map_arr[y][x])
+				|| game->map->map_arr[y][x] == 'O'))
 				draw_floor(img, game, x, y);
 			x++;
 		}
