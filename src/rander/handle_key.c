@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:03:50 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/11/24 23:41:04 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/13 21:14:23 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ void	init_keys(t_game *game)
 	game->keys.d = 0;
 	game->keys.left_arrow = 0;
 	game->keys.right_arrow = 0;
-	game->move_speed = 0.03;
-	game->rot_speed = 0.02;
+	game->move_speed = 0.01;
+	game->rot_speed = 0.01;
 }

@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/03 21:33:32 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/13 22:42:52 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,8 @@ int	init_game(t_game **gamedata, char *file)
 
 void	win_scal(t_game *game)
 {
-	game->scren_height = game->map->height * 40;
-	game->scren_width = game->map->width * 40;
-	if (game->scren_height > 1080)
-		game->scren_height = 1080;
-	if (game->scren_width > 1920)
-		game->scren_width = 1920;
+	game->scren_height = game->map->height * 20;
+	game->scren_width = game->map->width * 20;
 }
 
 int	main(int ac, char **av)
