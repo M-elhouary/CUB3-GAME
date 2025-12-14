@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/03 23:58:57 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:02:31 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	tex_cordinates(t_texture *texture, t_ray_hit hit, t_game *game,
 		return ;
 	}
 	vars->tex_x = (int)(hit.wall_x * (double)texture->width);
-	if ((hit.side == 0 && vars->ray_x > 0) || (hit.side == 1
-			&& vars->ray_y < 0))
+	if ((hit.side == 0 && vars->ray_x < 0) ||
+		(hit.side == 1 && vars->ray_y > 0))
 		vars->tex_x = texture->width - vars->tex_x - 1;
 	if (vars->tex_x < 0)
 		vars->tex_x = 0;
@@ -87,6 +87,8 @@ void	draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
 
 void	calcule_dist_wall_height(t_game *game, t_draw_vars *vars, t_ray_hit hit)
 {
+	if(hit.distance < 0.000001)
+		hit.distance = 0.00001;
 	vars->wall_height = (int)(game->scren_height / hit.distance);
 	vars->start_y = (game->scren_height - vars->wall_height) / 2;
 	if (vars->start_y < 0)
