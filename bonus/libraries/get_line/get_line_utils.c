@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_line_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:57:26 by moirhira          #+#    #+#             */
-/*   Updated: 2025/04/11 16:28:15 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/11 20:56:55 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_line.h"
 
-// calculate the len ==========done==========
 int	calclen(char *str)
 {
 	int	len;
@@ -23,7 +22,6 @@ int	calclen(char *str)
 	return (len);
 }
 
-//get a new line  ===========done============
 char	*find_newline(char *data, int ch)
 {
 	int	i;
@@ -40,7 +38,6 @@ char	*find_newline(char *data, int ch)
 	return (NULL);
 }
 
-// cut line (\n) from buffer =========done====
 char	*separate_line(char *data)
 {
 	char	*line;
@@ -67,7 +64,6 @@ char	*separate_line(char *data)
 	return (line);
 }
 
-// copy function
 void	ft_copy(char *dest, const char *src)
 {
 	int	i;
@@ -81,7 +77,6 @@ void	ft_copy(char *dest, const char *src)
 	dest[i] = '\0';
 }
 
-// update the bufer by separating the line ======done======
 char	*update_buffer(char *data)
 {
 	char	*remaindata;

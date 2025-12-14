@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:57:04 by moirhira          #+#    #+#             */
-/*   Updated: 2025/04/11 16:28:18 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/11 20:54:45 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_line.h"
 
-// Custom implementation of strdup
 char	*my_strdup(char *src)
 {
 	char	*dup;
@@ -35,7 +34,6 @@ char	*my_strdup(char *src)
 	return (dup);
 }
 
-// str convatination
 void	ft_strcat(char *dest, const char *src)
 {
 	int	dest_len;
@@ -51,7 +49,6 @@ void	ft_strcat(char *dest, const char *src)
 	dest[dest_len + i] = '\0';
 }
 
-// helper function in read from fd uppend data to buffer
 char	*append_to_buffer(char *buffer, char *buf, int readed)
 {
 	char	*temp;
@@ -74,7 +71,6 @@ char	*append_to_buffer(char *buffer, char *buf, int readed)
 	return (buffer);
 }
 
-// read from fd and add data to buffer until \n or end of file 
 char	*readfromfd(int fd, char *buffer)
 {
 	char	*buf;
@@ -102,8 +98,7 @@ char	*readfromfd(int fd, char *buffer)
 	return (buffer);
 }
 
-//main function
-char	*get_next_line(int fd)
+char	*get_line(int fd)
 {
 	static char		*buffer;
 	char			*line;

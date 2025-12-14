@@ -24,7 +24,6 @@ typedef struct s_draw
 	double	distance;
 	double	t;
 	double	correct_dist;
-	// textute cordinates
 	int		tex_x;
 	int		tex_y;
 	double	tex_step;
@@ -38,6 +37,7 @@ t_texture	*side_hit(t_ray_hit *hit, double ray_y, double ray_x, t_game *game)
 	hit_char = game->map->map_arr[hit->map_y][hit->map_x];
 	if (hit_char == 'D')
 	{
+		printf("Hit a door at (%d, %d)\n", hit->map_x, hit->map_y);
 		return (&game->textures[4]);
 	}
 	else
@@ -53,8 +53,9 @@ t_texture	*side_hit(t_ray_hit *hit, double ray_y, double ray_x, t_game *game)
 	}
 	return (NULL);
 }
-void tex_cordinates(t_texture *texture, t_ray_hit hit, t_game *game,
-					t_draw_vars *vars)
+
+void	tex_cordinates(t_texture *texture, t_ray_hit hit, t_game *game,
+		t_draw_vars *vars)
 {
 	if (vars->wall_height <= 0 || texture->height <= 0)
 	{
@@ -62,22 +63,24 @@ void tex_cordinates(t_texture *texture, t_ray_hit hit, t_game *game,
 		vars->tex_y = 0;
 		vars->tex_step = 0.0;
 		vars->tex_pos = 0.0;
-		return;
+		return ;
 	}
 	vars->tex_x = (int)(hit.wall_x * (double)texture->width);
-	if ((hit.side == 0 && vars->ray_x > 0) || (hit.side == 1 && vars->ray_y < 0))
+	if ((hit.side == 0 && vars->ray_x > 0) || (hit.side == 1
+			&& vars->ray_y < 0))
 		vars->tex_x = texture->width - vars->tex_x - 1;
 	if (vars->tex_x < 0)
 		vars->tex_x = 0;
 	if (vars->tex_x >= texture->width)
 		vars->tex_x = texture->width - 1;
 	vars->tex_step = (double)texture->height / (double)vars->wall_height;
-	vars->tex_pos = ((double)vars->start_y - (double)game->scren_height / 2.0 + (double)vars->wall_height / 2.0) * vars->tex_step;
+	vars->tex_pos = ((double)vars->start_y - (double)game->scren_height / 2.0
+			+ (double)vars->wall_height / 2.0) * vars->tex_step;
 }
 
-void draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
+void	draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
 {
-	unsigned int color;
+	unsigned int	color;
 
 	while (vars->y < vars->end_y)
 	{
@@ -86,7 +89,6 @@ void draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
 			vars->tex_y = texture->height - 1;
 		if (vars->tex_y < 0)
 			vars->tex_y = 0;
-
 		vars->tex_pos += vars->tex_step;
 		color = get_texture_color(texture, vars->tex_x, vars->tex_y);
 		put_pixel(vars->screen_x, vars->y, img, color);
@@ -94,7 +96,7 @@ void draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
 	}
 }
 
-void calcule_dist_wall_height(t_game *game, t_draw_vars *vars, t_ray_hit hit)
+void	calcule_dist_wall_height(t_game *game, t_draw_vars *vars, t_ray_hit hit)
 {
 	vars->wall_height = (int)(game->scren_height / hit.distance);
 	vars->start_y = (game->scren_height - vars->wall_height) / 2;

@@ -40,7 +40,7 @@ static int	load_texture(t_game *game, int index)
 
 int	load_all_textures(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 5)

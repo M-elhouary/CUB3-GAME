@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:07:38 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/03 15:58:05 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/11 21:12:39 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	is_wall(t_game *game, double x, double y)
 	if (new_x < 0 || new_y < 0 || new_y >= game->map->height
 		|| game->map->width <= new_x)
 		return (1);
-	if (game->map->map_arr[new_y][new_x] == '1')
+	if (game->map->map_arr[new_y][new_x] == '1'
+		|| game->map->map_arr[new_y][new_x] == 'D')
 		return (1);
 	return (0);
 }
@@ -72,8 +73,6 @@ void	move_player(t_game *game)
 void	rotate_player(t_game *game, double rot, int f)
 {
 	double	rot_speed;
-	double	old_dir_x;
-	double	old_plane_x;
 
 	rot_speed = 0;
 	if (f == 1)
@@ -87,34 +86,7 @@ void	rotate_player(t_game *game, double rot, int f)
 		else
 			return ;
 	}
-	old_dir_x = game->player.dir_x;
-	game->player.dir_x = game->player.dir_x * cos(rot_speed)
-		- game->player.dir_y * sin(rot_speed);
-	game->player.dir_y = old_dir_x * sin(rot_speed) + game->player.dir_y
-		* cos(rot_speed);
-	old_plane_x = game->player.plane_x;
-	game->player.plane_x = game->player.plane_x * cos(rot_speed)
-		- game->player.plane_y * sin(rot_speed);
-	game->player.plane_y = old_plane_x * sin(rot_speed) + game->player.plane_y
-		* cos(rot_speed);
-}
-void	open_door(t_game *game)
-{
-	int		check_x;
-	int		check_y;
-	char	tile;
-
-	if (game->keys.e == 1)
-	{
-		printf("opne door\n");
-		check_x = (int)(game->player.pos_x + game->player.dir_x * 0.8);
-		check_y = (int)(game->player.pos_y + game->player.dir_y * 0.8);
-		tile = game->map->map_arr[check_y][check_x];
-		if (tile == 'D')
-			game->map->map_arr[check_y][check_x] = 'O';
-		else if (tile == 'O')
-			game->map->map_arr[check_y][check_x] = 'D';
-	}
+	apply_rotation(game, rot_speed);
 }
 
 int	game_update(t_game *game)

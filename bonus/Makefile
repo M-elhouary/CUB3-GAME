@@ -1,28 +1,28 @@
 NAME = cub3D_bonus
-CC = cc -g
-CFLAGS = -I include
+CC = cc
+CFLAGS = -I includes
 SRCS_PARSING = src/main.c \
 			src/parsing/parse.c\
+			src/parsing/parse_config_utils.c\
 			src/parsing/parse_color_and_texture.c\
 			src/parsing/parse_map.c \
 			src/parsing/parsing_utils.c\
 			src/parsing/validate_map.c\
-			libraries/get_next_line/get_next_line.c\
-			libraries/get_next_line/get_next_line_utils.c\
+			src/parsing/validate_map_utils.c\
+			libraries/get_line/get_line.c\
+			libraries/get_line/get_line_utils.c\
 
-# source for randring part
-##SRC_RANDRING = $(wildcard src/rander/*.c)
 
 SRC_RANDRING = src/rander/randring.c\
 				src/rander/draw.c\
 				src/rander/player_movment.c\
+				src/rander/player_movment_utils.c\
 				src/rander/raycasting.c\
 				src/rander/mini_map.c\
 				src/rander/handle_key.c\
 				src/rander/load_textures.c\
-				src/rander/mini_map_utils.c\
 				src/rander/draw_utils.c\
-				src/rander/camera_plan.c
+				src/rander/camera_plan.c\
 
 SRCS = $(SRCS_PARSING)  $(SRC_RANDRING)
 

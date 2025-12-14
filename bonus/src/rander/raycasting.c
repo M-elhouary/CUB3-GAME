@@ -88,7 +88,8 @@ void	calc_perp_dist(t_dda *dda, t_game *game)
 		if (dda->map_y < 0 || dda->map_y >= game->map->height || dda->map_x < 0
 			|| dda->map_x >= game->map->width)
 			dda->hit_wall = 1;
-		else if (game->map->map_arr[dda->map_y][dda->map_x] == '1')
+		else if (game->map->map_arr[dda->map_y][dda->map_x] == '1'
+			|| game->map->map_arr[dda->map_y][dda->map_x] == 'D')
 			dda->hit_wall = 1;
 	}
 }

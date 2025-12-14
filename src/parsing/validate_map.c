@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:01:32 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/25 02:13:04 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/10 16:46:14 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,20 @@ int	only_valid_chars(t_game *game)
 	return (1);
 }
 
+void	set_player_data(t_game *game, int x, int y, char c)
+{
+	game->player.pos_x = x;
+	game->player.pos_y = y;
+	game->player.dir = c;
+	game->map->map_arr[y][x] = '0';
+}
+
 int	check_player_count(t_game *game)
 {
 	int	x;
 	int	y;
 	int	player_count;
 
-	// chang cordoni  y <=> x in
 	y = -1;
 	player_count = 0;
 	while (++y < game->map->height)
@@ -52,10 +59,7 @@ int	check_player_count(t_game *game)
 			if (is_player(game->map->map_arr[y][x]))
 			{
 				player_count++;
-				game->player.pos_x = x;
-				game->player.pos_y = y;
-				game->player.dir = game->map->map_arr[y][x];
-				game->map->map_arr[y][x] = '0';
+				set_player_data(game, x, y, game->map->map_arr[y][x]);
 			}
 		}
 	}
@@ -66,84 +70,10 @@ int	check_player_count(t_game *game)
 	return (1);
 }
 
-char	**fill_map_with_spaces(t_game *game)
-{
-	int		i;
-	int		line_len;
-	char	**new_map;
-
-	new_map = malloc(sizeof(char *) * (game->map->height + 1));
-	if (!new_map)
-		return (printf("Error\nMalloc failed\n"), NULL);
-	i = 0;
-	while (i < game->map->height)
-	{
-		new_map[i] = malloc((game->map->width + 1) * sizeof(char));
-		if (!new_map[i])
-		{
-			free_split(new_map);
-			return (printf("Error\nMalloc failed\n"), NULL);
-		}
-		line_len = ft_strlen(game->map->map_arr[i]);
-		ft_memcpy(new_map[i], game->map->map_arr[i], line_len);
-		ft_memset(new_map[i] + line_len, ' ', game->map->width - line_len);
-		new_map[i][game->map->width] = '\0';
-		i++;
-	}
-	new_map[i] = NULL;
-	return (new_map);
-}
-
-int	check_map_is_closed(t_game *game)
-{
-	int		i;
-	int		j;
-	char	c;
-	int		line_len;
-	char	**map;
-
-	i = 0;
-	map = fill_map_with_spaces(game);
-	if (!map)
-		return (0);
-	while (i < game->map->height)
-	{
-		j = 0;
-		line_len = ft_strlen(map[i]);
-		while (map[i][j])
-		{
-			c = map[i][j];
-			if (i == 0 || i == game->map->height - 1 || j == 0 || j == line_len
-				- 1)
-			{
-				if (c != '1' && c != ' ')
-				{
-					free_split(map);
-					return (printf("Error\nMap is not enclosed by walls! at (%d,%d)\n", i, j), 0);
-				}
-			}
-			if (c == '0' || is_player(c))
-			{
-				if (map[i - 1][j] == ' ' || map[i + 1][j] == ' ' || map[i][j
-					+ 1] == ' ' || map[i][j - 1] == ' ')
-				{
-					free_split(map);
-					return (printf("Error\nMap leaked\n"), 0);
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-	free_split(game->map->map_arr);
-	game->map->map_arr = map;
-	return (1);
-}
-
 int	validate_map(t_game *game)
 {
-	int i;
-	int player_count;
+	int	i;
+	int	player_count;
 
 	i = 0;
 	player_count = 0;

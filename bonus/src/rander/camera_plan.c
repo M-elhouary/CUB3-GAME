@@ -12,10 +12,6 @@
 
 #include "../../includes/cub3d.h"
 
-
-
-
-
 void	north_east(t_game *game)
 {
 	if (game->player.dir == 'N')
@@ -24,7 +20,8 @@ void	north_east(t_game *game)
 		game->player.dir_y = -1;
 		game->player.plane_x = 0.66;
 		game->player.plane_y = 0;
-	} // EAST DIRECTION AND PLANE
+	}
+	else if (game->player.dir == 'E')
 	{
 		game->player.dir_x = 1;
 		game->player.dir_y = 0;
@@ -35,7 +32,7 @@ void	north_east(t_game *game)
 
 void	south_west(t_game *game)
 {
-	if (game->player.dir == 'S') 
+	if (game->player.dir == 'S')
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = 1;

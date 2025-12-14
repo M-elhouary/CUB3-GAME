@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:58:15 by moirhira          #+#    #+#             */
-/*   Updated: 2025/04/11 16:28:21 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/11 20:53:40 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_LINE_H
+# define GET_LINE_H
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
@@ -27,6 +27,6 @@ char	*update_buffer(char *data);
 char	*my_strdup(char *src);
 void	ft_copy(char *dest, const char *src);
 void	ft_strcat(char *dest, const char *src);
-char	*get_next_line(int fd);
+char	*get_line(int fd);
 
 #endif

@@ -50,11 +50,11 @@ void	put_pixel(int x, int y, t_img *img, int color)
 
 unsigned int	get_texture_color(t_texture *texture, int tex_x, int tex_y)
 {
-	char *dst;
+	char	*dst;
 
 	if (tex_x < 0 || tex_x >= texture->width || tex_y < 0
 		|| tex_y >= texture->height)
-		return (0x0); // Return black if coordinates are out of bounds
+		return (0x0);
 	dst = texture->addr + (tex_y * texture->size_line + tex_x
 			* (texture->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);

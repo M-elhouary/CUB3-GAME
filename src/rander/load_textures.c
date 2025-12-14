@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 22:02:41 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/19 22:59:37 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/11 16:01:10 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	load_texture(t_game *game, int index)
 
 int	load_all_textures(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 4)
