@@ -21,10 +21,8 @@ int	init_image(t_game *game, t_img *img)
 			game->scren_height);
 	if (!game->img->img_ptr)
 	{
-		mlx_destroy_display(game->mlx);
-		mlx_destroy_window(game->mlx, game->win);
-		free(game->mlx);
-		return (printf("Error\nmlx_new_game->img fail!\n"), 1);
+		printf("Error\nmlx_new_game->img fail!\n");
+		return (1);
 	}
 	game->img->img_pex_ptr = mlx_get_data_addr(game->img->img_ptr,
 			&game->img->bit_per_pixel, &game->img->size_line,
@@ -38,7 +36,6 @@ int	window(t_game *game)
 			WIN_TITLE);
 	if (!game->win)
 	{
-		free(game->mlx);
 		printf("Error\nmlx_new_window fail!\n");
 		return (1);
 	}
@@ -52,9 +49,8 @@ int	init_randring(t_game *game)
 		return (printf("Error\nmlx_init failed!\n"), 1);
 	if (!load_all_textures(game))
 	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-		return (printf("Error: Texture loading failed!\n"), 1);
+		printf("Error\nTexture loading failed!\n");
+		return (1);
 	}
 	if (window(game))
 		return (1);

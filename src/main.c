@@ -108,6 +108,6 @@ int	main(int ac, char **av)
 	if (game->scren_width > 1920)
 		game->scren_width = 1920;
 	if (init_randring(game) == 1)
-		return (1);
+		return (close_and_free(game), 1);
 	return (0);
 }
