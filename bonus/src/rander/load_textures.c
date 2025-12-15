@@ -32,7 +32,6 @@ static int	load_texture(t_game *game, int index)
 	if (!tex->addr)
 	{
 		printf("Error: mlx_get_data_addr failed for texture.\n");
-		mlx_destroy_image(game->mlx, tex->img_ptr);
 		return (0);
 	}
 	return (1);

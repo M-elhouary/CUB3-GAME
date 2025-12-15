@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/14 02:22:19 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/15 01:50:57 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,6 @@ int	main(int ac, char **av)
 	if (game->scren_width > 1920)
 		game->scren_width = 1920;
 	if (init_randring(game) == 1)
-		return (1);
+		return (close_and_free(game), 1);
 	return (0);
 }

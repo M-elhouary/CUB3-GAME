@@ -70,7 +70,11 @@ int	parse(t_game *game, char *filedata)
 	if (fd == -1)
 		return (perror("Error\n"), 0);
 	if (is_dir(filedata))
-		return (printf("Error\nArgument is a derctory!\n"), close(fd), 0);
+	{
+		printf("Error\nArgument is a derctory!\n");
+		close(fd);
+		return (0);
+	}
 	f_line = NULL;
 	if (!parse_configurations(game, fd, &f_line))
 		return (close(fd), 0);
