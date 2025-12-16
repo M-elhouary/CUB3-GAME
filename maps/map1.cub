@@ -1,9 +1,9 @@
-WE assets/BRICK_3B.xpm
-NO assets/BRICK_3D.xpm
-SO assets/BRICK_6D.xpm
-EA assets/BRICK_4A.xpm
+WE assets/west.xpm
+NO assets/north.xpm
+SO assets/south.xpm
+EA assets/east.xpm
 
-F 126,127,122
+F 59,59,59
 C 0,0,0
 
 

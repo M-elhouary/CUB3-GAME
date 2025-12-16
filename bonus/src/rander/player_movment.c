@@ -12,43 +12,57 @@
 
 #include "../../includes/cub3d.h"
 
-int	is_wall(t_game *game, double x, double y)
+void	open_door(t_game *game)
 {
-	int	new_x;
-	int	new_y;
+	int		check_x;
+	int		check_y;
+	char	tile;
 
-	new_x = (int)(x);
-	new_y = (int)(y);
-	if (new_x < 0 || new_y < 0 || new_y >= game->map->height
-		|| game->map->width <= new_x)
-		return (1);
-	if (game->map->map_arr[new_y][new_x] == '1'
-		|| game->map->map_arr[new_y][new_x] == 'D')
-		return (1);
-	return (0);
+	if (game->keys.e == 1)
+	{
+		check_x = (int)(game->player.pos_x + game->player.dir_x * 0.8);
+		check_y = (int)(game->player.pos_y + game->player.dir_y * 0.8);
+		if (check_x < 0 || check_y < 0 || check_y >= game->map->height
+			|| check_x >= game->map->width)
+			return ;
+		tile = game->map->map_arr[check_y][check_x];
+		if (tile == 'D')
+		{
+			game->map->map_arr[check_y][check_x] = 'O';
+			game->last_opened_door_x = check_x;
+			game->last_opened_door_y = check_y;
+			game->door_opened = 1;
+		}
+		else if (tile == 'O')
+		{
+			game->map->map_arr[check_y][check_x] = 'D';
+			game->door_opened = 0;
+		}
+	}
 }
 
-void	w_s_a_d_movement(t_game *game, double *move_x, double *move_y)
+void	close_door_if_needed(t_game *game)
 {
-	if (game->keys.w == 1)
+	int	px;
+	int	py;
+
+	if (game->door_opened)
 	{
-		*move_x += game->player.dir_x * game->move_speed;
-		*move_y += game->player.dir_y * game->move_speed;
-	}
-	if (game->keys.s == 1)
-	{
-		*move_x -= game->player.dir_x * game->move_speed;
-		*move_y -= game->player.dir_y * game->move_speed;
-	}
-	if (game->keys.a == 1)
-	{
-		*move_x -= game->player.plane_x * game->move_speed;
-		*move_y -= game->player.plane_y * game->move_speed;
-	}
-	if (game->keys.d == 1)
-	{
-		*move_x += game->player.plane_x * game->move_speed;
-		*move_y += game->player.plane_y * game->move_speed;
+		px = (int)game->player.pos_x;
+		py = (int)game->player.pos_y;
+		if (px != game->last_opened_door_x || py != game->last_opened_door_y)
+		{
+			if (game->last_opened_door_x >= 0 && game->last_opened_door_y >= 0
+				&& game->last_opened_door_y < game->map->height
+				&& game->last_opened_door_x < game->map->width)
+			{
+				if (game->map->map_arr[game->last_opened_door_y]
+					[game->last_opened_door_x] == 'O')
+					game->map->map_arr[game->last_opened_door_y]
+					[game->last_opened_door_x] = 'D';
+			}
+			game->door_opened = 0;
+		}
 	}
 }
 
@@ -68,6 +82,7 @@ void	move_player(t_game *game)
 		game->player.pos_x = new_x;
 	if (is_wall(game, game->player.pos_x, new_y) == 0)
 		game->player.pos_y = new_y;
+	close_door_if_needed(game);
 }
 
 void	rotate_player(t_game *game, double rot, int f)

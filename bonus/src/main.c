@@ -18,6 +18,7 @@ void	init_data_helper(t_game *game)
 	game->tex_paths[1] = NULL;
 	game->tex_paths[2] = NULL;
 	game->tex_paths[3] = NULL;
+	game->tex_paths[4] = NULL;
 	game->ceiling_color.r = -1;
 	game->floor_color.r = -1;
 	game->ceiling_color.hex_color = 0;
@@ -44,7 +45,7 @@ void	init_img_struct(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		game->textures[i].img_ptr = NULL;
 		game->textures[i].addr = NULL;
@@ -60,6 +61,9 @@ void	init_img_struct(t_game *game)
 void	init_data(t_game *game)
 {
 	init_data_helper(game);
+	game->last_opened_door_x = -1;
+	game->last_opened_door_y = -1;
+	game->door_opened = 0;
 	game->mlx = NULL;
 	game->win = NULL;
 	game->img = NULL;
@@ -70,10 +74,11 @@ void	init_data(t_game *game)
 	game->keys.a = 0;
 	game->keys.s = 0;
 	game->keys.d = 0;
+	game->keys.e = 0;
 	game->keys.left_arrow = 0;
 	game->keys.right_arrow = 0;
 	game->keys.esc = 0;
-	game->move_speed = 0.03;
+	game->move_speed = 0.05;
 	game->rot_speed = 0.02;
 }
 
@@ -98,6 +103,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
+	game = NULL;
 	if (!init_game(&game, av[1]))
 		return (close_and_free(game), 1);
 	camera(game);

@@ -94,10 +94,10 @@ int	init_game(t_game **gamedata, char *file)
 int	main(int ac, char **av)
 {
 	t_game	*game;
-	t_img	*image;
 
 	if (ac != 2)
 		return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
+	game = NULL;
 	if (!init_game(&game, av[1]))
 		return (close_and_free(game), 1);
 	camera(game);
