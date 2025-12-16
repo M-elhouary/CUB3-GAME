@@ -17,7 +17,6 @@ SRC_RANDRING = src/rander/randring.c\
 				src/rander/draw.c\
 				src/rander/player_movment.c\
 				src/rander/ddaAlgo.c\
-				src/rander/mini_map.c\
 				src/rander/handle_key.c\
 				src/rander/load_textures.c\
 				src/rander/drwa_utils.c\

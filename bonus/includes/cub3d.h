@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/12 12:29:22 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/15 02:36:06 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define ESC_KEY 65307
+
+// mini_map defines
+# define MINI_MAP_SCALE 10
+# define TILE_SIZE 15
+# define PLAYER_COLOR 0x79057b
+# define FLOOR_COLOR 0x646969
+# define WALL_COLOR 0x1f8f29
+# define DOOR_COLOR 0x8B4513
+
 # define WIN_TITLE "CUB3D"
 
 typedef struct s_ray_hit
@@ -155,5 +164,10 @@ int				is_all_digits(char *str);
 int				ft_isempty(char *str);
 int				is_player(char c);
 int				close_and_free(t_game *game);
+void			clamp_start(int *sx, int *sy, t_game *g);
+void			draw_tile_square(t_img *img, int origin_x, int origin_y,
+					int color);
+void			draw_floor(t_img *img, t_game *game, int x, int y);
+void			draw_wall(t_img *img, t_game *game, int x, int y);
 
 #endif
