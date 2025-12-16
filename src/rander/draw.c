@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/15 02:30:19 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/16 21:59:52 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void	draw_verical_line(t_draw_vars *vars, t_texture *texture, t_img *img)
 
 void	calcule_dist_wall_height(t_game *game, t_draw_vars *vars, t_ray_hit hit)
 {
-	if (hit.distance < 0.000001)
-		hit.distance = 0.00001;
 	vars->wall_height = (int)(game->scren_height / hit.distance);
 	vars->start_y = (game->scren_height - vars->wall_height) / 2;
 	if (vars->start_y < 0)

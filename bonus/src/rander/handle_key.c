@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_key.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:03:50 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/12 12:29:05 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/16 22:02:17 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	key_press_handler(int keycode, t_game *game)
 {
-	printf("Key pressed! Keycode: %d\n", keycode);
 	if (keycode == ESC_KEY)
 	{
 		close_and_free(game);
@@ -39,7 +38,6 @@ int	key_press_handler(int keycode, t_game *game)
 
 int	key_release_handler(int keycode, t_game *game)
 {
-	printf("Key released! Keycode: %d\n", keycode);
 	if (keycode == 'w' || keycode == KEY_UP)
 		game->keys.w = 0;
 	else if (keycode == 's' || keycode == KEY_DOWN)
