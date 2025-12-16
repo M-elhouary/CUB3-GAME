@@ -115,6 +115,9 @@ typedef struct s_game
 	t_texture	textures[5];
 	double		move_speed;
 	double		rot_speed;
+	int			last_opened_door_x;
+	int			last_opened_door_y;
+	int			door_opened;
 }				t_game;
 
 int				draw(t_game *game, t_img *img);
@@ -145,6 +148,8 @@ int				parse_color(char *path, t_color *dest);
 int				parse_map(t_game *game, int fd, char *first_line);
 int				validate_map(t_game *game);
 int				check_map_is_closed(t_game *game);
+void			w_s_a_d_movement(t_game *game, double *move_x, double *move_y);
+
 int				is_dir(char *arg);
 int				is_all_digits(char *str);
 int				ft_isempty(char *str);

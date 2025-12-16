@@ -89,7 +89,7 @@ int	close_and_free(t_game *game)
 		game->map = NULL;
 	}
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		if (game->textures[i].img_ptr && game->mlx)
 			mlx_destroy_image(game->mlx, game->textures[i].img_ptr);
