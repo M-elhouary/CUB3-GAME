@@ -6,7 +6,7 @@
 /*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/15 01:59:13 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/17 21:41:37 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ t_texture	*side_hit(t_ray_hit *hit, double ray_y, double ray_x, t_game *game)
 
 	hit_char = game->map->map_arr[hit->map_y][hit->map_x];
 	if (hit_char == 'D')
-	{
-		printf("Hit a door at (%d, %d)\n", hit->map_x, hit->map_y);
 		return (&game->textures[4]);
-	}
 	else
 	{
 		if (hit->side == 1 && ray_y < 0)
