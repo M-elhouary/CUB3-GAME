@@ -6,29 +6,16 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 20:06:42 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/12 23:03:59 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/11 20:57:36 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void strip_newline(char *line)
+char	**append_line(char **map, char *line, int rows)
 {
-	int len;
-
-	if (!line)
-		return;
-	len = ft_strlen(line);
-	if (len > 0 && line[len - 1] == '\n')
-	{
-		line[len - 1] = '\0';
-	}
-}
-
-char **append_line(char **map, char *line, int rows)
-{
-	char **new_map;
-	int i;
+	char	**new_map;
+	int		i;
 
 	new_map = malloc((rows + 2) * sizeof(char *));
 	if (!new_map)
@@ -45,51 +32,62 @@ char **append_line(char **map, char *line, int rows)
 	return (new_map);
 }
 
-int parse_map(t_game *game, int fd, char *first_line)
+int	process_map_line(t_game *game, char *line, int *rows, int *max_width)
 {
-	int max_width;
-	int rows;
-	int map_started;
-	char *line;
-	char **map = NULL;
+	strip_newline(line);
+	if (ft_strlen(line) > *max_width)
+		*max_width = ft_strlen(line);
+	game->map->map_arr = append_line(game->map->map_arr, line, *rows);
+	if (!game->map->map_arr)
+		return (free(line), 0);
+	(*rows)++;
+	return (1);
+}
 
-	max_width = 0;
+int	handle_empty_map_line(t_game *game, char *line, int rows, int fd)
+{
+	free(line);
+	if (rows > 0)
+	{
+		printf("Error\nEmpty line inside map definition.\n");
+		return (0);
+	}
+	return (1);
+}
+
+int	read_map_lines(t_game *game, int fd, char *first_line)
+{
+	char	*line;
+	int		rows;
+	int		max_width;
+
 	rows = 0;
-	map_started = 0;
+	max_width = 0;
 	line = first_line;
 	while (line != NULL)
 	{
 		if (ft_isempty(line))
 		{
-			if (map_started)
-			{
-				free(line);
-				free_split(map);
-				return (printf("Error\nEmpty line inside map definition.\n"), 0);
-			}
-			free(line);
-			line = get_next_line(fd);
-			continue;
+			if (!handle_empty_map_line(game, line, rows, fd))
+				return (0);
+			line = get_line(fd);
+			continue ;
 		}
-		map_started = 1;
-		strip_newline(line);
-		if (ft_strlen(line) > max_width)
-			max_width = ft_strlen(line);
-		map = append_line(map, line, rows);
-		if (!map)
-			return (free(line), 0);
-		rows++;
-		line = get_next_line(fd);
+		if (!process_map_line(game, line, &rows, &max_width))
+			return (0);
+		line = get_line(fd);
 	}
-	if (rows == 0)
-		return (printf("Error\nMissing map!\n"), 0);
-	game->map->map_arr = map;
 	game->map->height = rows;
 	game->map->width = max_width;
-	// printf("rows	-> %d\n", game->map->height);
-	// printf("cols	-> %d\n", game->map->width);
-	// printf("len 	-> %d\n", ft_strlen_2d(game->map->map_arr));
-	if (!validate_map(game))
-		return (0);
+	if (rows == 0)
+		return (printf("Error\nMissing map!\n"), 0);
 	return (1);
+}
+
+int	parse_map(t_game *game, int fd, char *first_line)
+{
+	game->map->map_arr = NULL;
+	if (!read_map_lines(game, fd, first_line))
+		return (0);
+	return (validate_map(game));
 }

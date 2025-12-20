@@ -6,15 +6,15 @@
 /*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 20:04:41 by moirhira          #+#    #+#             */
-/*   Updated: 2025/11/08 22:24:04 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/12 14:07:47 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int validate_file_extension(char *file, char *extension)
+int	validate_file_extension(char *file, char *extension)
 {
-	char *search;
+	char	*search;
 
 	search = ft_strrchr(file, '.');
 	if (!search || ft_strcmp(search, extension) != 0)
@@ -24,10 +24,10 @@ int validate_file_extension(char *file, char *extension)
 	return (1);
 }
 
-int parse_texture(char *path, char **dest)
+int	parse_texture(char *path, char **dest)
 {
-	int fd;
-	char *trimmed;
+	int		fd;
+	char	*trimmed;
 
 	if (*dest != NULL)
 		return (printf("Error\nDuplicate texture!\n"), 0);
@@ -46,8 +46,7 @@ int parse_texture(char *path, char **dest)
 	if (fd == -1)
 	{
 		free(trimmed);
-		printf("Error\nCannot open texture file!\n");
-		return (0);
+		return (printf("Error\nCannot open texture file!\n"), 0);
 	}
 	close(fd);
 	*dest = trimmed;
@@ -59,19 +58,35 @@ int	rgb_to_int(t_color *c)
 	return ((c->r << 16) | (c->g << 8) | c->b);
 }
 
-
-
-int parse_color(char *path, t_color *dest)
+static int	has_valid_color_format(char *path)
 {
-	char **str;
-	char *trimmed;
-	int colors[3], i;
+	int	i;
+	int	commas;
 
-	if ((*dest).r != -1)
-		return (printf("Error\nDuplicate color definition!\n"), 0);
-	str = ft_split(path, ',');
-	if (!str || ft_strlen_2d(str) != 3)
-		return (printf("Error\nInvalid color format!\n"), free_split(str), 0);
+	i = 0;
+	commas = 0;
+	if (!path || *path == '\0')
+		return (0);
+	while (path[i])
+	{
+		if (path[i] == ',')
+		{
+			commas++;
+			if (path[i + 1] == ',')
+				return (0);
+		}
+		i++;
+	}
+	if (commas != 2)
+		return (0);
+	return (1);
+}
+
+int	validate_color_values(char **str, int *colors)
+{
+	char	*trimmed;
+	int		i;
+
 	i = 0;
 	while (i < 3)
 	{
@@ -80,14 +95,36 @@ int parse_color(char *path, t_color *dest)
 		{
 			free(trimmed);
 			free_split(str);
-			return (printf("Error\nColor value contains non-digit characters.\n"), 0);
+			return (printf("Error\nColor value contains non-digit characters.\n"),
+				0);
 		}
 		colors[i] = ft_atoi(trimmed);
 		free(trimmed);
 		if (colors[i] < 0 || colors[i] > 255)
-			return (printf("Error\nColor out of range\n"), free_split(str), 0);
+			return (free_split(str), printf("Error\nColor out of range\n"), 0);
 		i++;
 	}
+	return (1);
+}
+
+int	parse_color(char *path, t_color *dest)
+{
+	char	**str;
+	int		colors[3];
+
+	if ((*dest).r != -1)
+		return (printf("Error\nDuplicate color definition!\n"), 0);
+	if (!has_valid_color_format(path))
+		return (printf("Error\nInvalid color format!\n"), 0);
+	str = ft_split(path, ',');
+	if (!str || ft_strlen_2d(str) != 3)
+	{
+		printf("Error\nInvalid color format!\n");
+		free_split(str);
+		return (0);
+	}
+	if (!validate_color_values(str, colors))
+		return (0);
 	free_split(str);
 	dest->r = colors[0];
 	dest->g = colors[1];
