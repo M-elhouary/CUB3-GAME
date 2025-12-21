@@ -12,24 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-int	handle_config_line(t_game *game, char *line, char *trimmed, int *parsed)
-{
-	if (*trimmed == '\0')
-	{
-		free(trimmed);
-		free(line);
-		return (1);
-	}
-	if (!process_config_line(game, trimmed, parsed))
-	{
-		free(trimmed);
-		free(line);
-		return (0);
-	}
-	free(trimmed);
-	free(line);
-	return (1);
-}
+
 
 int	parse_configurations(t_game *game, int fd, char **f_line)
 {

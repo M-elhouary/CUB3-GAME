@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_config_utils.c                               :+:      :+:    :+:   */
+/*   parse_configurations.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 16:40:00 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/11 13:46:16 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 12:22:46 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,25 @@ int	process_config_line(t_game *game, char *trimmed, int *parsed)
 	}
 	else
 		return (0);
+	return (1);
+}
+
+int	handle_config_line(t_game *game, char *line, char *trimmed, int *parsed)
+{
+	if (*trimmed == '\0')
+	{
+		free(trimmed);
+		free(line);
+		return (1);
+	}
+	if (!process_config_line(game, trimmed, parsed))
+	{
+		free(trimmed);
+		free(line);
+		return (0);
+	}
+	free(trimmed);
+	free(line);
 	return (1);
 }
 

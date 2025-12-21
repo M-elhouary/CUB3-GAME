@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/14 04:25:36 by mel-houa         ###   ########.fr       */
+/*   Updated: 2025/12/21 12:24:27 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int				load_all_textures(t_game *game);
 
 int				parse(t_game *game, char *filedata);
 int				process_config_line(t_game *game, char *trimmed, int *parsed);
+int	handle_config_line(t_game *game, char *line, char *trimmed, int *parsed);
 void			strip_newline(char *line);
 int				validate_file_extension(char *file, char *extension);
 int				parse_texture(char *path, char **dest);

@@ -3,8 +3,9 @@ CC = cc
 CFLAGS = -I include
 SRCS_PARSING = src/main.c \
 			src/parsing/parse.c\
-			src/parsing/parse_config_utils.c\
-			src/parsing/parse_color_and_texture.c\
+			src/parsing/parse_configurations.c\
+			src/parsing/parse_colors.c\
+			src/parsing/parse_textures.c\
 			src/parsing/parse_map.c \
 			src/parsing/parsing_utils.c\
 			src/parsing/validate_map.c\
