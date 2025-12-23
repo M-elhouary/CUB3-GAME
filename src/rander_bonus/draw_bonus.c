@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:10:09 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/21 19:03:24 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 15:35:36 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 typedef struct s_draw
 {
@@ -30,16 +30,24 @@ typedef struct s_draw
 	double	tex_pos;
 }			t_draw_vars;
 
-t_texture	*side_hit(int hit_side, double ray_y, double ray_x, t_game *game)
+t_texture	*side_hit(t_ray_hit *hit, double ray_y, double ray_x, t_game *game)
 {
-	if (hit_side == 1 && ray_y < 0)
-		return (&game->textures[0]);
-	else if (hit_side == 1 && ray_y > 0)
-		return (&game->textures[1]);
-	else if (hit_side == 0 && ray_x < 0)
-		return (&game->textures[2]);
+	char	hit_char;
+
+	hit_char = game->map->map_arr[hit->map_y][hit->map_x];
+	if (hit_char == 'D')
+		return (&game->textures[4]);
 	else
-		return (&game->textures[3]);
+	{
+		if (hit->side == 1 && ray_y < 0)
+			return (&game->textures[0]);
+		else if (hit->side == 1 && ray_y > 0)
+			return (&game->textures[1]);
+		else if (hit->side == 0 && ray_x < 0)
+			return (&game->textures[2]);
+		else
+			return (&game->textures[3]);
+	}
 	return (NULL);
 }
 
@@ -114,7 +122,7 @@ int	draw(t_game *game, t_img *img)
 		vars.ray_y = game->player.dir_y + game->player.plane_y * camera_x;
 		hit = cast_ray(game, vars.ray_x, vars.ray_y);
 		calcule_dist_wall_height(game, &vars, hit);
-		texture = side_hit(hit.side, vars.ray_y, vars.ray_x, game);
+		texture = side_hit(&hit, vars.ray_y, vars.ray_x, game);
 		if (texture == NULL)
 			return (0);
 		tex_cordinates(texture, hit, game, &vars);
@@ -122,6 +130,7 @@ int	draw(t_game *game, t_img *img)
 		draw_verical_line(&vars, texture, img);
 		vars.screen_x++;
 	}
+	mini_map(game, game->img);
 	mlx_put_image_to_window(game->mlx, game->win, img->img_ptr, 0, 0);
 	return (0);
 }

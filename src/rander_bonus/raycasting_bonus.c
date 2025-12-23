@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ddaAlgo.c                                          :+:      :+:    :+:   */
+/*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:08:03 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/22 18:04:15 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 15:36:13 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 typedef struct s_dda
 {
@@ -88,7 +88,8 @@ void	calc_perp_dist(t_dda *dda, t_game *game)
 		if (dda->map_y < 0 || dda->map_y >= game->map->height || dda->map_x < 0
 			|| dda->map_x >= game->map->width)
 			dda->hit_wall = 1;
-		else if (game->map->map_arr[dda->map_y][dda->map_x] == '1')
+		else if (game->map->map_arr[dda->map_y][dda->map_x] == '1'
+			|| game->map->map_arr[dda->map_y][dda->map_x] == 'D')
 			dda->hit_wall = 1;
 	}
 }

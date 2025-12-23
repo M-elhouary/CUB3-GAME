@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 10:52:48 by moirhira          #+#    #+#             */
-/*   Updated: 2025/04/11 16:32:09 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:28:13 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_itoa(int nbr)
 	if (nbr == -2147483648)
 		return ("-2147483648");
 	len = int_len(nbr);
-	resualt = (char *)malloc(sizeof(char) * (len + 1));
+	resualt = ft_malloc(sizeof(char) * (len + 1));
 	resualt[len] = '\0';
 	if (nbr == 0)
 	{

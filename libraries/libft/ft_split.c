@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 20:55:19 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/22 14:12:11 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:37:37 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*ft_memalloc(char const *s, size_t len)
 	size_t	i;
 	char	*ptr;
 
-	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	ptr = ft_malloc(sizeof(char) * (len + 1));
 	if (!ptr)
 		return (NULL);
 	i = 0;
@@ -63,28 +63,13 @@ static char	*copy_word(const char **s, char c)
 	return (ft_memalloc(start, len));
 }
 
-char	**free_split(char **res)
-{
-	int	indx;
-
-	if (!res || !*res)
-		return (NULL);
-	indx = ft_strlen_2d(res);
-	while (indx > 0)
-	{
-		free(res[--indx]);
-	}
-	free(res);
-	return (NULL);
-}
-
 char	**ft_split(char const *s, char c)
 {
 	char	**res;
 	size_t	i;
 
 	i = 0;
-	res = (char **)malloc(sizeof(char *) * (ft_ctrword(s, c) + 1));
+	res = ft_malloc(sizeof(char *) * (ft_ctrword(s, c) + 1));
 	if (!res)
 		return (NULL);
 	while (*s)
@@ -94,8 +79,6 @@ char	**ft_split(char const *s, char c)
 		if (*s)
 		{
 			res[i] = copy_word(&s, c);
-			if (!res[i])
-				return (free_split(res));
 			i++;
 		}
 	}

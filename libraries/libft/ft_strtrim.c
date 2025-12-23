@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:12:47 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/22 12:16:39 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:29:19 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strtrim(char *s1, char *set)
 		ibg++;
 	while (iend > ibg && ft_checkset(set, s1[iend - 1]))
 		iend--;
-	trimedstr = (char *)malloc(sizeof(char) * (iend - ibg + 1));
+	trimedstr = ft_malloc(sizeof(char) * (iend - ibg + 1));
 	if (!trimedstr)
 		return (NULL);
 	i = 0;

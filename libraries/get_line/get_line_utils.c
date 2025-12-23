@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_line_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:57:26 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/11 20:56:55 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:36:16 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*separate_line(char *data)
 		return (NULL);
 	while (data[i] != '\n' && data[i] != '\0')
 		i++;
-	line = malloc(sizeof(char) * (i + 2));
+	line = ft_malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (NULL);
 	j = 0;
@@ -88,17 +88,10 @@ char	*update_buffer(char *data)
 		remaindata++;
 	datalen = calclen(remaindata);
 	if (!datalen)
-	{
-		free(data);
 		return (NULL);
-	}
-	new_data = malloc(datalen + 1);
+	new_data = ft_malloc(datalen + 1);
 	if (!new_data)
-	{
-		free(data);
 		return (NULL);
-	}
 	ft_copy(new_data, remaindata);
-	free(data);
 	return (new_data);
 }

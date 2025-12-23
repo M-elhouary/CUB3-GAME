@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:51 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/22 17:36:00 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 22:27:12 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
-
-
-#define MAX_SCREEN_WIDTH 1920
-#define MAX_SCREEN_HEIGHT 1080
-#define SCALE_FACTOR 40
+#include "../includes/cub3d_bonus.h"
 
 void	init_data_helper(t_game *game)
 {
@@ -23,6 +18,7 @@ void	init_data_helper(t_game *game)
 	game->tex_paths[1] = NULL;
 	game->tex_paths[2] = NULL;
 	game->tex_paths[3] = NULL;
+	game->tex_paths[4] = NULL;
 	game->ceiling_color.r = -1;
 	game->floor_color.r = -1;
 	game->ceiling_color.hex_color = 0;
@@ -49,7 +45,7 @@ void	init_img_struct(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		game->textures[i].img_ptr = NULL;
 		game->textures[i].addr = NULL;
@@ -65,6 +61,9 @@ void	init_img_struct(t_game *game)
 void	init_data(t_game *game)
 {
 	init_data_helper(game);
+	game->last_opened_door_x = -1;
+	game->last_opened_door_y = -1;
+	game->door_opened = 0;
 	game->mlx = NULL;
 	game->win = NULL;
 	game->img = NULL;
@@ -75,17 +74,22 @@ void	init_data(t_game *game)
 	game->keys.a = 0;
 	game->keys.s = 0;
 	game->keys.d = 0;
+	game->keys.e = 0;
 	game->keys.left_arrow = 0;
 	game->keys.right_arrow = 0;
 	game->keys.esc = 0;
-	game->move_speed = 0.05;
+	game->move_speed = 0.02;
 	game->rot_speed = 0.02;
 }
 
 int	init_game(t_game **gamedata, char *file)
 {
 	*gamedata = ft_malloc(sizeof(t_game));
+	if (!*gamedata)
+		return (printf("Error\nmalloc\n"), 0);
 	(*gamedata)->map = ft_malloc(sizeof(t_map));
+	if (!(*gamedata)->map)
+		return (printf("Error\nmalloc\n"), 0);
 	init_data(*gamedata);
 	if (!parse(*gamedata, file))
 		return (0);
@@ -97,19 +101,17 @@ int	main(int ac, char **av)
 	t_game	*game;
 
 	if (ac != 2)
-		return (printf("Error\nUsage: ./cub3D path/<filename>\n"), 1);
-	if (SCALE_FACTOR <= 0)
-		return (printf("Error\nInvalid scale factor!\n"), 1);
+		return (printf("Error\nUsage: ./cub3D_bonus path/<filename>\n"), 1);
 	game = NULL;
 	if (!init_game(&game, av[1]))
 		return (close_and_free(game), 1);
 	camera(game);
-	game->scren_height = game->map->height * SCALE_FACTOR;
-	game->scren_width = game->map->width * SCALE_FACTOR;
-	if (game->scren_height > MAX_SCREEN_HEIGHT)
-		game->scren_height = MAX_SCREEN_HEIGHT;
-	if (game->scren_width > MAX_SCREEN_WIDTH)
-		game->scren_width = MAX_SCREEN_WIDTH;
+	game->scren_height = game->map->height * 40;
+	game->scren_width = game->map->width * 40;
+	if (game->scren_height > 1080)
+		game->scren_height = 1080;
+	if (game->scren_width > 1920)
+		game->scren_width = 1920;
 	if (init_randring(game) == 1)
 		return (close_and_free(game), 1);
 	return (0);
