@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 19:24:31 by moirhira          #+#    #+#             */
-/*   Updated: 2025/09/29 19:25:11 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:28:58 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strdup(char *str)
 
 	i = 0;
 	size = ft_strlen(str);
-	ptr = (char *)malloc((size + 1) * sizeof(char));
+	ptr = ft_malloc((size + 1) * sizeof(char));
 	if (!ptr)
 		return (NULL);
 	while (i < size)

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 21:53:36 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/22 12:26:48 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 23:13:39 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 int	parse_configurations(t_game *game, int fd, char **f_line)
 {
@@ -23,7 +23,9 @@ int	parse_configurations(t_game *game, int fd, char **f_line)
 	while (line != NULL)
 	{
 		trimmed = ft_strtrim(line, " \n\t");
-		if (parsed == 6)
+		if (!trimmed)
+			return (printf("Error\nMalloc failed\n"), 0);
+		if (parsed == 7)
 		{
 			*f_line = line;
 			return (1);
@@ -32,7 +34,7 @@ int	parse_configurations(t_game *game, int fd, char **f_line)
 			return (0);
 		line = get_line(fd);
 	}
-	if (parsed != 6)
+	if (parsed != 7)
 		return (printf("Error\nMissing configuration element\n"), 0);
 	return (1);
 }
@@ -56,17 +58,15 @@ int	parse(t_game *game, char *filedata)
 	if (fd == -1)
 		return (perror("Error\n"), 0);
 	if (is_dir(filedata))
-	{
-		printf("Error\nArgument is a derctory!\n");
-		return (close(fd), 0);
-	}
+		return (printf("Error\nArgument is a derctory!\n"), close(fd), 0);
 	f_line = NULL;
 	if (!parse_configurations(game, fd, &f_line))
 		return (close(fd), 0);
 	if (f_line && f_line[0] != '1' && f_line[0] != '\n')
 	{
 		printf("Error\nDuplicate configuration or invalid char!\n");
-		return (close(fd), 0);
+		close(fd);
+		return (0);
 	}
 	if (!parse_map(game, fd, f_line))
 		return (close(fd), 0);

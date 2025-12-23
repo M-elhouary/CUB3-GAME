@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   randring.c                                         :+:      :+:    :+:   */
+/*   randring_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/21 18:36:41 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:40:37 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
+
+int	handel_mouse_move(int x, int y, t_game *game)
+{
+	double	delta_x;
+	double	rotation_speed;
+
+	delta_x = x - (game->scren_width / 2);
+	if (delta_x == 0)
+		return (0);
+	rotation_speed = delta_x * 0.002;
+	rotate_player(game, rotation_speed, 1);
+	mlx_mouse_move(game->mlx, game->win, game->scren_width / 2,
+		game->scren_height / 2);
+	return (0);
+}
 
 int	init_image(t_game *game, t_img *img)
 {
@@ -49,13 +64,15 @@ int	init_randring(t_game *game)
 		return (printf("Error\nmlx_init failed!\n"), 1);
 	if (!load_all_textures(game))
 	{
-		printf("Error\nTexture loading failed!\n");
+		printf("Error: Texture loading failed!\n");
 		return (1);
 	}
 	if (window(game))
 		return (1);
 	if (init_image(game, game->img))
 		return (1);
+	mlx_mouse_hide(game->mlx, game->win);
+	mlx_hook(game->win, 6, 1L << 6, handel_mouse_move, game);
 	mlx_hook(game->win, 2, 1L << 0, key_press_handler, game);
 	mlx_hook(game->win, 3, 1L << 1, key_release_handler, game);
 	mlx_hook(game->win, 17, 0, close_and_free, game);

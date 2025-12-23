@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   parse_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 20:06:42 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/22 16:31:08 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:42:38 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	strip_newline(char *line)
 {
@@ -31,6 +31,8 @@ char	**append_line(char **map, char *line, int rows)
 	int		i;
 
 	new_map = ft_malloc((rows + 2) * sizeof(char *));
+	if (!new_map)
+		return (printf("Error\nFrom malloc!\n"), NULL);
 	i = 0;
 	while (i < rows)
 	{
@@ -49,7 +51,7 @@ int	process_map_line(t_game *game, char *line, int *rows, int *max_width)
 		*max_width = ft_strlen(line);
 	game->map->map_arr = append_line(game->map->map_arr, line, *rows);
 	if (!game->map->map_arr)
-		return (0);
+		return (free(line), 0);
 	(*rows)++;
 	return (1);
 }

@@ -12,9 +12,10 @@
 
 #ifndef GET_LINE_H
 # define GET_LINE_H
+# include "../libft/libft.h"
 # include <stdlib.h>
-# include <unistd.h>
 # include <string.h>
+# include <unistd.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -28,6 +29,5 @@ char	*my_strdup(char *src);
 void	ft_copy(char *dest, const char *src);
 void	ft_strcat(char *dest, const char *src);
 char	*get_line(int fd);
-void	free_get_line_buffer(void);
 
 #endif

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_configurations.c                             :+:      :+:    :+:   */
+/*   parse_configurations_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 16:40:00 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/22 12:40:10 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:42:26 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 char	*get_arg(char *line)
 {
@@ -34,6 +34,8 @@ static int	handle_texture_line(t_game *game, char *trimmed)
 		return (parse_texture(get_arg(trimmed), &game->tex_paths[2]));
 	if (ft_strncmp("EA ", trimmed, 3) == 0)
 		return (parse_texture(get_arg(trimmed), &game->tex_paths[3]));
+	if (ft_strncmp("DO ", trimmed, 3) == 0)
+		return (parse_texture(get_arg(trimmed), &game->tex_paths[4]));
 	return (-1);
 }
 

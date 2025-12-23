@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   parsing_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 09:32:37 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/21 19:33:49 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:48:31 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 int	is_dir(char *arg)
 {
@@ -81,7 +81,7 @@ int	close_and_free(t_game *game)
 	if (!game)
 		exit(0);
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		if (game->textures[i].img_ptr && game->mlx)
 			mlx_destroy_image(game->mlx, game->textures[i].img_ptr);

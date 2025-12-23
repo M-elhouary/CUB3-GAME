@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:12:32 by moirhira          #+#    #+#             */
-/*   Updated: 2025/04/11 16:32:32 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:29:05 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	s1len = ft_strlen(s1);
 	s2len = ft_strlen(s2);
-	ptr = (char *)malloc(sizeof(char) * (s1len + s2len + 1));
+	ptr = ft_malloc(sizeof(char) * (s1len + s2len + 1));
 	if (!ptr)
 		return (NULL);
 	ft_strcoopy(ptr, s1, 0);

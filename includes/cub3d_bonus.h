@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:53:10 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/21 12:34:09 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/22 18:17:10 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include "../libraries/get_line/get_line.h"
 # include "../libraries/libft/libft.h"
@@ -28,6 +28,14 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define ESC_KEY 65307
+
+# define MINI_MAP_SCALE 10
+# define TILE_SIZE 15
+# define PLAYER_COLOR 0x79057b
+# define FLOOR_COLOR 0x646969
+# define WALL_COLOR 0x1f8f29
+# define DOOR_COLOR 0x8B4513
+
 # define WIN_TITLE "CUB3D"
 
 typedef struct s_ray_hit
@@ -69,6 +77,7 @@ typedef struct s_keys
 	int			a;
 	int			s;
 	int			d;
+	int			e;
 	int			left_arrow;
 	int			right_arrow;
 	int			esc;
@@ -104,16 +113,19 @@ typedef struct s_game
 	void		*win;
 	int			scren_width;
 	int			scren_height;
-	char		*tex_paths[4];
+	char		*tex_paths[5];
 	t_map		*map;
 	t_player	player;
 	t_color		floor_color;
 	t_img		*img;
 	t_color		ceiling_color;
 	t_keys		keys;
-	t_texture	textures[4];
+	t_texture	textures[5];
 	double		move_speed;
 	double		rot_speed;
+	int			last_opened_door_x;
+	int			last_opened_door_y;
+	int			door_opened;
 }				t_game;
 
 int				draw(t_game *game, t_img *img);
@@ -127,7 +139,9 @@ void			draw_player(t_img *img, t_game *game, double x, double y);
 int				key_press_handler(int keycode, t_game *game);
 int				key_release_handler(int keycode, t_game *game);
 void			move_player(t_game *game);
-void			rotate_player(t_game *game);
+void			rotate_player(t_game *game, double rot, int f);
+void			apply_rotation(t_game *game, double rot_speed);
+void			open_door(t_game *game);
 int				game_update(t_game *game);
 int				init_randring(t_game *game);
 unsigned int	get_texture_color(t_texture *texture, int tex_x, int tex_y);
@@ -144,10 +158,17 @@ int				parse_color(char *path, t_color *dest);
 int				parse_map(t_game *game, int fd, char *first_line);
 int				validate_map(t_game *game);
 int				check_map_is_closed(t_game *game);
+void			w_s_a_d_movement(t_game *game, double *move_x, double *move_y);
+
 int				is_dir(char *arg);
 int				is_all_digits(char *str);
 int				ft_isempty(char *str);
 int				is_player(char c);
 int				close_and_free(t_game *game);
+void			clamp_start(int *sx, int *sy, t_game *g);
+void			draw_tile_square(t_img *img, int origin_x, int origin_y,
+					int color);
+void			draw_floor(t_img *img, t_game *game, int x, int y);
+void			draw_wall(t_img *img, t_game *game, int x, int y);
 
 #endif

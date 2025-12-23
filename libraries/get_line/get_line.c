@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:57:04 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/11 20:54:45 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:25:11 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*my_strdup(char *src)
 	if (!src)
 		return (NULL);
 	len = calclen(src);
-	dup = malloc(len + 1);
+	dup = ft_malloc(len + 1);
 	if (!dup)
 		return (NULL);
 	while (src[i])
@@ -58,15 +58,13 @@ char	*append_to_buffer(char *buffer, char *buf, int readed)
 	else
 	{
 		temp = buffer;
-		buffer = malloc(calclen(temp) + readed + 1);
+		buffer = ft_malloc(calclen(temp) + readed + 1);
 		if (!buffer)
 		{
-			free(temp);
 			return (NULL);
 		}
 		ft_copy(buffer, temp);
 		ft_strcat(buffer, buf);
-		free(temp);
 	}
 	return (buffer);
 }
@@ -76,7 +74,7 @@ char	*readfromfd(int fd, char *buffer)
 	char	*buf;
 	int		readed;
 
-	buf = malloc(BUFFER_SIZE + 1);
+	buf = ft_malloc(BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
 	readed = read(fd, buf, BUFFER_SIZE);
@@ -84,8 +82,6 @@ char	*readfromfd(int fd, char *buffer)
 	{
 		if (readed == -1)
 		{
-			free(buf);
-			free(buffer);
 			return (NULL);
 		}
 		buf[readed] = '\0';
@@ -94,16 +90,13 @@ char	*readfromfd(int fd, char *buffer)
 			break ;
 		readed = read(fd, buf, BUFFER_SIZE);
 	}
-	free(buf);
 	return (buffer);
 }
 
-
-static char *buffer = NULL;
-
-char *get_line(int fd)
+char	*get_line(int fd)
 {
-	char *line;
+	char		*line;
+	static char	*buffer;
 
 	if (!find_newline(buffer, '\n'))
 	{
@@ -114,13 +107,4 @@ char *get_line(int fd)
 	line = separate_line(buffer);
 	buffer = update_buffer(buffer);
 	return (line);
-}
-
-void free_get_line_buffer(void)
-{
-	if (buffer)
-	{
-		free(buffer);
-		buffer = NULL;
-	}
 }
