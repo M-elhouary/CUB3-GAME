@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   randring.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:23:49 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/21 18:36:41 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/23 16:25:46 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	init_image(t_game *game, t_img *img)
+int	init_image(t_game *game)
 {
 	game->img = ft_malloc(sizeof(t_img));
 	if (!game->img)
@@ -54,7 +54,7 @@ int	init_randring(t_game *game)
 	}
 	if (window(game))
 		return (1);
-	if (init_image(game, game->img))
+	if (init_image(game))
 		return (1);
 	mlx_hook(game->win, 2, 1L << 0, key_press_handler, game);
 	mlx_hook(game->win, 3, 1L << 1, key_release_handler, game);

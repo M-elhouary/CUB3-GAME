@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 23:07:38 by mel-houa          #+#    #+#             */
-/*   Updated: 2025/12/21 14:01:37 by moirhira         ###   ########.fr       */
+/*   Updated: 2026/01/20 00:24:37 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,21 @@ int	game_update(t_game *game)
 {
 	move_player(game);
 	rotate_player(game);
+	update_objects(game);
+	update_enemies(game);
+	update_weapon(&game->weapon);
+	update_health(&game->health);
+	update_progression(game);
+	update_audio(game);
+	update_impacts(game);
+	update_damage_indicators(game);
+	update_camera_effects(game);
+	update_particles(&game->visual_fx);
+	update_lights(&game->visual_fx);
+	update_game_stats(game);
+	update_menu_animation(&game->menu);
+	if (game->level_manager.level_active)
+		game->level_manager.level_start_time++;
 	draw(game, game->img);
 	return (0);
 }

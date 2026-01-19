@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_configurations.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 16:40:00 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/22 12:40:10 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/23 16:22:16 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	process_config_line(t_game *game, char *trimmed, int *parsed)
 	return (0);
 }
 
-int	handle_config_line(t_game *game, char *line, char *trimmed, int *parsed)
+int	handle_config_line(t_game *game, char *trimmed, int *parsed)
 {
 	if (*trimmed == '\0')
 		return (1);

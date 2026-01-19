@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:01:32 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/10 16:46:14 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/23 16:25:04 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,6 @@ int	check_player_count(t_game *game)
 
 int	validate_map(t_game *game)
 {
-	int	i;
-	int	player_count;
-
-	i = 0;
-	player_count = 0;
 	if (!only_valid_chars(game))
 		return (0);
 	if (!check_player_count(game))

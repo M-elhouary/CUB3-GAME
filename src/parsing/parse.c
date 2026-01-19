@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 21:53:36 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/22 12:26:48 by moirhira         ###   ########.fr       */
+/*   Updated: 2026/01/19 20:32:37 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	parse_configurations(t_game *game, int fd, char **f_line)
 			*f_line = line;
 			return (1);
 		}
-		if (!handle_config_line(game, line, trimmed, &parsed))
+		if (!handle_config_line(game, trimmed, &parsed))
 			return (0);
 		line = get_line(fd);
 	}
@@ -69,6 +69,8 @@ int	parse(t_game *game, char *filedata)
 		return (close(fd), 0);
 	}
 	if (!parse_map(game, fd, f_line))
+		return (close(fd), 0);
+	if (!parse_objects(game, fd, NULL))
 		return (close(fd), 0);
 	close(fd);
 	return (1);

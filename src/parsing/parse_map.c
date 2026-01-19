@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <moirhira@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-houa <mel-houa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 20:06:42 by moirhira          #+#    #+#             */
-/*   Updated: 2025/12/22 16:31:08 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/12/23 16:24:01 by mel-houa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	process_map_line(t_game *game, char *line, int *rows, int *max_width)
 	return (1);
 }
 
-int	handle_empty_map_line(t_game *game, char *line, int rows, int fd)
+int	handle_empty_map_line(int rows)
 {
 	if (rows > 0)
 	{
@@ -77,7 +77,7 @@ int	read_map_lines(t_game *game, int fd, char *first_line)
 	{
 		if (ft_isempty(line))
 		{
-			if (!handle_empty_map_line(game, line, rows, fd))
+			if (!handle_empty_map_line(rows))
 				return (0);
 			line = get_line(fd);
 			continue ;
